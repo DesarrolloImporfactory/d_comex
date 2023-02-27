@@ -34,9 +34,7 @@
                                 <div class="form-group">
                                     <label for="">OPERACION:</label>
                                     <x-adminlte-select2 name="operacion">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        
                                     </x-adminlte-select2>
                                 </div>
                             </div>
@@ -44,9 +42,7 @@
                                 <div class="form-group">
                                     <label for="">AÑO:</label>
                                     <x-adminlte-select2 name="year">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        
                                     </x-adminlte-select2>
                                 </div>
                             </div>
