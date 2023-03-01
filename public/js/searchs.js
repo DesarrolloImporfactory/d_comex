@@ -1,4 +1,3 @@
-// $(this).attr('valor', ui.item.label); //asigna valor a un atributo del input
 $("#producto").autocomplete({
     source: 'search/producto',
     minLength: 2,
@@ -53,4 +52,39 @@ $("#refrendo").autocomplete({
         $(this).val(ui.item.label);
     }
 });
-
+$("#agente_afianzado").autocomplete({
+    source: 'search/agenteAfianzado',
+    minLength: 2,
+    select: function(event, ui) {
+        event.preventDefault();
+        console.log(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
+    }
+});
+$("#almacen").autocomplete({
+    source: 'search/almacen',
+    minLength: 2,
+    select: function(event, ui) {
+        event.preventDefault();
+        console.log(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
+    }
+});
+$("#linea").autocomplete({
+    source: 'search/linea',
+    minLength: 2,
+    select: function(event, ui) {
+        event.preventDefault();
+        console.log(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
+    }
+});
+$("#subpartida").autocomplete({
+    source: 'search/subpartida',
+    minLength: 2,
+    select: function(event, ui) {
+        event.preventDefault();
+        console.log(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
+    }
+});

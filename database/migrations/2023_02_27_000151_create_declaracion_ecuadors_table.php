@@ -20,6 +20,17 @@ return new class extends Migration
             $table->string('marca');
             $table->string('embarcador_consigne');
             $table->string('refrendo');
+            $table->string('subpartida');
+            $table->string('linea');
+            $table->string('agente_afianzado');
+            $table->string('dep_comercial');
+            $table->string('distrito');
+            $table->string('iva');
+            $table->string('pais_origen');
+            $table->string('pais_embarque');
+            $table->string('ciudad_embarque');
+            $table->string('regimen');
+            $table->string('incoterm');
             $table->timestamps();
         });
     }

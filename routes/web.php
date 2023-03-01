@@ -20,5 +20,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search/nave', [HomeController::class, 'searchNave'])->name('search.nave');
     Route::get('search/embarcadorConsigne', [HomeController::class, 'searchEmbarcadorConsigne'])->name('search.embarcadorConsigne');
     Route::get('search/refrendo', [HomeController::class, 'searchRefrendo'])->name('search.refrendo');
+    Route::get('search/agenteAfianzado', [HomeController::class, 'searchAgenteAduana'])->name('search.agenteAfianzado');
+    Route::get('search/linea', [HomeController::class, 'searchTransporte'])->name('search.linea');
+    Route::get('search/almacen', [HomeController::class, 'searchAlmacen'])->name('search.almacen');
+    Route::get('search/subpartida', [HomeController::class, 'searchPartidaArancel'])->name('search.subpartida');
 });
 

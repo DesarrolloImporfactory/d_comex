@@ -62,7 +62,7 @@ class HomeController extends Controller
         }else{
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->ruc,
+                    'label' => $value->ruc.' - '.$value->embarcador_consigne,
                     'id'=> $value->id
                 ];
             }
@@ -111,6 +111,67 @@ class HomeController extends Controller
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->refrendo,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+
+    public function searchPartidaArancel(Request $request){
+        $term = $request->term;
+        $data = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(7)->get();
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->subpartida,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchTransporte(Request $request){
+        $term = $request->term;
+        $data = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->linea,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchAgenteAduana(Request $request){
+        $term = $request->term;
+        $data = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->agente_afianzado,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchAlmacen(Request $request){
+        $term = $request->term;
+        $data = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(7)->get();
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->dep_comercial,
                     'id'=> $value->id
                 ];
             }
