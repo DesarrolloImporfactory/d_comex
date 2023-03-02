@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConsultasController;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -24,5 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search/linea', [HomeController::class, 'searchTransporte'])->name('search.linea');
     Route::get('search/almacen', [HomeController::class, 'searchAlmacen'])->name('search.almacen');
     Route::get('search/subpartida', [HomeController::class, 'searchPartidaArancel'])->name('search.subpartida');
+
+    Route::resource('admin/consulta', ConsultasController::class)->names('admin.consulta');
 });
 

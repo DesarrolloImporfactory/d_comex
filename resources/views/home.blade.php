@@ -17,6 +17,7 @@
                 </div>
             </div>
         </div>
+        <button type="submit" form="formFiltros" class="btn btn-warning float-righ">Buscar</button>
     </div>
 @stop
 
@@ -76,12 +77,14 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-md-7">
-            <div class="card card-primary">
-                <div class="card-header"><i class="fa-solid fa-magnifying-glass"></i> Criterios de busqueda</div>
-                <div class="card-body">
-                    <form action="">
+    <form action="{{ route('admin.consulta.create') }}"  id="formFiltros">
+        @csrf
+        <div class="row justify-content-center">
+
+            <div class="col-md-7">
+                <div class="card card-primary">
+                    <div class="card-header"><i class="fa-solid fa-magnifying-glass"></i> Criterios de busqueda</div>
+                    <div class="card-body">
                         <div class="form-group">
                             <div class="row has-search">
                                 <div class="col-md-4"><label for="">PRODUCTO:</label></div>
@@ -114,7 +117,7 @@
                             <div class="row has-search">
                                 <div class="col-md-4"><label for="">NAVE:</label></div>
                                 <div class="col-md-8"><span class="fa fa-search form-control-feedback"></span><input
-                                        type="text" class="form-control" id="nave" name="nave"></div>
+                                        type="text" class="form-control" id="nave" name="nave" placeholder="CAMPO PERDIDO!!!!!" readonly></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -144,7 +147,8 @@
                                 <div class="col-md-4"><label for="">AGENTE DE ADUANA:</label></div>
                                 <div class="col-md-8"><span class="fa fa-search form-control-feedback"></span><input
                                         type="text" class="form-control" id="agente_afianzado"
-                                        name="agente_afianzado"></div>
+                                        name="agente_afianzado">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -154,89 +158,88 @@
                                         type="text" class="form-control" id="almacen" name="almacen"></div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-5">
-            <div class="card card-primary">
-                <div class="card-header"><i class="fa-solid fa-filter"></i> Filtro de busqueda</div>
-                <div class="card-body">
-                    <form action="">
-                        {{-- todos son selects --}}
+            <div class="col-md-5">
+                <div class="card card-primary">
+                    <div class="card-header"><i class="fa-solid fa-filter"></i> Filtro de busqueda</div>
+                    <div class="card-body">
+
+                        @csrf
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
                             <x-adminlte-select2 name="distrito">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->distrito != null)
-                                        <option value="{{ $item->id }}">{{ $item->distrito }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($distritos as $item)
+                                    <option value="{{ $item->distrito }}">{{ $item->distrito }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
                             <x-adminlte-select2 name="iva">
-                                @foreach ($declaraciones as $item)
-                                    <option value="{{ $item->id }}">{{ $item->iva }}</option>
+                                <option value="">TODAS</option>
+                                @foreach ($transportes as $item)
+                                    <option value="{{ $item->iva }}">{{ $item->iva }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
                             <x-adminlte-select2 name="pais_origen">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->pais_origen != null)
-                                        <option value="{{ $item->id }}">{{ $item->pais_origen }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($paisOrigen as $item)
+                                    <option value="{{ $item->pais_origen }}">{{ $item->pais_origen }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE EMBARQUE:
                             <x-adminlte-select2 name="pais_embarque">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->pais_embarque != null)
-                                        <option value="{{ $item->id }}">{{ $item->pais_embarque }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($paisEmbarques as $item)
+                                    <option value="{{ $item->nombre_pais }}">{{ $item->id }} - {{ $item->nombre_pais }}
+                                    </option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PUERTO DE EMBARQUE:
                             <x-adminlte-select2 name="ciudad_embarque">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->ciudad_embarque != null)
-                                        <option value="{{ $item->id }}">{{ $item->ciudad_embarque }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($ciudadEmbarques as $item)
+                                    <option value="{{ $item->ciudad_embarque }}">{{ $item->id }} -
+                                        {{ $item->ciudad_embarque }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> REGIMEN:
                             <x-adminlte-select2 name="regimen">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->regimen != null)
-                                        <option value="{{ $item->id }}">{{ $item->regimen }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($regimens as $item)
+                                    <option value="{{ $item->nombre }}">{{ $item->cod_regimen }} - {{ $item->nombre }}
+                                    </option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> INCOTERM:
                             <x-adminlte-select2 name="incoterm">
-                                @foreach ($declaraciones as $item)
-                                    @if ($item->incoterm != null)
-                                        <option value="{{ $item->id }}">{{ $item->incoterm }}</option>
-                                    @endif
+                                <option value="">TODAS</option>
+                                @foreach ($incoterm as $item)
+                                    <option value="{{ $item->incoterm }}">{{ $item->incoterm }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
-                    </form>
+
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
+    </form>
     {{-- <div class="row">
         <div class="col-md-12">
             <div class="card">

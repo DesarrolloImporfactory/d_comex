@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CiudadEmbarque;
 use Illuminate\Http\Request;
 use App\Models\DeclaracionEcuador;
 use App\Models\Mes;
+use App\Models\PaisEmbarque;
+use App\Models\Regimen;
 
 class HomeController extends Controller
 {
@@ -14,12 +17,20 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    
     public function index()
     {
         $declaraciones = DeclaracionEcuador::all();
+
+        $distritos = $declaraciones->unique('distrito');
+        $transportes = $declaraciones->unique('iva');
+        $paisOrigen = $declaraciones->unique('pais_origen');
+        $incoterm = $declaraciones->unique('incoterm');
         $meses = Mes::all();
-        return view('home',compact('declaraciones','meses'));
+        $regimens = Regimen::all();
+        $paisEmbarques = PaisEmbarque::all();
+        $ciudadEmbarques = CiudadEmbarque::all();
+
+        return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
     }
 
     public function searchProducto(Request $request){
@@ -62,7 +73,7 @@ class HomeController extends Controller
         }else{
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->ruc.' - '.$value->embarcador_consigne,
+                    'label' => $value->ruc,
                     'id'=> $value->id
                 ];
             }
