@@ -19,18 +19,18 @@ class HomeController extends Controller
 
     public function index()
     {
-        $declaraciones = DeclaracionEcuador::all();
+        //$declaraciones = DeclaracionEcuador::all();
 
-        $distritos = $declaraciones->unique('distrito');
-        $transportes = $declaraciones->unique('iva');
-        $paisOrigen = $declaraciones->unique('pais_origen');
-        $incoterm = $declaraciones->unique('incoterm');
+        // $distritos = $declaraciones->unique('distrito');
+        // $transportes = $declaraciones->unique('iva');
+        // $paisOrigen = $declaraciones->unique('pais_origen');
+        // $incoterm = $declaraciones->unique('incoterm');
         $meses = Mes::all();
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
         $ciudadEmbarques = CiudadEmbarque::all();
-
-        return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
+        return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques'));
+        // return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
     }
 
     public function searchProducto(Request $request){

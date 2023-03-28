@@ -171,27 +171,21 @@
                             <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
                             <x-adminlte-select2 name="distrito">
                                 <option value="">TODAS</option>
-                                @foreach ($distritos as $item)
-                                    <option value="{{ $item->distrito }}">{{ $item->distrito }}</option>
-                                @endforeach
+                               
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
                             <x-adminlte-select2 name="iva">
                                 <option value="">TODAS</option>
-                                @foreach ($transportes as $item)
-                                    <option value="{{ $item->iva }}">{{ $item->iva }}</option>
-                                @endforeach
+                                
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
                             <x-adminlte-select2 name="pais_origen">
                                 <option value="">TODAS</option>
-                                @foreach ($paisOrigen as $item)
-                                    <option value="{{ $item->pais_origen }}">{{ $item->pais_origen }}</option>
-                                @endforeach
+                                
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">
@@ -228,9 +222,7 @@
                             <i class="fa-regular fa-circle-xmark text-danger"></i> INCOTERM:
                             <x-adminlte-select2 name="incoterm">
                                 <option value="">TODAS</option>
-                                @foreach ($incoterm as $item)
-                                    <option value="{{ $item->incoterm }}">{{ $item->incoterm }}</option>
-                                @endforeach
+                               
                             </x-adminlte-select2>
                         </div>
 
