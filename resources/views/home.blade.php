@@ -77,10 +77,15 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('admin.consulta.create') }}"  id="formFiltros">
+    <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
         @csrf
         <div class="row justify-content-center">
-
+            {{-- <label for="">Buscador de usuarios: </label>
+            <div class="input-group input-group-merge mt-1">
+                <span class="input-group-text" id="basic-addon-search31"></span>
+                <input  type="text" class="form-control" placeholder="Search..."
+                    aria-label="Search..." aria-describedby="basic-addon-search31" />
+            </div> --}}
             <div class="col-md-7">
                 <div class="card card-primary">
                     <div class="card-header"><i class="fa-solid fa-magnifying-glass"></i> Criterios de busqueda</div>
@@ -117,7 +122,8 @@
                             <div class="row has-search">
                                 <div class="col-md-4"><label for="">NAVE:</label></div>
                                 <div class="col-md-8"><span class="fa fa-search form-control-feedback"></span><input
-                                        type="text" class="form-control" id="nave" name="nave" placeholder="CAMPO PERDIDO!!!!!" readonly></div>
+                                        type="text" class="form-control" id="nave" name="nave"
+                                        placeholder=""></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -181,7 +187,7 @@
                             <x-adminlte-select2 name="iva">
                                 <option value="">TODAS</option>
                                 @foreach ($transportes as $item)
-                                    <option value="{{ $item->iva }}">{{ $item->iva }}</option>
+                                    <option value="{{ $item->via }}">{{ $item->via }}</option>
                                 @endforeach
                             </x-adminlte-select2>
                         </div>
@@ -199,7 +205,8 @@
                             <x-adminlte-select2 name="pais_embarque">
                                 <option value="">TODAS</option>
                                 @foreach ($paisEmbarques as $item)
-                                    <option value="{{ $item->nombre_pais }}">{{ $item->id }} - {{ $item->nombre_pais }}
+                                    <option value="{{ $item->nombre_pais }}">{{ $item->id }} -
+                                        {{ $item->nombre_pais }}
                                     </option>
                                 @endforeach
                             </x-adminlte-select2>
@@ -219,7 +226,7 @@
                             <x-adminlte-select2 name="regimen">
                                 <option value="">TODAS</option>
                                 @foreach ($regimens as $item)
-                                    <option value="{{ $item->nombre }}">{{ $item->cod_regimen }} - {{ $item->nombre }}
+                                    <option value="{{ $item->regimen }}">{{ $item->cod_regimen }} - {{ $item->regimen }}
                                     </option>
                                 @endforeach
                             </x-adminlte-select2>

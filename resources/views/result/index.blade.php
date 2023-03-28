@@ -77,7 +77,7 @@
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->ruc }}</td>
                                     <td>{{ $item->producto }}</td>
-                                    <td>{{ $item->marca }}</td>
+                                    <td>{{ $item->marcas }}</td>
                                     <td>{{ $item->embarcador_consigne }}</td>
                                     <td>{{ $item->refrendo }}</td>
                                     <td>{{ $item->subpartida }}</td>
@@ -85,7 +85,7 @@
                                     <td>{{ $item->agente_afianzado }}</td>
                                     <td>{{ $item->dep_comercial }}</td>
                                     <td>{{ $item->distrito }}</td>
-                                    <td>{{ $item->iva }}</td>
+                                    <td>{{ $item->via }}</td>
                                     <td>{{ $item->pais_origen }}</td>
                                     <td>{{ $item->pais_embarque }}</td>
                                     <td>{{ $item->ciudad_embarque }}</td>
@@ -121,7 +121,7 @@
                         display: $.fn.dataTable.Responsive.display.modal({
                             header: function(row) {
                                 var data = row.data();
-                                return 'Details for ' + data[0] + ' ' + data[1];
+                                return 'Details for: ' + data[0] + ' ' + data[1];
                             }
                         }),
                         renderer: $.fn.dataTable.Responsive.renderer.tableAll({
