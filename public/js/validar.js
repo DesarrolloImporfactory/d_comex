@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $(document).on('click','#sub', function (e) {
         e.preventDefault();
+        $("#alert").html("");
         var text1 = $("#producto").val();
         var text2 = $("#marca").val();
         var text3 = $("#subpartida").val();
@@ -45,6 +46,10 @@ $(document).ready(function () {
             }
 
             if(cont == 10){
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Complete almenos un campo',
+                });
                 $("#alert").append(`
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Alerta!</strong> Es importante que almenos completes un campo.

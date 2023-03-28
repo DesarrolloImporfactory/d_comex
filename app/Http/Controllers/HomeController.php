@@ -8,6 +8,7 @@ use App\Models\DeclaracionEcuador;
 use App\Models\Mes;
 use App\Models\PaisEmbarque;
 use App\Models\Regimen;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -29,8 +30,16 @@ class HomeController extends Controller
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
         $ciudadEmbarques = CiudadEmbarque::all();
+        Session::put('tasks', request()->fullUrl());
         return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques'));
         // return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
+    }
+
+    public function back()
+    {
+        if (session('tasks')) {
+            return redirect(session('tasks'))->with('mensaje','Bienvenido al buscador de Imporcomex!');
+        }
     }
 
     public function searchProducto(Request $request){
@@ -251,6 +260,7 @@ class HomeController extends Controller
         }
         return $respuesta;
     }
+
     public function searchIncoterm(Request $request){
         
         $term = $request->term;
@@ -267,5 +277,9 @@ class HomeController extends Controller
             }
         }
         return $respuesta;
+    }
+
+    public function store(Request $request){
+        return redirect('home')>with('mensaje','Bien venido!');
     }
 }

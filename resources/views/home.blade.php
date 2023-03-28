@@ -3,30 +3,51 @@
 @section('title', 'Home')
 
 @section('content_header')
+    @if (Session::has('mensaje'))
+        <script>
+            iziToast.show({
+                title: 'Hey',
+                message: '{{ Session::get('mensaje') }}'
+            });
+        </script>
+    @endif
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row ">
                 <div class="col-sm-6">
                     <h1 class="m-0">BUSCADOR</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Buscador</li>
+                        <li class="breadcrumb-item active">Home</li>
+                        <li class="breadcrumb-item "><a href="#">Buscador</a></li>
                     </ol>
                 </div>
             </div>
         </div>
-        <button type="submit" form="formFiltros" id="sub" class="btn btn-warning float-righ">Buscar</button>
     </div>
 @stop
 
 @section('content')
+<div class="row">
+    <div class="col-md-3">
+        <button type="submit" form="formFiltros" id="sub" class="btn btn-primary mt-2" >
+            <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> Realizar busqueda
+        </button>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div  id="alert">
+    
+            </div>  
+        </div>
+    </div>
+</div><br>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <i class="fa-solid fa-magnifying-glass"></i> PERIODO DE BUSQUEDAssssss
+                    <i class="fa-solid fa-magnifying-glass"></i> PERIODO DE BUSQUEDA
                 </div>
                 <div class="card-body">
                     <form action="">
@@ -77,13 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10"  id="alert">
-
-    </div>
-    <div class="col-md-1"></div>
-    </div>
+   
     <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
         @csrf
         <div class="row justify-content-center">
@@ -176,18 +191,17 @@
                         @csrf
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
-                            <input type="text" name="distrito" id="aduanas" value=""  class="form-control" placeholder="Buscar por ciudad">
+                            <input type="text" name="distrito" id="aduanas" value="" class="form-control"
+                                placeholder="Buscar por ciudad">
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
-                            <x-adminlte-select2 name="iva">
-                                <option value="">TODAS</option>
-                                
-                            </x-adminlte-select2>
+                            <input type="text" name="iva" id="via" class="form-control" placeholder="Tipo de via, ejem: Maritimo">
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
-                            <input type="text" name="pais_origen" id="pais_origen" value="" class="form-control" placeholder="Buscar por pais">
+                            <input type="text" name="pais_origen" id="pais_origen" value=""
+                                class="form-control" placeholder="Buscar por pais">
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE EMBARQUE:
@@ -222,7 +236,8 @@
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> INCOTERM:
-                            <input type="text" name="incoterm" id="incoterm" value="" class="form-control" placeholder="Buscar por tipo, ejem: CPT">
+                            <input type="text" name="incoterm" id="incoterm" value="" class="form-control"
+                                placeholder="Buscar por tipo, ejem: CPT">
                         </div>
 
                     </div>
@@ -260,43 +275,43 @@
     <script src="{{ asset('js/searchs.js') }}"></script>
     <script src="{{ asset('js/validar.js') }}"></script>
     <script>
-            $("#aduanas").autocomplete({
+        $("#aduanas").autocomplete({
             source: 'search/aduanas',
             minLength: 1,
             select: function(event, ui) {
-            event.preventDefault();
-            console.log(ui.item.id);//imprimiendo id por consola
-            $(this).val(ui.item.label);
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
             }
-            });
+        });
 
-            $("#via").autocomplete({
+        $("#via").autocomplete({
             source: 'search/via',
             minLength: 1,
             select: function(event, ui) {
-            event.preventDefault();
-            console.log(ui.item.id);//imprimiendo id por consola
-            $(this).val(ui.item.label);
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
             }
-            });
-            $("#pais_origen").autocomplete({
+        });
+        $("#pais_origen").autocomplete({
             source: 'search/paisOrigen',
             minLength: 1,
             select: function(event, ui) {
-            event.preventDefault();
-            console.log(ui.item.id);//imprimiendo id por consola
-            $(this).val(ui.item.label);
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
             }
-            });
-            $("#incoterm").autocomplete({
+        });
+        $("#incoterm").autocomplete({
             source: 'search/incoterm',
             minLength: 1,
             select: function(event, ui) {
-            event.preventDefault();
-            console.log(ui.item.id);//imprimiendo id por consola
-            $(this).val(ui.item.label);
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
             }
-            });
+        });
     </script>
 @stop
 

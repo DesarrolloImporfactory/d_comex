@@ -15,6 +15,8 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('admin/home', HomeController::class)->names('admin.home');
+    Route::get('back', [HomeController::class, 'back'])->name('back');
     Route::get('search/producto', [HomeController::class, 'searchProducto'])->name('search.producto');
     Route::get('search/marca', [HomeController::class, 'searchMarca'])->name('search.marca');
     Route::get('search/ruc', [HomeController::class, 'searchRuc'])->name('search.ruc');
