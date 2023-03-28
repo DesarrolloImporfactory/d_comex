@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" form="formFiltros" class="btn btn-warning float-righ">Buscar</button>
+        <button type="submit" form="formFiltros" id="sub" class="btn btn-warning float-righ">Buscar</button>
     </div>
 @stop
 
@@ -77,15 +77,16 @@
             </div>
         </div>
     </div>
+    <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10"  id="alert">
+
+    </div>
+    <div class="col-md-1"></div>
+    </div>
     <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
         @csrf
         <div class="row justify-content-center">
-            {{-- <label for="">Buscador de usuarios: </label>
-            <div class="input-group input-group-merge mt-1">
-                <span class="input-group-text" id="basic-addon-search31"></span>
-                <input  type="text" class="form-control" placeholder="Search..."
-                    aria-label="Search..." aria-describedby="basic-addon-search31" />
-            </div> --}}
             <div class="col-md-7">
                 <div class="card card-primary">
                     <div class="card-header"><i class="fa-solid fa-magnifying-glass"></i> Criterios de busqueda</div>
@@ -175,24 +176,22 @@
                         @csrf
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
-                            <x-adminlte-select2 name="distrito">
-                                <option value="">TODAS</option>
-                               
-                            </x-adminlte-select2>
+                            <input type="text" name="distrito" id="aduanas" value=""  class="form-control" placeholder="Buscar por ciudad">
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
+<<<<<<< HEAD
                             <x-adminlte-select2 name="iva">
                                 <option value="">TODAS</option>
                                 
                             </x-adminlte-select2>
+=======
+                            <input type="text" name="iva" id="via" value="" class="form-control" placeholder="Tipo de via, ejm: maritimo">
+>>>>>>> 51fab756927e6b6f32c2c4168610cbb0c08aad75
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
-                            <x-adminlte-select2 name="pais_origen">
-                                <option value="">TODAS</option>
-                                
-                            </x-adminlte-select2>
+                            <input type="text" name="pais_origen" id="pais_origen" value="" class="form-control" placeholder="Buscar por pais">
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE EMBARQUE:
@@ -227,10 +226,7 @@
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> INCOTERM:
-                            <x-adminlte-select2 name="incoterm">
-                                <option value="">TODAS</option>
-                               
-                            </x-adminlte-select2>
+                            <input type="text" name="incoterm" id="incoterm" value="" class="form-control" placeholder="Buscar por tipo, ejem: CPT">
                         </div>
 
                     </div>
@@ -266,6 +262,46 @@
         </div>
     </div> --}}
     <script src="{{ asset('js/searchs.js') }}"></script>
+    <script src="{{ asset('js/validar.js') }}"></script>
+    <script>
+            $("#aduanas").autocomplete({
+            source: 'search/aduanas',
+            minLength: 1,
+            select: function(event, ui) {
+            event.preventDefault();
+            console.log(ui.item.id);//imprimiendo id por consola
+            $(this).val(ui.item.label);
+            }
+            });
+
+            $("#via").autocomplete({
+            source: 'search/via',
+            minLength: 1,
+            select: function(event, ui) {
+            event.preventDefault();
+            console.log(ui.item.id);//imprimiendo id por consola
+            $(this).val(ui.item.label);
+            }
+            });
+            $("#pais_origen").autocomplete({
+            source: 'search/paisOrigen',
+            minLength: 1,
+            select: function(event, ui) {
+            event.preventDefault();
+            console.log(ui.item.id);//imprimiendo id por consola
+            $(this).val(ui.item.label);
+            }
+            });
+            $("#incoterm").autocomplete({
+            source: 'search/incoterm',
+            minLength: 1,
+            select: function(event, ui) {
+            event.preventDefault();
+            console.log(ui.item.id);//imprimiendo id por consola
+            $(this).val(ui.item.label);
+            }
+            });
+    </script>
 @stop
 
 @section('css')
