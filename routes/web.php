@@ -25,6 +25,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search/linea', [HomeController::class, 'searchTransporte'])->name('search.linea');
     Route::get('search/almacen', [HomeController::class, 'searchAlmacen'])->name('search.almacen');
     Route::get('search/subpartida', [HomeController::class, 'searchPartidaArancel'])->name('search.subpartida');
+    Route::get('search/aduanas', [HomeController::class, 'searchAduana'])->name('search.aduanas');
+    Route::get('search/via', [HomeController::class, 'searchVia'])->name('search.via');
+    Route::get('search/paisOrigen', [HomeController::class, 'searchPaisOrigen'])->name('search.paisOrigen');
+    Route::get('search/incoterm', [HomeController::class, 'searchIncoterm'])->name('search.incoterm');
+
 
     Route::resource('admin/consulta', ConsultasController::class)->names('admin.consulta');
 });

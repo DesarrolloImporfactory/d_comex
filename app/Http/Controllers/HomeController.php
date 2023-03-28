@@ -21,17 +21,10 @@ class HomeController extends Controller
     {
         //$declaraciones = DeclaracionEcuador::all();
 
-<<<<<<< HEAD
         // $distritos = $declaraciones->unique('distrito');
         // $transportes = $declaraciones->unique('iva');
         // $paisOrigen = $declaraciones->unique('pais_origen');
         // $incoterm = $declaraciones->unique('incoterm');
-=======
-        $distritos = $declaraciones->unique('distrito');
-        $transportes = $declaraciones->unique('via');
-        $paisOrigen = $declaraciones->unique('pais_origen');
-        $incoterm = $declaraciones->unique('incoterm');
->>>>>>> 3a5ed4b80f3573d444d7af237da3d455526579ce
         $meses = Mes::all();
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
@@ -42,7 +35,8 @@ class HomeController extends Controller
 
     public function searchProducto(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")->take(7)->get();
+        $producto = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")->take(7)->get();
+        $data = $producto->unique('producto');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -58,7 +52,8 @@ class HomeController extends Controller
 
     public function searchMarca(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(7)->get();
+        $marcas = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(7)->get();
+        $data = $marcas->unique('marcas');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -74,7 +69,8 @@ class HomeController extends Controller
 
     public function searchRuc(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('ruc', 'LIKE', "%$term%")->take(7)->get();
+        $ruc = DeclaracionEcuador::where('ruc', 'LIKE', "%$term%")->take(7)->get();
+        $data = $ruc->unique('ruc');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -90,7 +86,8 @@ class HomeController extends Controller
 
     public function searchNave(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('nave', 'LIKE', "%$term%")->take(7)->get();
+        $nave = DeclaracionEcuador::where('nave', 'LIKE', "%$term%")->take(7)->get();
+        $data = $nave->unique('nave');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -105,7 +102,8 @@ class HomeController extends Controller
     }
     public function searchTransporte(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
+        $linea = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
+        $data = $linea->unique('linea');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -120,7 +118,8 @@ class HomeController extends Controller
     }
     public function searchEmbarcadorConsigne(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('embarcador_consigne', 'LIKE', "%$term%")->take(7)->get();
+        $embarcador = DeclaracionEcuador::where('embarcador_consigne', 'LIKE', "%$term%")->take(7)->get();
+        $data = $embarcador->unique('embarcador_consigne');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -136,7 +135,8 @@ class HomeController extends Controller
 
     public function searchRefrendo(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('refrendo', 'LIKE', "%$term%")->take(7)->get();
+        $refrendo = DeclaracionEcuador::where('refrendo', 'LIKE', "%$term%")->take(7)->get();
+        $data = $refrendo->unique('refrendo');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -152,7 +152,8 @@ class HomeController extends Controller
 
     public function searchPartidaArancel(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(7)->get();
+        $sub = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(7)->get();
+        $data = $sub->unique('subpartida');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -168,7 +169,8 @@ class HomeController extends Controller
    
     public function searchAgenteAduana(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
+        $agente = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
+        $data = $agente->unique('agente_afianzado');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
@@ -183,13 +185,83 @@ class HomeController extends Controller
     }
     public function searchAlmacen(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(7)->get();
+        $almacen = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(7)->get();
+        $data = $almacen->unique('dep_comercial');
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->dep_comercial,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+
+    public function searchAduana(Request $request){
+        
+        $term = $request->term;
+        $distritos= DeclaracionEcuador::where('distrito', 'LIKE', "%$term%")->take(7)->get();
+        $data = $distritos->unique('distrito');
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->distrito,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchVia(Request $request){
+        
+        $term = $request->term;
+        $via= DeclaracionEcuador::where('via', 'LIKE', "%$term%")->take(7)->get();
+        $data = $via->unique('via');
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->via,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchPaisOrigen(Request $request){
+        
+        $term = $request->term;
+        $pais= DeclaracionEcuador::where('pais_origen', 'LIKE', "%$term%")->take(7)->get();
+        $data = $pais->unique('pais_origen');
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->pais_origen,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
+    public function searchIncoterm(Request $request){
+        
+        $term = $request->term;
+        $pais= DeclaracionEcuador::where('incoterm', 'LIKE', "%$term%")->take(7)->get();
+        $data = $pais->unique('incoterm');
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->incoterm,
                     'id'=> $value->id
                 ];
             }
