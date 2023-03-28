@@ -180,14 +180,10 @@
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
-<<<<<<< HEAD
                             <x-adminlte-select2 name="iva">
                                 <option value="">TODAS</option>
                                 
                             </x-adminlte-select2>
-=======
-                            <input type="text" name="iva" id="via" value="" class="form-control" placeholder="Tipo de via, ejm: maritimo">
->>>>>>> 51fab756927e6b6f32c2c4168610cbb0c08aad75
                         </div>
                         <div class="form-group">
                             <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
