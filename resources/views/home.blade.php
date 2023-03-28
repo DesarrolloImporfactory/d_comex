@@ -184,13 +184,7 @@
                             <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
                             <x-adminlte-select2 name="iva">
                                 <option value="">TODAS</option>
-<<<<<<< HEAD
                                 
-=======
-                                @foreach ($transportes as $item)
-                                    <option value="{{ $item->via }}">{{ $item->via }}</option>
-                                @endforeach
->>>>>>> 3a5ed4b80f3573d444d7af237da3d455526579ce
                             </x-adminlte-select2>
                         </div>
                         <div class="form-group">

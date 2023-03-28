@@ -21,17 +21,10 @@ class HomeController extends Controller
     {
         //$declaraciones = DeclaracionEcuador::all();
 
-<<<<<<< HEAD
         // $distritos = $declaraciones->unique('distrito');
         // $transportes = $declaraciones->unique('iva');
         // $paisOrigen = $declaraciones->unique('pais_origen');
         // $incoterm = $declaraciones->unique('incoterm');
-=======
-        $distritos = $declaraciones->unique('distrito');
-        $transportes = $declaraciones->unique('via');
-        $paisOrigen = $declaraciones->unique('pais_origen');
-        $incoterm = $declaraciones->unique('incoterm');
->>>>>>> 3a5ed4b80f3573d444d7af237da3d455526579ce
         $meses = Mes::all();
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
