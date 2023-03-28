@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <div class="card card-secondary">
                 <div class="card-header">
-                    <i class="fa-solid fa-magnifying-glass"></i> PERIODO DE BUSQUEDA
+                    <i class="fa-solid fa-magnifying-glass"></i> PERIODO DE BUSQUEDAssssss
                 </div>
                 <div class="card-body">
                     <form action="">
