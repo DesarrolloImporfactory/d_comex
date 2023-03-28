@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('regimens', function (Blueprint $table) {
             $table->id();
             $table->string('cod_regimen');
-            $table->string('nombre');
-            $table->string('tipo');
-            $table->timestamps();
+            $table->string('regimen');
+            $table->string('regimen_tipo');
         });
     }
 

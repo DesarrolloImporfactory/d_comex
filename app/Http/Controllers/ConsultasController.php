@@ -22,33 +22,36 @@ class ConsultasController extends Controller
     public function create(Request $request)
     {
         $request->except('_token');
-        $data = DeclaracionEcuador::where('producto', $request->input('producto'))->distrito($request->input('distrito'))
-            ->orWhere('marca', $request->input('marca'))->iva($request->input('iva'))
-            ->orWhere('subpartida', $request->input('arancelDesc'))->origen($request->input('pais_origen'))
-            ->orWhere('ruc', $request->input('ruc'))->embarque($request->input('pais_embarque'))
+        $data = DeclaracionEcuador::distrito($request->input('distrito'))
+            ->iva($request->input('iva'))
+            ->origen($request->input('pais_origen'))
+            ->embarque($request->input('pais_embarque'))
             ->ciudad($request->input('ciudad_embarque'))
             ->regimen($request->input('regimen'))
             ->incoterm($request->input('incoterm'))
-            ->orWhere('linea', $request->input('linea'))
-            ->orWhere('embarcador_consigne', $request->input('embarcador'))
-            ->orWhere('refrendo', $request->input('refrendo'))
-            ->orWhere('agente_afianzado', $request->input('agente_afianzado'))
-            ->orWhere('dep_comercial', $request->input('almacen'))
+            ->producto($request->input('producto'))
+            ->marca($request->input('marca'))
+            ->subPartida($request->input('arancelDesc'))
+            ->ruc($request->input('ruc'))
+            ->linea($request->input('linea'))
+            ->embarcador($request->input('embarcador'))
+            ->refrendo($request->input('refrendo'))
+            ->agenteAfianzado($request->input('agente_afianzado'))
+            ->almacen($request->input('almacen'))
             ->get();
-        
-        return view('result.index',compact('data'));
+
+        return view('result.index', compact('data'));
+        // return $request->all();
     }
 
 
     public function store(Request $request)
     {
-        
     }
 
 
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
-        
     }
 
 

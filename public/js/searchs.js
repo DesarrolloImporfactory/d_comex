@@ -34,6 +34,15 @@ $("#nave").autocomplete({
         $(this).val(ui.item.label);
     }
 });
+$("#linea").autocomplete({
+    source: 'search/linea',
+    minLength: 2,
+    select: function(event, ui) {
+        event.preventDefault();
+        console.log(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
+    }
+});
 $("#embarcador").autocomplete({
     source: 'search/embarcadorConsigne',
     minLength: 2,
@@ -70,15 +79,7 @@ $("#almacen").autocomplete({
         $(this).val(ui.item.label);
     }
 });
-$("#linea").autocomplete({
-    source: 'search/linea',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
+
 $("#subpartida").autocomplete({
     source: 'search/subpartida',
     minLength: 2,

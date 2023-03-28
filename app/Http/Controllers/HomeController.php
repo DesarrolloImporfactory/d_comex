@@ -21,10 +21,17 @@ class HomeController extends Controller
     {
         //$declaraciones = DeclaracionEcuador::all();
 
+<<<<<<< HEAD
         // $distritos = $declaraciones->unique('distrito');
         // $transportes = $declaraciones->unique('iva');
         // $paisOrigen = $declaraciones->unique('pais_origen');
         // $incoterm = $declaraciones->unique('incoterm');
+=======
+        $distritos = $declaraciones->unique('distrito');
+        $transportes = $declaraciones->unique('via');
+        $paisOrigen = $declaraciones->unique('pais_origen');
+        $incoterm = $declaraciones->unique('incoterm');
+>>>>>>> 3a5ed4b80f3573d444d7af237da3d455526579ce
         $meses = Mes::all();
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
@@ -51,13 +58,13 @@ class HomeController extends Controller
 
     public function searchMarca(Request $request){
         $term = $request->term;
-        $data = DeclaracionEcuador::where('marca', 'LIKE', "%$term%")->take(7)->get();
+        $data = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(7)->get();
         if(count($data)== 0){
              $respuesta[] = "No existen coincidencias";
         }else{
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->marca,
+                    'label' => $value->marcas,
                     'id'=> $value->id
                 ];
             }
@@ -96,7 +103,21 @@ class HomeController extends Controller
         }
         return $respuesta;
     }
-
+    public function searchTransporte(Request $request){
+        $term = $request->term;
+        $data = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
+        if(count($data)== 0){
+             $respuesta[] = "No existen coincidencias";
+        }else{
+            foreach ($data as  $value) {
+                $respuesta[] = [
+                    'label' => $value->linea,
+                    'id'=> $value->id
+                ];
+            }
+        }
+        return $respuesta;
+    }
     public function searchEmbarcadorConsigne(Request $request){
         $term = $request->term;
         $data = DeclaracionEcuador::where('embarcador_consigne', 'LIKE', "%$term%")->take(7)->get();
@@ -144,21 +165,7 @@ class HomeController extends Controller
         }
         return $respuesta;
     }
-    public function searchTransporte(Request $request){
-        $term = $request->term;
-        $data = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
-            foreach ($data as  $value) {
-                $respuesta[] = [
-                    'label' => $value->linea,
-                    'id'=> $value->id
-                ];
-            }
-        }
-        return $respuesta;
-    }
+   
     public function searchAgenteAduana(Request $request){
         $term = $request->term;
         $data = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
