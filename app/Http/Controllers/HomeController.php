@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -31,255 +31,274 @@ class HomeController extends Controller
         $paisEmbarques = PaisEmbarque::all();
         $ciudadEmbarques = CiudadEmbarque::all();
         Session::put('tasks', request()->fullUrl());
-        return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques'));
+        return view('home', compact('meses', 'regimens', 'ciudadEmbarques', 'paisEmbarques'));
         // return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
     }
 
     public function back()
     {
         if (session('tasks')) {
-            return redirect(session('tasks'))->with('mensaje','Bienvenido al buscador de Imporcomex!');
+            return redirect(session('tasks'))->with('mensaje', 'Bienvenido al buscador de Imporcomex!');
         }
     }
 
-    public function searchProducto(Request $request){
+    public function searchProducto(Request $request)
+    {
         $term = $request->term;
-        $producto = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")->take(7)->get();
+        $producto = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")
+        ->orWhere('desc_comer','LIKE',"%$term%")
+        ->take(7)->get();
         $data = $producto->unique('producto');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->producto,
-                    'id'=> $value->id
+                    'label' => $value->producto . " - " . $value->desc_comer,
+                    'id' => $value->producto
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchMarca(Request $request){
+    public function searchMarca(Request $request)
+    {
         $term = $request->term;
         $marcas = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(7)->get();
         $data = $marcas->unique('marcas');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->marcas,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchRuc(Request $request){
+    public function searchRuc(Request $request)
+    {
         $term = $request->term;
-        $ruc = DeclaracionEcuador::where('ruc', 'LIKE', "%$term%")->take(7)->get();
+        $ruc = DeclaracionEcuador::where('ruc', 'LIKE', "%$term%")
+            ->orWhere('razon_social', 'LIKE', "%$term%")
+            ->take(7)->get();
         $data = $ruc->unique('ruc');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->ruc,
-                    'id'=> $value->id
+                    'label' => $value->ruc . " - " . $value->razon_social,
+                    'id' => $value->ruc
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchNave(Request $request){
+    public function searchNave(Request $request)
+    {
         $term = $request->term;
         $nave = DeclaracionEcuador::where('nave', 'LIKE', "%$term%")->take(7)->get();
         $data = $nave->unique('nave');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->nave,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-    public function searchTransporte(Request $request){
+    public function searchTransporte(Request $request)
+    {
         $term = $request->term;
         $linea = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
         $data = $linea->unique('linea');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->linea,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-    public function searchEmbarcadorConsigne(Request $request){
+    public function searchEmbarcadorConsigne(Request $request)
+    {
         $term = $request->term;
-        $embarcador = DeclaracionEcuador::where('embarcador_consigne', 'LIKE', "%$term%")->take(7)->get();
-        $data = $embarcador->unique('embarcador_consigne');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        $embarcador = DeclaracionEcuador::where('remitente', 'LIKE', "%$term%")->take(7)->get();
+        $data = $embarcador->unique('remitente');
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
-                    'label' => $value->embarcador_consigne,
-                    'id'=> $value->id
+                    'label' => $value->remitente,
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchRefrendo(Request $request){
+    public function searchRefrendo(Request $request)
+    {
         $term = $request->term;
         $refrendo = DeclaracionEcuador::where('refrendo', 'LIKE', "%$term%")->take(7)->get();
         $data = $refrendo->unique('refrendo');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->refrendo,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchPartidaArancel(Request $request){
+    public function searchPartidaArancel(Request $request)
+    {
         $term = $request->term;
         $sub = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(7)->get();
         $data = $sub->unique('subpartida');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->subpartida,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-   
-    public function searchAgenteAduana(Request $request){
+
+    public function searchAgenteAduana(Request $request)
+    {
         $term = $request->term;
         $agente = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
         $data = $agente->unique('agente_afianzado');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->agente_afianzado,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-    public function searchAlmacen(Request $request){
+    public function searchAlmacen(Request $request)
+    {
         $term = $request->term;
         $almacen = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(7)->get();
         $data = $almacen->unique('dep_comercial');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->dep_comercial,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchAduana(Request $request){
-        
+    public function searchAduana(Request $request)
+    {
+
         $term = $request->term;
-        $distritos= DeclaracionEcuador::where('distrito', 'LIKE', "%$term%")->take(7)->get();
+        $distritos = DeclaracionEcuador::where('distrito', 'LIKE', "%$term%")->take(7)->get();
         $data = $distritos->unique('distrito');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->distrito,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-    public function searchVia(Request $request){
-        
+    public function searchVia(Request $request)
+    {
+
         $term = $request->term;
-        $via= DeclaracionEcuador::where('via', 'LIKE', "%$term%")->take(7)->get();
+        $via = DeclaracionEcuador::where('via', 'LIKE', "%$term%")->take(7)->get();
         $data = $via->unique('via');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->via,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
-    public function searchPaisOrigen(Request $request){
-        
+    public function searchPaisOrigen(Request $request)
+    {
+
         $term = $request->term;
-        $pais= DeclaracionEcuador::where('pais_origen', 'LIKE', "%$term%")->take(7)->get();
+        $pais = DeclaracionEcuador::where('pais_origen', 'LIKE', "%$term%")->take(7)->get();
         $data = $pais->unique('pais_origen');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->pais_origen,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function searchIncoterm(Request $request){
-        
+    public function searchIncoterm(Request $request)
+    {
+
         $term = $request->term;
-        $pais= DeclaracionEcuador::where('incoterm', 'LIKE', "%$term%")->take(7)->get();
+        $pais = DeclaracionEcuador::where('incoterm', 'LIKE', "%$term%")->take(7)->get();
         $data = $pais->unique('incoterm');
-        if(count($data)== 0){
-             $respuesta[] = "No existen coincidencias";
-        }else{
+        if (count($data) == 0) {
+            $respuesta[] = "No existen coincidencias";
+        } else {
             foreach ($data as  $value) {
                 $respuesta[] = [
                     'label' => $value->incoterm,
-                    'id'=> $value->id
+                    'id' => $value->id
                 ];
             }
         }
         return $respuesta;
     }
 
-    public function store(Request $request){
-        return redirect('home')>with('mensaje','Bien venido!');
+    public function store(Request $request)
+    {
+        return redirect('home') > with('mensaje', 'Bien venido!');
     }
 }

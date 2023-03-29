@@ -1,10 +1,10 @@
-$("#producto").autocomplete({
+$("#productoView").autocomplete({
     source: 'search/producto',
     minLength: 2,
     select: function(event, ui) {
         event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $("#producto").val(ui.item.label);
+        $("#producto").val(ui.item.id);//imprimiendo id por consola
+        $(this).val(ui.item.label);
     }
 });
 $("#marca").autocomplete({
@@ -16,12 +16,12 @@ $("#marca").autocomplete({
         $("#marca").val(ui.item.label);
     }
 });
-$("#ruc").autocomplete({
+$("#rucView").autocomplete({
     source: 'search/ruc',
     minLength: 2,
     select: function(event, ui) {
         event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
+        $("#ruc").val(ui.item.id)//imprimiendo id por consola
         $(this).val(ui.item.label);
     }
 });
