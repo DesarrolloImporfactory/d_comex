@@ -39,7 +39,7 @@
 
 @section('auth_header')
     <div class="text-center">
-        <h2 class="text-left"><b>INFOADUANA</b></h2>
+        <h2 class="text-center"><b>INFOADUANA</b></h2>
         <p class="text-justify">La herramienta mejor guardada de los importadores.</p>
         <h4 class="text-left"><b>LOGIN</b></h4>
     </div>
