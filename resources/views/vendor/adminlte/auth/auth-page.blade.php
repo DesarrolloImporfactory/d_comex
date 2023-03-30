@@ -10,6 +10,25 @@
 
 @section('adminlte_css')
     @stack('css')
+    <style>
+        .card {
+            border-radius: 20px !important;
+        }
+        .register-logo {
+        display: none;
+    }
+        .register-page {
+            min-height: 100vh;
+            background-image: url("{{ asset('backgraund.png') }}") !important;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        #logo{
+            opacity: 0.2 !important;
+        }
+    </style>
     @yield('css')
 @stop
 
@@ -19,7 +38,7 @@
     <div class="{{ $auth_type ?? 'login' }}-box">
 
         {{-- Logo --}}
-        <div class="{{ $auth_type ?? 'login' }}-logo">
+        <div class="{{ $auth_type ?? 'login' }}-logo" id="logo">
             <a href="{{ $dashboard_url }}">
 
                 {{-- Logo Image --}}

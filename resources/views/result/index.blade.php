@@ -54,41 +54,63 @@
                     <table class="table table-striped" id="example">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>RUC</th>
+                                <th>#</th>
                                 <th>PRODUCTO</th>
                                 <th>MARCA</th>
-                                <th>EMBARCADOR</th>
-                                <th>REFRENDO</th>
+                                <th>FOB UNITARIO</th>
+                                <th>INCOTERM</th>
                                 <th>SUBPARTIDA</th>
-                                <th>LINEA</th>
-                                <th>AGENTE AFIANZADO</th>
-                                <th>ALMACEN</th>
-                                <th>DISTRITO</th>
-                                <th>VIA</th>
-                                <th>PAIS ORIGEN</th>
-                                <th>PAIS EMBARQUE</th>
+                                <th>DESCRIPCION PARTIDA</th>
+                                <th>RUC/IMPORTADOR</th>
+                                <th>EMPRESA DE TRANSPORTE</th>
                                 <th>CIUDAD EMBARQUE</th>
+                                <th>PAIS EMBARQUE</th>
+                                <th>VIA</th>
+                                <th>KILOS NETO</th>
+                                <th>REGIMEN</th>
+                                <th>DISTRITO</th>
+                                <th>BL</th>
+                                <th>FECH EMBAR</th>
+                                <th>FECH LLEGADA</th>
+                                <th>FECH INGRESO</th>
+                                <th>FECH PAGO</th>
+                                <th>FECH SALIDA</th>
+                                <th>AÑO</th>
+                                <th>MES</th>
+                                <th>ALMACEN</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $count = "1";
+                            @endphp
                             @foreach ($data as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->ruc }}</td>
-                                    <td>{{ $item->producto }}</td>
+                                    <td>{{ $count++ }}</td>
+                                    <td>{{ $item->producto}}</td>
                                     <td>{{ $item->marcas }}</td>
-                                    <td>{{ $item->embarcador_consigne }}</td>
-                                    <td>{{ $item->refrendo }}</td>
+                                    <td>{{ $item->fob_unitario }}</td>
+                                    <td>{{ $item->incoterm}}</td>
                                     <td>{{ $item->subpartida }}</td>
+                                    <td>{{ $item->desc_partida }}</td>
+                                    <td>{{ $item->ruc}}/{{ $item->razon_social}}</td>
                                     <td>{{ $item->linea }}</td>
-                                    <td>{{ $item->agente_afianzado }}</td>
-                                    <td>{{ $item->dep_comercial }}</td>
-                                    <td>{{ $item->distrito }}</td>
-                                    <td>{{ $item->via }}</td>
-                                    <td>{{ $item->pais_origen }}</td>
-                                    <td>{{ $item->pais_embarque }}</td>
                                     <td>{{ $item->ciudad_embarque }}</td>
+                                    <td>{{ $item->pais_embarque }}</td>
+                                    <td>{{ $item->via }}</td>
+                                    <td>{{ $item->kilos_neto }}</td>
+                                    <td>{{ $item->regimen }}</td>
+                                    <td>{{ $item->distrito }}</td>
+                                    <td>{{ $item->bl }}</td>
+                                    
+                                    <td>{{ $item->fecha_embarque }}</td>
+                                    <td>{{ $item->fecha_llegada }}</td>
+                                    <td>{{ $item->fecha_ingreso }}</td>
+                                    <td>{{ $item->fecha_pago }}</td>
+                                    <td>{{ $item->fecha_salida }}</td>
+                                    <td>{{ $item->year }}</td>
+                                    <td>{{ $item->mes }}</td>
+                                    <td>{{ $item->dep_comercial}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -121,7 +143,7 @@
                         display: $.fn.dataTable.Responsive.display.modal({
                             header: function(row) {
                                 var data = row.data();
-                                return 'Details for: ' + data[0] + ' ' + data[1];
+                                return 'DETALLES DE: ' + data[0] + ' ' + data[1];
                             }
                         }),
                         renderer: $.fn.dataTable.Responsive.renderer.tableAll({

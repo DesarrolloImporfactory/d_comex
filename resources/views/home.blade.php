@@ -48,7 +48,7 @@
                                                 <label for="">OPERACION:</label>
                                                 <x-adminlte-select2 name="operacion">
                                                     <option value="">Importaciones</option>
-                                                    <option value="">Exportaciones</option>
+                                                    <option value="" disabled>Exportaciones</option>
                                                 </x-adminlte-select2>
                                             </div>
                                         </div>
