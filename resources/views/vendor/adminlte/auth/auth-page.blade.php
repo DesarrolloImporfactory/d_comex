@@ -14,9 +14,9 @@
         .card {
             border-radius: 20px !important;
         }
-        .register-logo {
+        /* .register-logo {
         display: none;
-    }
+    } */
         .register-page {
             min-height: 100vh;
             background-image: url("{{ asset('backgraund.png') }}") !important;
@@ -25,9 +25,9 @@
             background-size: cover;
             background-attachment: fixed;
         }
-        #logo{
+        /* #logo{
             opacity: 0.2 !important;
-        }
+        } */
     </style>
     @yield('css')
 @stop
@@ -43,7 +43,7 @@
 
                 {{-- Logo Image --}}
                 @if (config('adminlte.auth_logo.enabled', false))
-                    <img src="{{ asset(config('adminlte.auth_logo.img.path')) }}"
+                    <img  src="{{ asset(config('adminlte.auth_logo.img.path')) }}"
                          alt="{{ config('adminlte.auth_logo.img.alt') }}"
                          @if (config('adminlte.auth_logo.img.class', null))
                             class="{{ config('adminlte.auth_logo.img.class') }}"
@@ -56,11 +56,12 @@
                          @endif>
                 @else
                     <img src="{{ asset(config('adminlte.logo_img')) }}"
-                         alt="{{ config('adminlte.logo_img_alt') }}" height="50">
+                         alt="{{ config('adminlte.logo_img_alt') }}"  height="75">
+                         {!! config('adminlte.logo', '<b>Admin</b>LTE') !!} 
                 @endif
 
                 {{-- Logo Label --}}
-                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+                {{-- {!! config('adminlte.logo', '<b>Admin</b>LTE') !!} --}}
 
             </a>
         </div>

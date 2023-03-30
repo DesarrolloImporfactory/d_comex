@@ -6,9 +6,11 @@
         .card {
             border-radius: 20px !important;
         }
-        .login-logo {
-        display: none;
-    }
+
+        /* .login-logo {
+            display: none;
+        } */
+
         .login-page {
             min-height: 100vh;
             background-image: url("{{ asset('backgraund.png') }}") !important;
@@ -17,9 +19,10 @@
             background-size: cover;
             background-attachment: fixed;
         }
-        #logo{
+
+        /* #logo {
             opacity: 0.2 !important;
-        }
+        } */
     </style>
 @stop
 

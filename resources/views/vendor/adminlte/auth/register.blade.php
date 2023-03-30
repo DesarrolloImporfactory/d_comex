@@ -12,23 +12,11 @@
 @endif
 
 @section('auth_header')
-    <br>
-    <div class="">
-        <div class="row">
-            <div class="col-sm-2 ">
-
-            </div>
-            <div class="col-sm-4 text-center ">
-                <img src="{{asset('imagenes/logo-dany-travel.png')}}" width="90" alt="">
-            </div>
-            <div class="col-sm-4  text-center">
-                <img src="{{asset('imagenes/logo_academia.png')}}" width="115" alt="">
-            </div>
-            <div class="col-sm-2  ">
-
-            </div>
-        </div>
-    </div>
+<div class="text-center">
+    <h2 class="text-center"><b>INFOADUANA</b></h2>
+    <p class="text-justify">La herramienta mejor guardada de los importadores.</p>
+    <h4 class="text-left"><b>REGISTRO</b></h4>
+</div>
 @stop
 
 @section('auth_body')
@@ -125,4 +113,5 @@
             </a>
         </p>
     </div>
+    
 @stop
