@@ -48,7 +48,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <i class="fa-solid fa-eye fa-beat-fade"></i> Mira el resultado de forma más detallada
+                    <i class="fa-solid fa-eye fa-beat-fade"></i> Mira el resultado de forma más detallada
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="example">
@@ -63,7 +63,7 @@
                                 <th>CANTIDAD</th>
                                 <th>SUBPARTIDA</th>
                                 <th>DESCRIPCION PARTIDA</th>
-                                
+
                                 <th>EMPRESA DE TRANSPORTE</th>
                                 <th>EMBARCADOR</th>
                                 <th>CIUDAD EMBARQUE</th>
@@ -85,22 +85,21 @@
                         </thead>
                         <tbody>
                             @php
-                                $count = "1";
+                                $count = '1';
                             @endphp
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $count++ }}</td>
-                                    <td>{{ $item->ruc}}/{{ $item->razon_social}}</td>
-                                    <td>{{ $item->producto}}</td>
+                                    <td>{{ $item->ruc }}/{{ $item->razon_social }}</td>
+                                    <td>{{ $item->producto }}</td>
                                     <td>{{ $item->marcas }}</td>
                                     <td>{{ $item->fob_unitario }}</td>
                                     <td>{{ $item->pais_origen }}</td>
-                                    <td>{{ $item->unidades}}</td>
-                                    <!-- <td>{{ $item->incoterm}}</td> -->
+                                    <td>{{ $item->unidades }}</td>
                                     <td>{{ $item->subpartida }}</td>
                                     <td>{{ $item->desc_partida }}</td>
                                     <td>{{ $item->linea }}</td>
-                                    <td>{{ $item->remitente}}</td>
+                                    <td>{{ $item->remitente }}</td>
                                     <td>{{ $item->ciudad_embarque }}</td>
                                     <td>{{ $item->pais_embarque }}</td>
                                     <td>{{ $item->via }}</td>
@@ -108,15 +107,22 @@
                                     <td>{{ $item->regimen }}</td>
                                     <td>{{ $item->distrito }}</td>
                                     <td>{{ $item->bl }}</td>
-                                    
-                                    <td>{{ $item->fecha_embarque }}</td>
-                                    <td>{{ $item->fecha_llegada }}</td>
-                                    <td>{{ $item->fecha_ingreso }}</td>
-                                    <td>{{ $item->fecha_pago }}</td>
-                                    <td>{{ $item->fecha_salida }}</td>
+                                    @if ($item->year == '2023')
+                                        <td>{{ $item->fecha_embarque }}</td>
+                                        <td>{{ $item->fecha_llegada }}</td>
+                                        <td>{{ $item->fecha_ingreso }}</td>
+                                        <td>{{ $item->fecha_pago }}</td>
+                                        <td>{{ $item->fecha_salida }}</td>
+                                    @else
+                                        <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}</td>
+                                        <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}</td>
+                                        <td>{{ $item->fecha_ingreso }}</td>
+                                        <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}</td>
+                                        <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}</td>
+                                    @endif
                                     <td>{{ $item->year }}</td>
                                     <td>{{ $item->mes }}</td>
-                                    <td>{{ $item->dep_comercial}}</td>
+                                    <td>{{ $item->dep_comercial }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -155,10 +161,10 @@
 
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
+                <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+                <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+                <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -172,15 +178,15 @@
     <script src=""></script>
     <script>
         $(document).ready(function() {
-           var table = $('#example').DataTable({
-                scrollY:        200,
+            var table = $('#example').DataTable({
+                scrollY: 200,
                 scrollCollapse: true,
-                scroller:       true,
-                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+                scroller: true,
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
-            
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection

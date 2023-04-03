@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeclaracionEcuador extends Model
+class Declaracion2022 extends Model
 {
     use HasFactory;
-
     public function scopeDistrito($query, $distrito){
         if($distrito)
             return $query->where('distrito',$distrito);

@@ -11,7 +11,6 @@
             });
         </script>
     @endif
-
 @stop
 
 @section('content')
@@ -36,12 +35,15 @@
             </div>
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 mt-3">
-                            <div class="label border p-2 bg-dark text-light rounded mb-2"><i
-                                    class="fa-solid fa-magnifying-glass"></i> PERIODO DE BÚSQUEDA</div>
-                            <div class="ml-2 mr-2">
-                                <form action="">
+                    <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
+                        @csrf
+                        <div class="row">
+
+                            <div class="col-md-12 mt-3">
+                                <div class="label border p-2 bg-dark text-light rounded mb-2"><i
+                                        class="fa-solid fa-magnifying-glass"></i> PERIODO DE BÚSQUEDA</div>
+                                <div class="ml-2 mr-2">
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -55,11 +57,12 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">AÑO:</label>
-                                                <x-adminlte-select2 name="year">
+                                                <x-adminlte-select2 name="periodo">
+                                                    <option value="">Seleccione un periodo...</option>
                                                     <option value="" disabled>2020 - proximamente</option>
                                                     <option value="" disabled>2021 - proximamente</option>
-                                                    <option value="" disabled>2022 - proximamente</option>
-                                                    <option value="">2023</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
                                                 </x-adminlte-select2>
                                             </div>
                                         </div>
@@ -67,6 +70,7 @@
                                             <div class="form-group">
                                                 <label for="">DESDE:</label>
                                                 <x-adminlte-select2 name="desde">
+                                                    <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>
                                                     @endforeach
@@ -77,6 +81,7 @@
                                             <div class="form-group">
                                                 <label for="">HASTA:</label>
                                                 <x-adminlte-select2 name="hasta">
+                                                    <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>
                                                     @endforeach
@@ -84,13 +89,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
 
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                    <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
-                        @csrf
+
+
                         <div class="row">
                             <div class="col-md-7 mt-3">
 
@@ -103,7 +108,8 @@
                                             <div class="col-md-4"><label for="">PRODUCTO:</label></div>
                                             <div class="col-md-8"><span
                                                     class="fa fa-search form-control-feedback"></span><input type="text"
-                                                    class="form-control" id="productoView" name="productoView"></div>
+                                                    class="form-control" id="productoView" name="productoView">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -121,7 +127,8 @@
                                             </div>
                                             <div class="col-md-8"><span
                                                     class="fa fa-search form-control-feedback"></span><input type="text"
-                                                    class="form-control" id="subpartida" name="arancelDesc"></div>
+                                                    class="form-control" id="subpartida" name="arancelDesc">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -200,8 +207,6 @@
                                 <div class="label border p-2 bg-dark text-light rounded mb-2"><i
                                         class="fa-solid fa-filter"></i> FILTRO DE BÚSQUEDA</div>
                                 <div class="ml-2 mr-2 mt-3">
-
-                                    @csrf
                                     <div class="form-group">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
                                         <input type="text" name="distrito" id="aduanas" value=""
@@ -255,8 +260,9 @@
                                             class="form-control" placeholder="Buscar por tipo, ejem: CPT">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" form="formFiltros" id="sub" class="btn btn-danger btn-flat btn-block mt-2">
-                                            <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i>  REALIZAR BÚSQUEDA
+                                        <button type="submit" form="formFiltros" id="sub"
+                                            class="btn btn-danger btn-flat btn-block mt-2">
+                                            <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> REALIZAR BÚSQUEDA
                                         </button>
                                     </div>
                                 </div>

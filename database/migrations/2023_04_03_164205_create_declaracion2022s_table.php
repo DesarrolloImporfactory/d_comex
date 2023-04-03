@@ -9,7 +9,7 @@ return new class extends Migration
     
     public function up()
     {
-        Schema::create('declaracion_ecuadors', function (Blueprint $table) {
+        Schema::create('declaracion2022s', function (Blueprint $table) {
             $table->id();
             $table->text('year')->nullable();
             $table->text('mes')->nullable();
@@ -36,11 +36,29 @@ return new class extends Migration
             $table->text('manifiesto')->nullable();
             $table->text('manifiesto_aduana')->nullable();
             $table->text('bl')->nullable();
-            $table->text('fecha_embarque')->nullable();
-            $table->text('fecha_llegada')->nullable();
+
+            $table->text('fecha_embarque_year')->nullable();
+            $table->text('fecha_embarque_trimestre')->nullable();
+            $table->text('fecha_embarque_mes')->nullable();
+            $table->text('fecha_embarque_dia')->nullable();
+
+            $table->text('fecha_llegada_year')->nullable();
+            $table->text('fecha_llegada_trimestre')->nullable();
+            $table->text('fecha_llegada_mes')->nullable();
+            $table->text('fecha_llegada_dia')->nullable();
+
             $table->text('fecha_ingreso')->nullable();
-            $table->text('fecha_pago')->nullable();
-            $table->text('fecha_salida')->nullable();
+
+            $table->text('fecha_pago_year')->nullable();
+            $table->text('fecha_pago_trimestre')->nullable();
+            $table->text('fecha_pago_mes')->nullable();
+            $table->text('fecha_pago_dia')->nullable();
+
+            $table->text('fecha_salida_year')->nullable();
+            $table->text('fecha_salida_trimestre')->nullable();
+            $table->text('fecha_salida_mes')->nullable();
+            $table->text('fecha_salida_dia')->nullable();
+
             $table->text('factura')->nullable();
             $table->text('nave')->nullable();
             $table->text('almacen_temp')->nullable();
@@ -85,14 +103,17 @@ return new class extends Migration
             $table->text('flete2')->nullable();
             $table->text('cif2')->nullable();
             $table->text('cfr')->nullable();
-            $table->text('estado_declaracion')->nullable();
-
+            // $table->text('estado_declaracion')->nullable();
         });
     }
 
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('declaracion_ecuadors');
+        Schema::dropIfExists('declaracion2022s');
     }
 };

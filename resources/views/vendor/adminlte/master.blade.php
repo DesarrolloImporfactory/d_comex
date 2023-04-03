@@ -18,25 +18,43 @@
         @yield('title', config('adminlte.title', 'AdminLTE 3'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{asset('vendor/toast/dist/css/iziToast.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('vendor/toast/dist/css/iziToast.min.css') }}">
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{asset('vendor/toast/dist/js/iziToast.min.js')}}" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{{ asset('vendor/toast/dist/js/iziToast.min.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Custom stylesheets (pre AdminLTE) --}}
+    <script type="text/javascript">
+        window.$crisp = [];
+        window.CRISP_WEBSITE_ID = "44d773fd-d21e-4ad8-89e2-d181b1bc817f";
+        (function() {
+            d = document;
+            s = d.createElement("script");
+            s.src = "https://client.crisp.chat/l.js";
+            s.async = 1;
+            d.getElementsByTagName("head")[0].appendChild(s);
+        })();
+    </script>
+    
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}
-    @if(!config('adminlte.enabled_laravel_mix'))
+    @if (!config('adminlte.enabled_laravel_mix'))
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
 
-        @if(config('adminlte.google_fonts.allowed', true))
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        @if (config('adminlte.google_fonts.allowed', true))
+            <link rel="stylesheet"
+                href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
@@ -46,8 +64,8 @@
     @include('adminlte::plugins', ['type' => 'css'])
 
     {{-- Livewire Styles --}}
-    @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+    @if (config('adminlte.livewire'))
+        @if (app()->version() >= 7)
             @livewireStyles
         @else
             <livewire:styles />
@@ -58,7 +76,7 @@
     @yield('adminlte_css')
 
     {{-- Favicon --}}
-    @if(config('adminlte.use_ico_only'))
+    @if (config('adminlte.use_ico_only'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
     @elseif(config('adminlte.use_full_favicon'))
         <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}" />
@@ -74,7 +92,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicons/favicon-16x16.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicons/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicons/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('favicons/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('favicons/android-icon-192x192.png') }}">
         <link rel="manifest" crossorigin="use-credentials" href="{{ asset('favicons/manifest.json') }}">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
@@ -87,7 +105,7 @@
     @yield('body')
 
     {{-- Base Scripts --}}
-    @if(!config('adminlte.enabled_laravel_mix'))
+    @if (!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
@@ -100,8 +118,8 @@
     @include('adminlte::plugins', ['type' => 'js'])
 
     {{-- Livewire Script --}}
-    @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+    @if (config('adminlte.livewire'))
+        @if (app()->version() >= 7)
             @livewireScripts
         @else
             <livewire:scripts />
