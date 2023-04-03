@@ -46,8 +46,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $producto = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")
-        ->orWhere('desc_comer','LIKE',"%$term%")
-        ->take(7)->get();
+        ->take(15)->get();
         $data = $producto->unique('producto');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -65,7 +64,7 @@ class HomeController extends Controller
     public function searchMarca(Request $request)
     {
         $term = $request->term;
-        $marcas = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(7)->get();
+        $marcas = DeclaracionEcuador::where('marcas', 'LIKE', "%$term%")->take(15)->get();
         $data = $marcas->unique('marcas');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";

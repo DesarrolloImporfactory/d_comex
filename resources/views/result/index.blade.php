@@ -48,21 +48,24 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Header
+                <i class="fa-solid fa-eye fa-beat-fade"></i> Mira el resultado de forma más detallada
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="example">
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>RUC/IMPORTADOR</th>
                                 <th>PRODUCTO</th>
                                 <th>MARCA</th>
                                 <th>FOB UNITARIO</th>
-                                <th>INCOTERM</th>
+                                <th>PAIS ORIGEN</th>
+                                <th>CANTIDAD</th>
                                 <th>SUBPARTIDA</th>
                                 <th>DESCRIPCION PARTIDA</th>
-                                <th>RUC/IMPORTADOR</th>
+                                
                                 <th>EMPRESA DE TRANSPORTE</th>
+                                <th>EMBARCADOR</th>
                                 <th>CIUDAD EMBARQUE</th>
                                 <th>PAIS EMBARQUE</th>
                                 <th>VIA</th>
@@ -87,14 +90,17 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $count++ }}</td>
+                                    <td>{{ $item->ruc}}/{{ $item->razon_social}}</td>
                                     <td>{{ $item->producto}}</td>
                                     <td>{{ $item->marcas }}</td>
                                     <td>{{ $item->fob_unitario }}</td>
-                                    <td>{{ $item->incoterm}}</td>
+                                    <td>{{ $item->pais_origen }}</td>
+                                    <td>{{ $item->unidades}}</td>
+                                    <!-- <td>{{ $item->incoterm}}</td> -->
                                     <td>{{ $item->subpartida }}</td>
                                     <td>{{ $item->desc_partida }}</td>
-                                    <td>{{ $item->ruc}}/{{ $item->razon_social}}</td>
                                     <td>{{ $item->linea }}</td>
+                                    <td>{{ $item->remitente}}</td>
                                     <td>{{ $item->ciudad_embarque }}</td>
                                     <td>{{ $item->pais_embarque }}</td>
                                     <td>{{ $item->via }}</td>
@@ -123,22 +129,64 @@
 @stop
 
 @section('css')
+
+
+
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
 @endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+    <script src=""></script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable({
-                responsive: {
+           var table = $('#example').DataTable({
+                scrollY:        200,
+                scrollCollapse: true,
+                scroller:       true,
+                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+            });
+            
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        });
+    </script>
+@endsection
+
+<!-- TABLA CON RESULTADOS EN MODAL -->
+<!-- responsive: {
                     details: {
                         display: $.fn.dataTable.Responsive.display.modal({
                             header: function(row) {
@@ -150,8 +198,4 @@
                             tableClass: 'table'
                         })
                     }
-                }
-            });
-        });
-    </script>
-@endsection
+                } -->
