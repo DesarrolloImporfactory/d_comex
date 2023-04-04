@@ -76,6 +76,7 @@ $(document).ready(function () {
                 }
             }).then((result) => {
                 /* Read more about handling dismissals below */
+                // hola
                 if (result.dismiss === Swal.DismissReason.timer) {
                     console.log('I was closed by the timer')
                 }
