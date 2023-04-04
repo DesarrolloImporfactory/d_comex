@@ -114,11 +114,15 @@
                                         <td>{{ $item->fecha_pago }}</td>
                                         <td>{{ $item->fecha_salida }}</td>
                                     @else
-                                        <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}</td>
-                                        <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}</td>
+                                        <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}
+                                        </td>
+                                        <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}
+                                        </td>
                                         <td>{{ $item->fecha_ingreso }}</td>
-                                        <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}</td>
-                                        <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}</td>
+                                        <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}
+                                        </td>
+                                        <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}
+                                        </td>
                                     @endif
                                     <td>{{ $item->year }}</td>
                                     <td>{{ $item->mes }}</td>
@@ -131,7 +135,7 @@
             </div>
         </div>
     </div>
-
+    
 @stop
 
 @section('css')
@@ -148,23 +152,11 @@
 
 @section('js')
 
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
-                <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-                <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-                <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-                <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
+                    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -179,7 +171,9 @@
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
-                scrollY: 200,
+                deferRender: true,
+                scrollX: true,
+                scrollY: 450,
                 scrollCollapse: true,
                 scroller: true,
                 buttons: ['copy', 'excel', 'pdf', 'colvis']
@@ -189,6 +183,7 @@
                 .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
+  
 @endsection
 
 <!-- TABLA CON RESULTADOS EN MODAL -->

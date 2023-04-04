@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ConsultasController;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
@@ -7,9 +8,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'showLoginForm']);
 
 Auth::routes();
 

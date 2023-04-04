@@ -43,6 +43,7 @@
             d.getElementsByTagName("head")[0].appendChild(s);
         })();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     @yield('adminlte_css_pre')
 
