@@ -26,12 +26,41 @@ class ConsultasController extends Controller
             'periodo' => ['required'],
         ]);
         if ($request->input('periodo') == '2023') {
-            $data = $this->declaracion_2023($request->all());
+            $data = $this->declaracion23($request->all());
         } else {
-            $data = $this->declaracion_2022($request->all());
+            $data = $this->declaracion22($request->all());
         }
-
         return view('result.index', compact('data'));
+    }
+
+    public function declaracion23($request)
+    {
+        $data = DB::select(
+            'CALL declaraciones2023(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
+                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
+                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
+                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
+                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
+            ]
+        );
+        return $data;
+    }
+
+    public function declaracion22($request)
+    {
+        $data = DB::select(
+            'CALL declaraciones2022(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
+                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
+                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
+                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
+                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
+            ]
+        );
+        return $data;
     }
 
     public function declaracion_2023($request)

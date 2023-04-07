@@ -8,6 +8,7 @@ use App\Models\DeclaracionEcuador;
 use App\Models\Mes;
 use App\Models\PaisEmbarque;
 use App\Models\Regimen;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -17,22 +18,20 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+    //$declaraciones = DeclaracionEcuador::all();
 
+    // $distritos = $declaraciones->unique('distrito');
+    // $transportes = $declaraciones->unique('iva');
+    // $paisOrigen = $declaraciones->unique('pais_origen');
+    // $incoterm = $declaraciones->unique('incoterm');
     public function index()
     {
-        //$declaraciones = DeclaracionEcuador::all();
-
-        // $distritos = $declaraciones->unique('distrito');
-        // $transportes = $declaraciones->unique('iva');
-        // $paisOrigen = $declaraciones->unique('pais_origen');
-        // $incoterm = $declaraciones->unique('incoterm');
         $meses = Mes::all();
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
         $ciudadEmbarques = CiudadEmbarque::all();
         Session::put('tasks', request()->fullUrl());
         return view('home', compact('meses', 'regimens', 'ciudadEmbarques', 'paisEmbarques'));
-        // return view('home',compact('meses','regimens','ciudadEmbarques','paisEmbarques','distritos','transportes','paisOrigen','incoterm'));
     }
 
     public function back()
@@ -46,7 +45,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $producto = DeclaracionEcuador::where('producto', 'LIKE', "%$term%")
-        ->take(15)->get();
+            ->take(15)->get();
         $data = $producto->unique('producto');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
