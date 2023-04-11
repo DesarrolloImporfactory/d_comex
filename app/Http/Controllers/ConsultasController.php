@@ -26,9 +26,9 @@ class ConsultasController extends Controller
             'periodo' => ['required'],
         ]);
         if ($request->input('periodo') == '2023') {
-            $data = $this->declaracion23($request->all());
+            $data = $this->declaracion_2023($request->all());
         } else {
-            $data = $this->declaracion22($request->all());
+            $data = $this->declaracion_2022($request->all());
         }
         return view('result.index', compact('data'));
     }
@@ -82,7 +82,7 @@ class ConsultasController extends Controller
             ->refrendo($request['refrendo'])
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
-            ->get();
+            ->paginate(10);
         return $data;
     }
 
@@ -104,7 +104,7 @@ class ConsultasController extends Controller
             ->refrendo($request['refrendo'])
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
-            ->get();
+            ->paginate(10);
         return $data;
     }
 
