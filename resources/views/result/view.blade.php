@@ -73,11 +73,6 @@
                                 <th>REGIMEN</th>
                                 <th>DISTRITO</th>
                                 <th>BL</th>
-                                <th>FECH EMBAR</th>
-                                <th>FECH LLEGADA</th>
-                                <th>FECH INGRESO</th>
-                                <th>FECH PAGO</th>
-                                <th>FECH SALIDA</th>
                                 <th>AÑO</th>
                                 <th>MES</th>
                                 <th>ALMACEN</th>
@@ -198,26 +193,6 @@
                         name: 'bl',
                     },
                     {
-                        data: 'fecha_embarque',
-                        name: 'fecha_embarque',
-                    },
-                    {
-                        data: 'fecha_llegada',
-                        name: 'fecha_llegada',
-                    },
-                    {
-                        data: 'fecha_ingreso',
-                        name: 'fecha_ingreso',
-                    },
-                    {
-                        data: 'fecha_pago',
-                        name: 'fecha_pago',
-                    },
-                    {
-                        data: 'fecha_salida',
-                        name: 'fecha_salida',
-                    },
-                    {
                         data: 'year',
                         name: 'year',
                     },
@@ -236,11 +211,10 @@
 @stop
 
 @section('css')
+   
+@endsection
 
 @section('js')
-
-   
-
 
 @endsection
 

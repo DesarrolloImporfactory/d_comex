@@ -83,7 +83,7 @@ class HomeController extends Controller
         $term = $request->term;
         $ruc = DeclaracionEcuador::where('ruc', 'LIKE', "%$term%")
             ->orWhere('razon_social', 'LIKE', "%$term%")
-            ->take(7)->get();
+            ->take(15)->get();
         $data = $ruc->unique('ruc');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -101,7 +101,7 @@ class HomeController extends Controller
     public function searchNave(Request $request)
     {
         $term = $request->term;
-        $nave = DeclaracionEcuador::where('nave', 'LIKE', "%$term%")->take(7)->get();
+        $nave = DeclaracionEcuador::where('nave', 'LIKE', "%$term%")->take(15)->get();
         $data = $nave->unique('nave');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -118,7 +118,7 @@ class HomeController extends Controller
     public function searchTransporte(Request $request)
     {
         $term = $request->term;
-        $linea = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(7)->get();
+        $linea = DeclaracionEcuador::where('linea', 'LIKE', "%$term%")->take(15)->get();
         $data = $linea->unique('linea');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -135,7 +135,7 @@ class HomeController extends Controller
     public function searchEmbarcadorConsigne(Request $request)
     {
         $term = $request->term;
-        $embarcador = DeclaracionEcuador::where('remitente', 'LIKE', "%$term%")->take(7)->get();
+        $embarcador = DeclaracionEcuador::where('remitente', 'LIKE', "%$term%")->take(15)->get();
         $data = $embarcador->unique('remitente');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -153,7 +153,7 @@ class HomeController extends Controller
     public function searchRefrendo(Request $request)
     {
         $term = $request->term;
-        $refrendo = DeclaracionEcuador::where('refrendo', 'LIKE', "%$term%")->take(7)->get();
+        $refrendo = DeclaracionEcuador::where('refrendo', 'LIKE', "%$term%")->take(15)->get();
         $data = $refrendo->unique('refrendo');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -171,7 +171,7 @@ class HomeController extends Controller
     public function searchPartidaArancel(Request $request)
     {
         $term = $request->term;
-        $sub = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(7)->get();
+        $sub = DeclaracionEcuador::where('subpartida', 'LIKE', "%$term%")->take(15)->get();
         $data = $sub->unique('subpartida');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -189,7 +189,7 @@ class HomeController extends Controller
     public function searchAgenteAduana(Request $request)
     {
         $term = $request->term;
-        $agente = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(7)->get();
+        $agente = DeclaracionEcuador::where('agente_afianzado', 'LIKE', "%$term%")->take(15)->get();
         $data = $agente->unique('agente_afianzado');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -206,7 +206,7 @@ class HomeController extends Controller
     public function searchAlmacen(Request $request)
     {
         $term = $request->term;
-        $almacen = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(7)->get();
+        $almacen = DeclaracionEcuador::where('dep_comercial', 'LIKE', "%$term%")->take(15)->get();
         $data = $almacen->unique('dep_comercial');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -225,7 +225,7 @@ class HomeController extends Controller
     {
 
         $term = $request->term;
-        $distritos = DeclaracionEcuador::where('distrito', 'LIKE', "%$term%")->take(7)->get();
+        $distritos = DeclaracionEcuador::where('distrito', 'LIKE', "%$term%")->take(15)->get();
         $data = $distritos->unique('distrito');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -243,7 +243,7 @@ class HomeController extends Controller
     {
 
         $term = $request->term;
-        $via = DeclaracionEcuador::where('via', 'LIKE', "%$term%")->take(7)->get();
+        $via = DeclaracionEcuador::where('via', 'LIKE', "%$term%")->take(15)->get();
         $data = $via->unique('via');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -261,7 +261,7 @@ class HomeController extends Controller
     {
 
         $term = $request->term;
-        $pais = DeclaracionEcuador::where('pais_origen', 'LIKE', "%$term%")->take(7)->get();
+        $pais = DeclaracionEcuador::where('pais_origen', 'LIKE', "%$term%")->take(15)->get();
         $data = $pais->unique('pais_origen');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
@@ -280,7 +280,7 @@ class HomeController extends Controller
     {
 
         $term = $request->term;
-        $pais = DeclaracionEcuador::where('incoterm', 'LIKE', "%$term%")->take(7)->get();
+        $pais = DeclaracionEcuador::where('incoterm', 'LIKE', "%$term%")->take(15)->get();
         $data = $pais->unique('incoterm');
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";

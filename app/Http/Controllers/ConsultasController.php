@@ -10,29 +10,84 @@ use App\Models\PaisEmbarque;
 use App\Models\Regimen;
 use Illuminate\Support\Facades\DB;
 use App\Models\Declaracion2022;
+use Yajra\DataTables\DataTables;
 
 class ConsultasController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('result.index');
     }
 
 
     public function create(Request $request)
     {
-        $request->validate([
-            'periodo' => ['required'],
-        ]);
-        if ($request->input('periodo') == '2023') {
-            $data = $this->declaracion23($request->all());
+        if ($request->ajax()) {
+            if ($request->input('periodo') == '2023') {
+                $data = $this->declaracion_2023($request->all());
+                return DataTables::of($data)->make(true);
+            } else {
+                $data = $this->declaracion_2022($request->all());
+                return DataTables::of($data)->make(true);
+            }
         } else {
-            $data = $this->declaracion22($request->all());
+            $request->validate([
+                'periodo' => ['required'],
+            ]);
+            $data = $request->except('_token');
+            if ($request->input('periodo') == '2023') {
+                return view('result.index', $data);
+            }else{
+                return view('result.view', $data);
+            }
         }
-        return view('result.index', compact('data'));
     }
 
+    public function declaracion_2023($request)
+    {
+        $data = DeclaracionEcuador::rango($request['desde'], $request['hasta'])
+            ->distrito($request['distrito'])
+            ->iva($request['iva'])
+            ->origen($request['pais_origen'])
+            ->embarque($request['pais_embarque'])
+            ->ciudad($request['ciudad_embarque'])
+            ->regimen($request['regimen'])
+            ->incoterm($request['incoterm'])
+            ->producto($request['producto'])
+            ->marca($request['marca'])
+            ->subPartida($request['arancelDesc'])
+            ->ruc($request['ruc'])
+            ->linea($request['linea'])
+            ->embarcador($request['embarcador'])
+            ->refrendo($request['refrendo'])
+            ->agenteAfianzado($request['agente_afianzado'])
+            ->almacen($request['almacen'])
+            ->get();
+
+        return $data;
+    }
+
+    public function declaracion_2022($request)
+    {
+        $data = Declaracion2022::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
+            ->iva($request['iva'])
+            ->origen($request['pais_origen'])
+            ->embarque($request['pais_embarque'])
+            ->ciudad($request['ciudad_embarque'])
+            ->regimen($request['regimen'])
+            ->incoterm($request['incoterm'])
+            ->producto($request['producto'])
+            ->marca($request['marca'])
+            ->subPartida($request['arancelDesc'])
+            ->ruc($request['ruc'])
+            ->linea($request['linea'])
+            ->embarcador($request['embarcador'])
+            ->refrendo($request['refrendo'])
+            ->agenteAfianzado($request['agente_afianzado'])
+            ->almacen($request['almacen'])
+            ->get();
+        return $data;
+    }
     public function declaracion23($request)
     {
         $data = DB::select(
@@ -62,52 +117,6 @@ class ConsultasController extends Controller
         );
         return $data;
     }
-
-    public function declaracion_2023($request)
-    {
-        $data = DeclaracionEcuador::rango($request['desde'], $request['hasta'])
-            ->distrito($request['distrito'])
-            ->iva($request['iva'])
-            ->origen($request['pais_origen'])
-            ->embarque($request['pais_embarque'])
-            ->ciudad($request['ciudad_embarque'])
-            ->regimen($request['regimen'])
-            ->incoterm($request['incoterm'])
-            ->producto($request['producto'])
-            ->marca($request['marca'])
-            ->subPartida($request['arancelDesc'])
-            ->ruc($request['ruc'])
-            ->linea($request['linea'])
-            ->embarcador($request['embarcador'])
-            ->refrendo($request['refrendo'])
-            ->agenteAfianzado($request['agente_afianzado'])
-            ->almacen($request['almacen'])
-            ->get();
-        return $data;
-    }
-
-    public function declaracion_2022($request)
-    {
-        $data = Declaracion2022::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
-            ->iva($request['iva'])
-            ->origen($request['pais_origen'])
-            ->embarque($request['pais_embarque'])
-            ->ciudad($request['ciudad_embarque'])
-            ->regimen($request['regimen'])
-            ->incoterm($request['incoterm'])
-            ->producto($request['producto'])
-            ->marca($request['marca'])
-            ->subPartida($request['arancelDesc'])
-            ->ruc($request['ruc'])
-            ->linea($request['linea'])
-            ->embarcador($request['embarcador'])
-            ->refrendo($request['refrendo'])
-            ->agenteAfianzado($request['agente_afianzado'])
-            ->almacen($request['almacen'])
-            ->get();
-        return $data;
-    }
-
     public function store(Request $request)
     {
     }
