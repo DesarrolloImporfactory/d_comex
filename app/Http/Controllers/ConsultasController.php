@@ -22,24 +22,13 @@ class ConsultasController extends Controller
 
     public function create(Request $request)
     {
-        if ($request->ajax()) {
-            if ($request->input('periodo') == '2023') {
-                $data = $this->declaracion_2023($request->all());
-                return DataTables::of($data)->make(true);
-            } else {
-                $data = $this->declaracion_2022($request->all());
-                return DataTables::of($data)->make(true);
-            }
+        $request->validate([
+            'periodo' => ['required'],
+        ]);
+        if ($request->input('periodo') == '2023') {
+            $data = $this->declaracion23($request->all());
         } else {
-            $request->validate([
-                'periodo' => ['required'],
-            ]);
-            $data = $request->except('_token');
-            if ($request->input('periodo') == '2023') {
-                return view('result.index', $data);
-            }else{
-                return view('result.view', $data);
-            }
+            $data = $this->declaracion22($request->all());
         }
     }
 
@@ -63,7 +52,6 @@ class ConsultasController extends Controller
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
             ->get();
-
         return $data;
     }
 
@@ -85,7 +73,7 @@ class ConsultasController extends Controller
             ->refrendo($request['refrendo'])
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
-            ->get();
+            ->paginate(10);
         return $data;
     }
     public function declaracion23($request)
