@@ -24,10 +24,10 @@ class ConsultasController extends Controller
     {
         if ($request->ajax()) {
             if ($request->input('periodo') == '2023') {
-                $data = $this->declaracion_2023($request->all());
+                $data = $this->declaracion23($request->all());
                 return DataTables::of($data)->make(true);
             } else {
-                $data = $this->declaracion_2022($request->all());
+                $data = $this->declaracion22($request->all());
                 return DataTables::of($data)->make(true);
             }
         } else {
