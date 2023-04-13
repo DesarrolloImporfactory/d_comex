@@ -116,8 +116,7 @@
     {{-- Password reset link --}}
     @if ($password_reset_url)
         <p class="my-0 text-center">
-        <!-- {{ $password_reset_url }} -->
-            <a href="">
+            <a href="{{ $password_reset_url }}">
                 Olvidé mi contraseña
             </a>
         </p>
@@ -126,8 +125,7 @@
     {{-- Register link --}}
     @if ($register_url)
         <p class="my-0 text-center">
-        <!-- {{ $register_url }} -->
-            <a href="">
+            <a href="{{ $register_url }}">
                 Registrar una nueva membresía
             </a>
         </p>

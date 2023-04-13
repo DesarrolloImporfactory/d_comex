@@ -23,14 +23,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
-
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/toast/dist/css/iziToast.min.css') }}">
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
@@ -42,7 +34,7 @@
     {{-- Custom stylesheets (pre AdminLTE) --}}
     <script type="text/javascript">
         window.$crisp = [];
-        window.CRISP_WEBSITE_ID = "44d773fd-d21e-4ad8-89e2-d181b1bc817f";
+        window.CRISP_WEBSITE_ID = "42d95662-3a08-4b99-a049-2f51469b370f";
         (function() {
             d = document;
             s = d.createElement("script");
@@ -52,7 +44,7 @@
         })();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}

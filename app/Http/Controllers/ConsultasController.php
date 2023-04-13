@@ -10,37 +10,57 @@ use App\Models\PaisEmbarque;
 use App\Models\Regimen;
 use Illuminate\Support\Facades\DB;
 use App\Models\Declaracion2022;
-use Yajra\DataTables\DataTables;
 
 class ConsultasController extends Controller
 {
 
-    public function index(Request $request)
+    public function index()
     {
+        return view('result.index');
     }
 
 
     public function create(Request $request)
     {
-        if ($request->ajax()) {
-            if ($request->input('periodo') == '2023') {
-                $data = $this->declaracion23($request->all());
-                return DataTables::of($data)->make(true);
-            } else {
-                $data = $this->declaracion22($request->all());
-                return DataTables::of($data)->make(true);
-            }
+        $request->validate([
+            'periodo' => ['required'],
+        ]);
+        if ($request->input('periodo') == '2023') {
+            $data = $this->declaracion23($request->all());
         } else {
-            $request->validate([
-                'periodo' => ['required'],
-            ]);
-            $data = $request->all();
-            if ($request->input('periodo') == '2023') {
-                return view('result.index',$data);
-            } else {
-                return view('result.view',$data);
-            }
+            $data = $this->declaracion22($request->all());
         }
+        return view('result.index', compact('data'));
+    }
+
+    public function declaracion23($request)
+    {
+        $data = DB::select(
+            'CALL declaraciones2023(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
+                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
+                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
+                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
+                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
+            ]
+        );
+        return $data;
+    }
+
+    public function declaracion22($request)
+    {
+        $data = DB::select(
+            'CALL declaraciones2022(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [
+                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
+                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
+                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
+                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
+                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
+            ]
+        );
+        return $data;
     }
 
     public function declaracion_2023($request)
@@ -87,35 +107,7 @@ class ConsultasController extends Controller
             ->get();
         return $data;
     }
-    public function declaracion23($request)
-    {
-        $data = DB::select(
-            'CALL declaraciones2023(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            [
-                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
-                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
-                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
-                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
-                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
-            ]
-        );
-        return $data;
-    }
 
-    public function declaracion22($request)
-    {
-        $data = DB::select(
-            'CALL declaraciones2022(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            [
-                $request['desde'], $request['hasta'], $request['distrito'], $request['iva'],
-                $request['pais_origen'], $request['pais_embarque'], $request['ciudad_embarque'],
-                $request['regimen'], $request['incoterm'], $request['producto'], $request['marca'],
-                $request['arancelDesc'], $request['ruc'], $request['linea'], $request['embarcador'],
-                $request['refrendo'], $request['agente_afianzado'], $request['almacen']
-            ]
-        );
-        return $data;
-    }
     public function store(Request $request)
     {
     }

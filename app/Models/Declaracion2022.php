@@ -4,10 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Declaracion2022 extends Model
 {
+    use Searchable;
     use HasFactory;
+
+    public function toSearchableArray()
+{
+    return [
+        'ruc' =>$this->ruc,
+        'razon_social' => $this->razon_social,
+    ];
+}
+
     public function scopeDistrito($query, $distrito){
         if($distrito)
             return $query->where('distrito',$distrito);

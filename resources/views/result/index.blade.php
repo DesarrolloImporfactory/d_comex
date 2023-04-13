@@ -3,8 +3,6 @@
 @section('title', 'Home')
 
 @section('content_header')
-
-
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -53,9 +51,10 @@
                     <i class="fa-solid fa-eye fa-beat-fade"></i> Mira el resultado de forma más detallada
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="declaracion">
+                    <table class="table table-striped" id="example">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>RUC/IMPORTADOR</th>
                                 <th>PRODUCTO</th>
                                 <th>MARCA</th>
@@ -64,6 +63,7 @@
                                 <th>CANTIDAD</th>
                                 <th>SUBPARTIDA</th>
                                 <th>DESCRIPCION PARTIDA</th>
+
                                 <th>EMPRESA DE TRANSPORTE</th>
                                 <th>EMBARCADOR</th>
                                 <th>CIUDAD EMBARQUE</th>
@@ -84,164 +84,106 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @php
+                                $count = '1';
+                            @endphp
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $count++ }}</td>
+                                    <td>{{ $item->ruc }}/{{ $item->razon_social }}</td>
+                                    <td>{{ $item->producto }}</td>
+                                    <td>{{ $item->marcas }}</td>
+                                    <td>{{ $item->fob_unitario }}</td>
+                                    <td>{{ $item->pais_origen }}</td>
+                                    <td>{{ $item->unidades }}</td>
+                                    <td>{{ $item->subpartida }}</td>
+                                    <td>{{ $item->desc_partida }}</td>
+                                    <td>{{ $item->linea }}</td>
+                                    <td>{{ $item->remitente }}</td>
+                                    <td>{{ $item->ciudad_embarque }}</td>
+                                    <td>{{ $item->pais_embarque }}</td>
+                                    <td>{{ $item->via }}</td>
+                                    <td>{{ $item->kilos_neto }}</td>
+                                    <td>{{ $item->regimen }}</td>
+                                    <td>{{ $item->distrito }}</td>
+                                    <td>{{ $item->bl }}</td>
+                                    @if ($item->year == '2023')
+                                        <td>{{ $item->fecha_embarque }}</td>
+                                        <td>{{ $item->fecha_llegada }}</td>
+                                        <td>{{ $item->fecha_ingreso }}</td>
+                                        <td>{{ $item->fecha_pago }}</td>
+                                        <td>{{ $item->fecha_salida }}</td>
+                                    @else
+                                        <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}
+                                        </td>
+                                        <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}
+                                        </td>
+                                        <td>{{ $item->fecha_ingreso }}</td>
+                                        <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}
+                                        </td>
+                                        <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}
+                                        </td>
+                                    @endif
+                                    <td>{{ $item->year }}</td>
+                                    <td>{{ $item->mes }}</td>
+                                    <td>{{ $item->dep_comercial }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+    
+@stop
+
+@section('css')
+
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
+@endsection
+
+@section('js')
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
+    <script src=""></script>
     <script>
         $(document).ready(function() {
-            $('#declaracion').DataTable({
+            var table = $('#example').DataTable({
                 deferRender: true,
                 scrollX: true,
                 scrollY: 450,
                 scrollCollapse: true,
                 scroller: true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin.consulta.create') }}",
-                    data: {
-                        'operacion': '{{ $operacion }}',
-                        'periodo': '{{ $periodo }}',
-                        'desde': '{{ $desde }}',
-                        'hasta': '{{ $hasta }}',
-                        'producto': '{{ $producto }}',
-                        'marca': '{{ $marca }}',
-                        'arancelDesc': '{{ $arancelDesc }}',
-                        'ruc': '{{ $ruc }}',
-                        'nave': '{{ $nave }}',
-                        'linea': '{{ $linea }}',
-                        'embarcador': '{{ $embarcador }}',
-                        'refrendo': '{{ $refrendo }}',
-                        'agente_afianzado': '{{ $agente_afianzado }}',
-                        'almacen': '{{ $almacen }}',
-                        'distrito': '{{ $distrito }}',
-                        'iva': '{{ $iva }}',
-                        'pais_origen': '{{ $pais_origen }}',
-                        'pais_embarque': '{{ $pais_embarque }}',
-                        'ciudad_embarque': '{{ $ciudad_embarque }}',
-                        'regimen': '{{ $regimen }}',
-                        'incoterm': '{{ $incoterm }}',
-                    },
-                },
-                dataType: 'json',
-                type: "POST",
-                columns: [{
-                        data: 'ruc',
-                        name: 'ruc',
-                    },
-                    {
-                        data: 'producto',
-                        name: 'producto',
-                    },
-                    {
-                        data: 'marcas',
-                        name: 'marcas',
-                    },
-                    {
-                        data: 'fob_unitario',
-                        name: 'fob_unitario',
-                    },
-                    {
-                        data: 'pais_origen',
-                        name: 'pais_origen',
-                    },
-                    {
-                        data: 'unidades',
-                        name: 'unidades',
-                    },
-                    {
-                        data: 'subpartida',
-                        name: 'subpartida',
-                    },
-                    {
-                        data: 'desc_partida',
-                        name: 'desc_partida',
-                    },
-                    {
-                        data: 'linea',
-                        name: 'linea',
-                    },
-                    {
-                        data: 'remitente',
-                        name: 'remitente',
-                    },
-                    {
-                        data: 'ciudad_embarque',
-                        name: 'ciudad_embarque',
-                    },
-                    {
-                        data: 'pais_embarque',
-                        name: 'pais_embarque',
-                    },
-                    {
-                        data: 'via',
-                        name: 'via',
-                    },
-                    {
-                        data: 'kilos_neto',
-                        name: 'kilos_neto',
-                    },
-                    {
-                        data: 'regimen',
-                        name: 'regimen',
-                    },
-                    {
-                        data: 'distrito',
-                        name: 'distrito',
-                    },
-                    {
-                        data: 'bl',
-                        name: 'bl',
-                    },
-                    {
-                        data: 'fecha_embarque',
-                        name: 'fecha_embarque',
-                    },
-                    {
-                        data: 'fecha_llegada',
-                        name: 'fecha_llegada',
-                    },
-                    {
-                        data: 'fecha_ingreso',
-                        name: 'fecha_ingreso',
-                    },
-                    {
-                        data: 'fecha_pago',
-                        name: 'fecha_pago',
-                    },
-                    {
-                        data: 'fecha_salida',
-                        name: 'fecha_salida',
-                    },
-                    {
-                        data: 'year',
-                        name: 'year',
-                    },
-                    {
-                        data: 'mes',
-                        name: 'mes',
-                    },
-                    {
-                        data: 'dep_comercial',
-                        name: 'dep_comercial',
-                    },
-                ],
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
             });
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
-@stop
-
-@section('css')
-
-@section('js')
-
-   
-
-
+  
 @endsection
 
 <!-- TABLA CON RESULTADOS EN MODAL -->

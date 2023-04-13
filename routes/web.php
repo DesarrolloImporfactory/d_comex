@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
-Auth::routes(["register" => false, "reset"=>false]);
+Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
