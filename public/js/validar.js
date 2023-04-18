@@ -62,7 +62,9 @@ $(document).ready(function () {
             Swal.fire({
                 title: 'Buscando coincidencias!',
                 html: 'Buscando en <b></b> registros.',
-                timer: 9000,
+                timer: 9999999,
+                allowOutsideClick:false,
+                allowEscapeKey: false,
                 timerProgressBar: true,
                 didOpen: () => {
                     Swal.showLoading()

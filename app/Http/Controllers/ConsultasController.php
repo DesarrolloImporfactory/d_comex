@@ -65,7 +65,8 @@ class ConsultasController extends Controller
 
     public function declaracion_2023($request)
     {
-        $data = DeclaracionEcuador::rango($request['desde'], $request['hasta'])
+        $data = DeclaracionEcuador::select('ruc','razon_social','producto','marcas','fob_unitario','pais_origen','unidades','subpartida','desc_partida','linea','remitente','ciudad_embarque','pais_embarque','via','kilos_neto','regimen','distrito','bl','fecha_embarque','fecha_llegada','fecha_ingreso','fecha_pago','fecha_salida','periodo','mes','dep_comercial')
+            ->rango($request['desde'], $request['hasta'])
             ->distrito($request['distrito'])
             ->iva($request['iva'])
             ->origen($request['pais_origen'])
@@ -88,7 +89,8 @@ class ConsultasController extends Controller
 
     public function declaracion_2022($request)
     {
-        $data = Declaracion2022::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
+        $data = Declaracion2022::select('ruc','razon_social','producto','marcas','fob_unitario','pais_origen','unidades','subpartida','desc_partida','linea','remitente','ciudad_embarque','pais_embarque','via','kilos_neto','regimen','distrito','bl','fecha_embarque_dia','fecha_embarque_mes','fecha_embarque_year','fecha_llegada_dia','fecha_llegada_mes','fecha_llegada_year','fecha_ingreso','fecha_pago_dia','fecha_pago_mes','fecha_pago_year','fecha_salida_dia','fecha_salida_mes','fecha_salida_year','periodo','mes','dep_comercial')
+            ->rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
             ->iva($request['iva'])
             ->origen($request['pais_origen'])
             ->embarque($request['pais_embarque'])

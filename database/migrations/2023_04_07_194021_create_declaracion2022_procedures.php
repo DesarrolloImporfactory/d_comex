@@ -32,7 +32,7 @@ return new class extends Migration
                 IN agente_af_param VARCHAR(500),
                 IN dep_comer_param VARCHAR(500))
                 BEGIN
-                    SELECT *
+                    SELECT ruc,razon_social,producto,marcas,fob_unitario,pais_origen,unidades,subpartida,desc_partida,linea,remitente,ciudad_embarque,pais_embarque,via,kilos_neto,regimen,distrito,bl,fecha_embarque_dia,fecha_embarque_mes,fecha_embarque_year,fecha_llegada_dia,fecha_llegada_mes,fecha_llegada_year,fecha_ingreso,fecha_pago_dia,fecha_pago_mes,fecha_pago_year,fecha_salida_dia,fecha_salida_mes,fecha_salida_year,periodo,mes,dep_comercial
                     FROM declaracion2022s
                     WHERE mes between COALESCE(desde, 0000-00-00) and COALESCE(hasta, 9999-12-31) and (distrito = distrito_param OR distrito_param IS NULL)
                     and (via = via_param OR via_param IS NULL) and (pais_origen = pais_org_param OR pais_org_param IS NULL) and (pais_embarque = pais_emb_param OR pais_emb_param IS NULL)
@@ -43,7 +43,7 @@ return new class extends Migration
                 END;'
         );
     }
-
+    // (ruc,razon_social,producto,marcas,fob_unitario,pais_origen,unidades,subpartida,desc_partida,linea,remitente,ciudad_embarque,pais_embarque,via,kilos_neto,regimen,distrito,bl,fecha_embarque_dia,fecha_embarque_mes,fecha_embarque_year,fecha_llegada_dia,fecha_llegada_mes,fecha_llegada_year,fecha_ingreso,fecha_pago_dia,fecha_pago_mes,fecha_pago_year,fecha_salida_dia,fecha_salida_mes,fecha_salida_year,year,mes,dep_comercial)
     public function down()
     {
         Schema::dropIfExists('declaracion2022_procedures');

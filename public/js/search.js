@@ -1,7 +1,7 @@
 // $(this).attr('valor', ui.item.label); //asigna valor a un atributo del input
 $("#producto").autocomplete({
     source: 'search/producto',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -10,7 +10,7 @@ $("#producto").autocomplete({
 });
 $("#marca").autocomplete({
     source: 'search/marca',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -19,7 +19,7 @@ $("#marca").autocomplete({
 });
 $("#ruc").autocomplete({
     source: 'search/ruc',
-    minLength: 2,
+    minLength: 6,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -28,7 +28,7 @@ $("#ruc").autocomplete({
 });
 $("#nave").autocomplete({
     source: 'search/nave',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -37,7 +37,7 @@ $("#nave").autocomplete({
 });
 $("#embarcador").autocomplete({
     source: 'search/embarcadorConsigne',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -46,7 +46,7 @@ $("#embarcador").autocomplete({
 });
 $("#refrendo").autocomplete({
     source: 'search/refrendo',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -55,7 +55,7 @@ $("#refrendo").autocomplete({
 });
 $("#agente_afianzado").autocomplete({
     source: 'search/agenteAfianzado',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -64,7 +64,7 @@ $("#agente_afianzado").autocomplete({
 });
 $("#almacen").autocomplete({
     source: 'search/almacen',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -73,7 +73,7 @@ $("#almacen").autocomplete({
 });
 $("#linea").autocomplete({
     source: 'search/linea',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola
@@ -82,7 +82,7 @@ $("#linea").autocomplete({
 });
 $("#subpartida").autocomplete({
     source: 'search/subpartida',
-    minLength: 2,
+    minLength: 4,
     select: function(event, ui) {
         event.preventDefault();
         console.log(ui.item.id);//imprimiendo id por consola

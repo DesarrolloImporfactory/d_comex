@@ -32,7 +32,7 @@ return new class extends Migration
                 IN agente_af_param VARCHAR(500),
                 IN dep_comer_param VARCHAR(500))
                 BEGIN
-                    SELECT *
+                    SELECT ruc,razon_social,producto,marcas,fob_unitario,pais_origen,unidades,subpartida,desc_partida,linea,remitente,ciudad_embarque,pais_embarque,via,kilos_neto,regimen,distrito,bl,fecha_embarque,fecha_llegada,fecha_ingreso,fecha_pago,fecha_salida,periodo,mes,dep_comercial
                     FROM declaracion_ecuadors
                     WHERE mes between COALESCE(desde, 0000-00-00) and COALESCE(hasta, 9999-12-31) and (distrito = distrito_param OR distrito_param IS NULL)
                     and (via = via_param OR via_param IS NULL) and (pais_origen = pais_org_param OR pais_org_param IS NULL) and (pais_embarque = pais_emb_param OR pais_emb_param IS NULL)
@@ -44,7 +44,7 @@ return new class extends Migration
         );
     }
 
-    
+    // (ruc,razon_social,producto,marcas,fob_unitario,pais_origen,unidades,subpartida,desc_partida,linea,remitente,ciudad_embarque,pais_embarque,via,kilos_neto,regimen,distrito,bl,fecha_embarque,fecha_llegada,fecha_ingreso,fecha_pago,fecha_salida,year,mes,dep_comercial)
     public function down()
     {
         Schema::dropIfExists('declaracion2023_procedures');

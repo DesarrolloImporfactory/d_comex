@@ -107,7 +107,7 @@
                                     <td>{{ $item->regimen }}</td>
                                     <td>{{ $item->distrito }}</td>
                                     <td>{{ $item->bl }}</td>
-                                    @if ($item->year == '2023')
+                                    @if ($item->periodo == '2023')
                                         <td>{{ $item->fecha_embarque }}</td>
                                         <td>{{ $item->fecha_llegada }}</td>
                                         <td>{{ $item->fecha_ingreso }}</td>
@@ -124,7 +124,7 @@
                                         <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}
                                         </td>
                                     @endif
-                                    <td>{{ $item->year }}</td>
+                                    <td>{{ $item->periodo }}</td>
                                     <td>{{ $item->mes }}</td>
                                     <td>{{ $item->dep_comercial }}</td>
                                 </tr>
@@ -140,8 +140,6 @@
 
 @section('css')
 
-
-
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
@@ -152,11 +150,6 @@
 
 @section('js')
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
-                    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-                    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-                    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script> -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -186,17 +179,4 @@
   
 @endsection
 
-<!-- TABLA CON RESULTADOS EN MODAL -->
-<!-- responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal({
-                            header: function(row) {
-                                var data = row.data();
-                                return 'DETALLES DE: ' + data[0] + ' ' + data[1];
-                            }
-                        }),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                            tableClass: 'table'
-                        })
-                    }
-                } -->
+
