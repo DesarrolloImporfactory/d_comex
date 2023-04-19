@@ -17,12 +17,11 @@ class TableUsers extends Component
     protected $listeners = ['render' => 'render', 'delete'];
 
     protected $rules = [
-        'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-        'name' => 'required', 'string', 'max:255',
-        'password' => 'required', 'string', 'min:8',
+        'email' => 'required|string|email|max:255',
+        'name' => 'required|string|max:255',
+        'password' => 'required|string|min:8',
         'rol' => 'required',
     ];
-
     public function updated($fields)
     {
         $this->validateOnly($fields);
@@ -87,7 +86,7 @@ class TableUsers extends Component
     public function render()
     {
         $roles = Role::get();
-        $usuarios = User::where('name', 'like', '%' . $this->search . '%')->orWhere('email', 'like', '%' . $this->search . '%')->paginate(3);
+        $usuarios = User::where('name', 'like', '%' . $this->search . '%')->orWhere('email', 'like', '%' . $this->search . '%')->paginate(10);
         return view('livewire.users.table-users', compact('usuarios', 'roles'));
     }
 }

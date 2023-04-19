@@ -12,9 +12,9 @@ class CreateUser extends Component
     public $email, $name, $password,$rol;
 
     protected $rules = [
-        'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-        'name' => 'required', 'string', 'max:255',
-        'password' => 'required', 'string', 'min:8',
+        'email' => 'required|string|email|max:255|unique:users',
+        'name' => 'required|string|max:255',
+        'password' => 'required|string|min:8',
         'rol' => 'required',
     ];
 

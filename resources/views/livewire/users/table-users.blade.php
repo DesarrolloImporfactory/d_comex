@@ -20,7 +20,8 @@
                                 <th>ID</th>
                                 <th>NAME</th>
                                 <th>EMAIL</th>
-                                <th>VERIFY</th>
+                                <th>SESSION</th>
+                                <th>ROLE</th>
                                 <th>OPTION</th>
                             </tr>
                         </thead>
@@ -31,12 +32,17 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->email_verified_at }}</td>
+                                        <td>{{ $item->session }}</td>
+                                        <td> @if (!empty($item->getRoleNames()))
+                                @foreach ($item->getRoleNames() as $rol)
+                                    <h5><span class="badge rounded-pill text-bg-success">{{ $rol }}</span></h5>
+                                @endforeach
+                            @endif</td>
                                         <td><button class="btn btn-success btn-sm mr-2" wire:click="editUser({{ $item->id }})" type="button"
                                                 data-bs-toggle="modal" data-bs-target="#modalEdit"><i
-                                                    class="fa-solid fa-pen-to-square "></i></button>
+                                                    class="fa-solid fa-pen-to-square "></i> Editar</button>
                                             <button class="btn btn-danger btn-sm ml-2" wire:click="$emit('deleteUser',{{ $item->id }})"
-                                                type="button"><i class="fa-solid fa-trash"></i></button>
+                                                type="button"><i class="fa-solid fa-trash"></i> Eliminar</button>
                                         </td>
                                     </tr>
                                 @endforeach
