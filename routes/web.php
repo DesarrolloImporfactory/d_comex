@@ -5,6 +5,7 @@ use App\Http\Controllers\ConsultasController;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -33,5 +34,6 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('admin/consulta', ConsultasController::class)->names('admin.consulta');
+    Route::resource('admin/users', UserController::class)->names('admin.users');
 });
 

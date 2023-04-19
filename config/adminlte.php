@@ -307,11 +307,17 @@ return [
         //     'text' => 'search',
         // ],
         [
+            'text' => 'Usuarios',
+            'topnav_right' => false,
+            'route' => 'admin.users.index',
+            'can' => 'admin.users.index',
+        ],
+        [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-    
+
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -325,6 +331,7 @@ return [
             'icon' => 'fas fa-fw fa-lock',
             'topnav_user' => true,
         ],
+
         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
@@ -363,7 +370,7 @@ return [
                 ],
             ],
         ],
-        
+
     ],
 
     /*
@@ -524,5 +531,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

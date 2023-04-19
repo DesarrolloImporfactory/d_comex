@@ -108,7 +108,8 @@
                                             <div class="col-md-4"><label for="">PRODUCTO:</label></div>
                                             <div class="col-md-8"><span
                                                     class="fa fa-search form-control-feedback"></span><input type="text"
-                                                    class="form-control" id="productoView" name="productoView" placeholder="ingresar el producto o la descripción.">
+                                                    class="form-control" id="productoView" name="productoView"
+                                                    placeholder="ingresar el producto o la descripción.">
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +210,7 @@
                                 <div class="ml-2 mr-2 mt-3">
                                     <div class="form-group">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i> ADUANA:
-                                            <x-adminlte-select2 name="distrito" id="aduanas">
+                                        <x-adminlte-select2 name="distrito" id="aduanas">
                                             <option value="">TODAS</option>
                                             @foreach ($aduanas as $item)
                                                 <option value="{{ $item->distrito }}">{{ $item->id }} -
@@ -220,24 +221,24 @@
                                     </div>
                                     <div class="form-group">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i> VIA DE TRANSPORTE:
-                                        
-                                            <x-adminlte-select2 name="iva" id="via">
+
+                                        <x-adminlte-select2 name="iva" id="via">
                                             <option value="">TODAS</option>
                                             @foreach ($vias as $item)
-                                                <option value="{{ $item->via}}">{{ $item->id }} -
-                                                    {{ $item->via}}
+                                                <option value="{{ $item->via }}">{{ $item->id }} -
+                                                    {{ $item->via }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select2>
                                     </div>
                                     <div class="form-group">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i> PAIS DE ORIGEN:
-                                        
-                                            <x-adminlte-select2 name="pais_origen" id="pais_origen">
+
+                                        <x-adminlte-select2 name="pais_origen" id="pais_origen">
                                             <option value="">TODAS</option>
                                             @foreach ($paises as $item)
-                                                <option value="{{ $item->pais_origen}}">{{ $item->id }} -
-                                                    {{ $item->pais_origen}}
+                                                <option value="{{ $item->pais_origen }}">{{ $item->id }} -
+                                                    {{ $item->pais_origen }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select2>
@@ -276,11 +277,11 @@
                                     </div>
                                     <div class="form-group">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i> INCOTERM:
-                                            <x-adminlte-select2 name="incoterm" id="incoterm">
+                                        <x-adminlte-select2 name="incoterm" id="incoterm">
                                             <option value="">TODAS</option>
                                             @foreach ($incoterms as $item)
-                                                <option value="{{ $item->incoterm}}">{{ $item->id }} -
-                                                    {{ $item->incoterm}}
+                                                <option value="{{ $item->incoterm }}">{{ $item->id }} -
+                                                    {{ $item->incoterm }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select2>
@@ -301,117 +302,118 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="preloader" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="preloader" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
             </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-          </div>
         </div>
-      </div>
-   
+    </div>
+
     <!-- <script src="{{ asset('js/searchs.js') }}"></script> -->
     <script src="{{ asset('js/validar.js') }}"></script>
     <script>
         $("#productoView").autocomplete({
-    source: 'search/producto',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        $("#producto").val(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#marca").autocomplete({
-    source: 'search/marca',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $("#marca").val(ui.item.label);
-    }
-});
-$("#rucView").autocomplete({
-    source: 'search/ruc',
-    minLength: 3,
-    select: function(event, ui) {
-        event.preventDefault();
-        $("#ruc").val(ui.item.id)//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#nave").autocomplete({
-    source: 'search/nave',
-    minLength: 1,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#linea").autocomplete({
-    source: 'search/linea',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#embarcador").autocomplete({
-    source: 'search/embarcadorConsigne',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#refrendo").autocomplete({
-    source: 'search/refrendo',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#agente_afianzado").autocomplete({
-    source: 'search/agenteAfianzado',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
-$("#almacen").autocomplete({
-    source: 'search/almacen',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
+            source: 'search/producto',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                $("#producto").val(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#marca").autocomplete({
+            source: 'search/marca',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $("#marca").val(ui.item.label);
+            }
+        });
+        $("#rucView").autocomplete({
+            source: 'search/ruc',
+            minLength: 3,
+            select: function(event, ui) {
+                event.preventDefault();
+                $("#ruc").val(ui.item.id) //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#nave").autocomplete({
+            source: 'search/nave',
+            minLength: 1,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#linea").autocomplete({
+            source: 'search/linea',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#embarcador").autocomplete({
+            source: 'search/embarcadorConsigne',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#refrendo").autocomplete({
+            source: 'search/refrendo',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#agente_afianzado").autocomplete({
+            source: 'search/agenteAfianzado',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
+        $("#almacen").autocomplete({
+            source: 'search/almacen',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
 
-$("#subpartida").autocomplete({
-    source: 'search/subpartida',
-    minLength: 2,
-    select: function(event, ui) {
-        event.preventDefault();
-        console.log(ui.item.id);//imprimiendo id por consola
-        $(this).val(ui.item.label);
-    }
-});
+        $("#subpartida").autocomplete({
+            source: 'search/subpartida',
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                console.log(ui.item.id); //imprimiendo id por consola
+                $(this).val(ui.item.label);
+            }
+        });
 
         // $("#aduanas").autocomplete({
         //     source: 'search/aduanas',
@@ -451,10 +453,10 @@ $("#subpartida").autocomplete({
         //     }
         // });
     </script>
-    
+
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+
 
 @stop
