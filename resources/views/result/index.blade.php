@@ -3,6 +3,7 @@
 @section('title', 'Home')
 
 @section('content_header')
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -18,10 +19,16 @@
             </div>
         </div>
     </div>
-    <!-- Button trigger modal -->
     <a type="button" class="btn btn-primary" href="{{ route('back') }}">
         <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> Realizar otra busqueda
     </a>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            @livewire('result.consulta-declaracion', ['datos' => $datos])
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,7 +142,7 @@
             </div>
         </div>
     </div>
-    
+
 @stop
 
 @section('css')
@@ -176,7 +183,5 @@
                 .appendTo('#example_wrapper .col-md-6:eq(0)');
         });
     </script>
-  
+
 @endsection
-
-

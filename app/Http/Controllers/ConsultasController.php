@@ -30,7 +30,11 @@ class ConsultasController extends Controller
         } else {
             $data = $this->declaracion22($request->all());
         }
-        return view('result.index', compact('data'));
+        $req = [
+            'datos' => $request->all()
+        ];
+        
+        return view('result.index',$req, compact('data'));
     }
 
     public function declaracion23($request)
