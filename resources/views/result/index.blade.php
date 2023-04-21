@@ -26,6 +26,12 @@
         <div class="col-md-4">
             @livewire('result.consulta-declaracion', ['datos' => $datos])
         </div>
+        <div class="col-md-4">
+            @livewire('result.chart-importador', ['datos' => $datos])
+        </div>
+        <div class="col-md-4">
+            @livewire('result.chart-remitente', ['datos' => $datos])
+        </div>
     </div>
     <!-- Button trigger modal -->
 

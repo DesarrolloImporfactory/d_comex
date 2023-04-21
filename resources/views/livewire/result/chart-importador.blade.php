@@ -1,19 +1,19 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <b>DECLARACIONES POR PAIS</b>
+           <b>DECLARACIONES POR IMPORTADOR</b>
         </div>
         <div class="card-body">
-            <canvas id="chartPais"></canvas>
+            <canvas id="chartImportador"></canvas>
         </div>
     </div>
 </div>
 @push('js')
     <script>
         var cData = JSON.parse(`<?php echo $data; ?>`);
-        const ctx = document.getElementById('chartPais');
+        const impt = document.getElementById('chartImportador');
 
-        const myChart = new Chart(ctx, {
+        new Chart(impt, {
             type: 'pie',
             data: {
                 labels: cData.label,
