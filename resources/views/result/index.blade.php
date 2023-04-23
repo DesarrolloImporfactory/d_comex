@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Resultado</li>
+                        <li class="breadcrumb-item active">Home</li>
+                        <li class="breadcrumb-item text-primary"><a type="button" >Resultado</a></li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
     <a type="button" class="btn btn-primary" href="{{ route('back') }}">
         <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> Realizar otra busqueda
     </a>
-    <div class="row mt-3">
+    {{-- <div class="row mt-3">
         <div class="col-md-4">
             @livewire('result.consulta-declaracion', ['datos' => $datos])
         </div>
@@ -32,7 +32,7 @@
         <div class="col-md-4">
             @livewire('result.chart-remitente', ['datos' => $datos])
         </div>
-    </div>
+    </div> --}}
     <!-- Button trigger modal -->
 
 
@@ -58,96 +58,94 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-eye fa-beat-fade"></i> Mira el resultado de forma más detallada
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped" id="example">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>RUC/IMPORTADOR</th>
-                                <th>PRODUCTO</th>
-                                <th>MARCA</th>
-                                <th>FOB UNITARIO</th>
-                                <th>PAIS ORIGEN</th>
-                                <th>CANTIDAD</th>
-                                <th>SUBPARTIDA</th>
-                                <th>DESCRIPCION PARTIDA</th>
+        <div class="col-md-12 mb-3">
+            <table class="table table-striped table-bordered example" id="example">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>RUC/IMPORTADOR</th>
+                        <th>PRODUCTO</th>
+                        <th>MARCA</th>
+                        <th>FOB UNITARIO</th>
+                        <th>PAIS ORIGEN</th>
+                        <th>CANTIDAD</th>
+                        <th>SUBPARTIDA</th>
+                        <th>DESCRIPCION PARTIDA</th>
 
-                                <th>EMPRESA DE TRANSPORTE</th>
-                                <th>EMBARCADOR</th>
-                                <th>CIUDAD EMBARQUE</th>
-                                <th>PAIS EMBARQUE</th>
-                                <th>VIA</th>
-                                <th>KILOS NETO</th>
-                                <th>REGIMEN</th>
-                                <th>DISTRITO</th>
-                                <th>BL</th>
-                                <th>FECH EMBAR</th>
-                                <th>FECH LLEGADA</th>
-                                <th>FECH INGRESO</th>
-                                <th>FECH PAGO</th>
-                                <th>FECH SALIDA</th>
-                                <th>AÑO</th>
-                                <th>MES</th>
-                                <th>ALMACEN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $count = '1';
-                            @endphp
-                            @foreach ($data as $item)
-                                <tr>
-                                    <td>{{ $count++ }}</td>
-                                    <td>{{ $item->ruc }}/{{ $item->razon_social }}</td>
-                                    <td>{{ $item->producto }}</td>
-                                    <td>{{ $item->marcas }}</td>
-                                    <td>{{ $item->fob_unitario }}</td>
-                                    <td>{{ $item->pais_origen }}</td>
-                                    <td>{{ $item->unidades }}</td>
-                                    <td>{{ $item->subpartida }}</td>
-                                    <td>{{ $item->desc_partida }}</td>
-                                    <td>{{ $item->linea }}</td>
-                                    <td>{{ $item->remitente }}</td>
-                                    <td>{{ $item->ciudad_embarque }}</td>
-                                    <td>{{ $item->pais_embarque }}</td>
-                                    <td>{{ $item->via }}</td>
-                                    <td>{{ $item->kilos_neto }}</td>
-                                    <td>{{ $item->regimen }}</td>
-                                    <td>{{ $item->distrito }}</td>
-                                    <td>{{ $item->bl }}</td>
-                                    @if ($item->periodo == '2023')
-                                        <td>{{ $item->fecha_embarque }}</td>
-                                        <td>{{ $item->fecha_llegada }}</td>
-                                        <td>{{ $item->fecha_ingreso }}</td>
-                                        <td>{{ $item->fecha_pago }}</td>
-                                        <td>{{ $item->fecha_salida }}</td>
-                                    @else
-                                        <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}
-                                        </td>
-                                        <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}
-                                        </td>
-                                        <td>{{ $item->fecha_ingreso }}</td>
-                                        <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}
-                                        </td>
-                                        <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}
-                                        </td>
-                                    @endif
-                                    <td>{{ $item->periodo }}</td>
-                                    <td>{{ $item->mes }}</td>
-                                    <td>{{ $item->dep_comercial }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <th>EMPRESA DE TRANSPORTE</th>
+                        <th>EMBARCADOR</th>
+                        <th>CIUDAD EMBARQUE</th>
+                        <th>PAIS EMBARQUE</th>
+                        <th>VIA</th>
+                        <th>KILOS NETO</th>
+                        <th>REGIMEN</th>
+                        <th>DISTRITO</th>
+                        <th>BL</th>
+                        <th>FECH EMBAR</th>
+                        <th>FECH LLEGADA</th>
+                        <th>FECH INGRESO</th>
+                        <th>FECH PAGO</th>
+                        <th>FECH SALIDA</th>
+                        <th>AÑO</th>
+                        <th>MES</th>
+                        <th>ALMACEN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $count = '1';
+                    @endphp
+                    @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $count++ }}</td>
+                            <td>{{ $item->ruc }}/{{ $item->razon_social }}</td>
+                            <td>{{ $item->producto }}</td>
+                            <td>{{ $item->marcas }}</td>
+                            <td>{{ $item->fob_unitario }}</td>
+                            <td>{{ $item->pais_origen }}</td>
+                            <td>{{ $item->unidades }}</td>
+                            <td>{{ $item->subpartida }}</td>
+                            <td>{{ $item->desc_partida }}</td>
+                            <td>{{ $item->linea }}</td>
+                            <td>{{ $item->remitente }}</td>
+                            <td>{{ $item->ciudad_embarque }}</td>
+                            <td>{{ $item->pais_embarque }}</td>
+                            <td>{{ $item->via }}</td>
+                            <td>{{ $item->kilos_neto }}</td>
+                            <td>{{ $item->regimen }}</td>
+                            <td>{{ $item->distrito }}</td>
+                            <td>{{ $item->bl }}</td>
+                            @if ($item->periodo == '2023')
+                                <td>{{ $item->fecha_embarque }}</td>
+                                <td>{{ $item->fecha_llegada }}</td>
+                                <td>{{ $item->fecha_ingreso }}</td>
+                                <td>{{ $item->fecha_pago }}</td>
+                                <td>{{ $item->fecha_salida }}</td>
+                            @else
+                                <td>{{ $item->fecha_embarque_dia }}/{{ $item->fecha_embarque_mes }}/{{ $item->fecha_embarque_year }}
+                                </td>
+                                <td>{{ $item->fecha_llegada_dia }}/{{ $item->fecha_llegada_mes }}/{{ $item->fecha_llegada_year }}
+                                </td>
+                                <td>{{ $item->fecha_ingreso }}</td>
+                                <td>{{ $item->fecha_pago_dia }}/{{ $item->fecha_pago_mes }}/{{ $item->fecha_pago_year }}
+                                </td>
+                                <td>{{ $item->fecha_salida_dia }}/{{ $item->fecha_salida_mes }}/{{ $item->fecha_salida_year }}
+                                </td>
+                            @endif
+                            <td>{{ $item->periodo }}</td>
+                            <td>{{ $item->mes }}</td>
+                            <td>{{ $item->dep_comercial }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+    <style>
+        .example {
+            font-size: 12px;
+        }
+    </style>
 
 @stop
 
