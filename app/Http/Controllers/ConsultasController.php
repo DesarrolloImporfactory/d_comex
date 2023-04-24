@@ -24,17 +24,34 @@ class ConsultasController extends Controller
     {
         $request->validate([
             'periodo' => ['required'],
+            'operacion' => ['required'],
         ]);
-        if ($request->input('periodo') == '2023') {
-            $data = $this->declaracion23($request->all());
-        } else {
-            $data = $this->declaracion22($request->all());
+        if ($request->input('operacion') == 'import') {
+            if ($request->input('periodo') == '2023') {
+                # code...
+            } else {
+                # code...
+            }
+            
         }
-        $req = [
-            'datos' => $request->all()
-        ];
+        if ($request->input('operacion') == 'export') {
+            if ($request->input('periodo') == '2023') {
+                # code...
+            } else {
+                # code...
+            }
+            
+        }
+        // if ($request->input('periodo') == '2023') {
+        //     $data = $this->declaracion23($request->all());
+        // } else {
+        //     $data = $this->declaracion22($request->all());
+        // }
+        // $req = [
+        //     'datos' => $request->all()
+        // ];
         
-        return view('result.index',$req, compact('data'));
+        return view('result.index',compact('data'));
     }
 
     public function declaracion23($request)

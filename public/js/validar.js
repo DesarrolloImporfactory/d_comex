@@ -61,7 +61,7 @@ $(document).ready(function () {
             let timerInterval
             Swal.fire({
                 title: 'Buscando coincidencias!',
-                html: 'Buscando en <b></b> registros.',
+                html: 'La búsqueda puede tardar hasta 2 minutos en generar resultados.',
                 timer: 9999999,
                 allowOutsideClick:false,
                 allowEscapeKey: false,

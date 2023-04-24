@@ -49,8 +49,8 @@
                                             <div class="form-group">
                                                 <label for="">OPERACION:</label>
                                                 <x-adminlte-select2 name="operacion">
-                                                    <option value="">Importaciones</option>
-                                                    <option value="" disabled>Exportaciones</option>
+                                                    <option value="import">Importaciones</option>
+                                                    <option value="export">Exportaciones</option>
                                                 </x-adminlte-select2>
                                             </div>
                                         </div>
