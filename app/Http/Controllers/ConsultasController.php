@@ -10,6 +10,8 @@ use App\Models\PaisEmbarque;
 use App\Models\Regimen;
 use Illuminate\Support\Facades\DB;
 use App\Models\Declaracion2022;
+use App\Models\Declaracion22Export;
+use App\Models\Declaracion22Import;
 
 class ConsultasController extends Controller
 {
@@ -28,28 +30,24 @@ class ConsultasController extends Controller
         ]);
         if ($request->input('operacion') == 'import') {
             if ($request->input('periodo') == '2023') {
-                # code...
+                $tabla = "declaracion22Import";
+                $data = $this->declaracion23($request->all());
             } else {
-                # code...
+                $tabla = "declaracion22Import";
+                $data = $this->declaracion22Import($request->all(),$tabla);
             }
             
         }
         if ($request->input('operacion') == 'export') {
             if ($request->input('periodo') == '2023') {
-                # code...
+                $tabla = "declaracion22Import";
+                $data = $this->declaracion23($request->all());
             } else {
-                # code...
+                $tabla = "declaracion22Export";
+                $data = $this->declaracion22Export($request->all(),$tabla);
             }
             
         }
-        // if ($request->input('periodo') == '2023') {
-        //     $data = $this->declaracion23($request->all());
-        // } else {
-        //     $data = $this->declaracion22($request->all());
-        // }
-        // $req = [
-        //     'datos' => $request->all()
-        // ];
         
         return view('result.index',compact('data'));
     }
@@ -108,10 +106,31 @@ class ConsultasController extends Controller
         return $data;
     }
 
-    public function declaracion_2022($request)
+    public function declaracion22Export($request,$tabla)
     {
-        $data = Declaracion2022::select('ruc','razon_social','producto','marcas','fob_unitario','pais_origen','unidades','subpartida','desc_partida','linea','remitente','ciudad_embarque','pais_embarque','via','kilos_neto','regimen','distrito','bl','fecha_embarque_dia','fecha_embarque_mes','fecha_embarque_year','fecha_llegada_dia','fecha_llegada_mes','fecha_llegada_year','fecha_ingreso','fecha_pago_dia','fecha_pago_mes','fecha_pago_year','fecha_salida_dia','fecha_salida_mes','fecha_salida_year','periodo','mes','dep_comercial')
-            ->rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
+        $data =  Declaracion22Export::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
+            ->iva($request['iva'])
+            ->origen($request['pais_origen'])
+            ->embarque($request['pais_embarque'])
+            ->ciudad($request['ciudad_embarque'])
+            ->regimen($request['regimen'])
+            ->incoterm($request['incoterm'])
+            ->producto($request['producto'])
+            ->marca($request['marca'])
+            ->subPartida($request['arancelDesc'])
+            ->ruc($request['ruc'])
+            ->linea($request['linea'])
+            ->embarcador($request['embarcador'])
+            ->refrendo($request['refrendo'])
+            ->agenteAfianzado($request['agente_afianzado'])
+            ->almacen($request['almacen'])
+            ->get();
+        return $data;
+    }
+
+    public function declaracion22Import($request,$tabla)
+    {
+        $data =  Declaracion22Import::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
             ->iva($request['iva'])
             ->origen($request['pais_origen'])
             ->embarque($request['pais_embarque'])
