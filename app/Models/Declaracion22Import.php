@@ -9,7 +9,17 @@ class Declaracion22Import extends Model
 {
     use HasFactory;
 
-    protected $table = "declaracion22Import";
+    protected $table = "declaracionesImport22_copia";
+
+    public function scopeOperacion($query, $operacion){
+        if($operacion)
+            return $query->whereIn('regimen_tipo',$operacion);
+    }
+
+    public function scopeMes($query, $mes){
+        if($mes)
+            return $query->where('mes',$mes);
+    }
 
     public function scopeDistrito($query, $distrito){
         if($distrito)

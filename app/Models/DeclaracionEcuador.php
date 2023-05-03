@@ -9,6 +9,16 @@ class DeclaracionEcuador extends Model
 {
     use HasFactory;
 
+    public function scopeOperacion($query, $operacion){
+        if($operacion)
+            return $query->whereIn('regimen_tipo',$operacion);
+    }
+
+    public function scopeMes($query, $mes){
+        if($mes)
+            return $query->where('mes',$mes);
+    }
+
     public function scopeDistrito($query, $distrito){
         if($distrito)
             return $query->where('distrito',$distrito);
