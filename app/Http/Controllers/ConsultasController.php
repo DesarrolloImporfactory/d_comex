@@ -25,6 +25,8 @@ class ConsultasController extends Controller
 
     public function create(Request $request)
     {
+        ini_set('memory_limit', '1024M');
+        set_time_limit(3000000);
         $request->validate([
             'periodo' => ['required'],
             'operacion' => ['required'],

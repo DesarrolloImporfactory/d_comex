@@ -84,6 +84,8 @@ class TableResult extends Component
 
     public function render()
     {
+        ini_set('memory_limit', '1024M');
+        set_time_limit(3000000);
         if ($this->periodo == "2022") {
             $consulta = $this->declaracion22();
             $select = $this->declaracion22();
@@ -225,15 +227,45 @@ class TableResult extends Component
         $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
         if ($tipo == 'csv') {
             Declaracion22Import::query()
-                ->subPartida($this->arancelDesc)
+            ->distrito($this->distrito)
+                    ->iva($this->iva)
+                    ->origen($this->pais_origen)
+                    ->embarque($this->pais_embarque)
+                    ->ciudad($this->ciudad_embarque)
+                    ->regimen($this->regimen)
+                    ->incoterm($this->incoterm)
+                    ->producto($this->producto)
+                    ->marca($this->marca)
+                    ->subPartida($this->arancelDesc)
+                    ->ruc($this->ruc)
+                    ->linea($this->linea)
+                    ->embarcador($this->embarcador)
+                    ->refrendo($this->refrendo)
+                    ->agenteAfianzado($this->agente_afianzado)
+                    ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
                 ->lazyById(2000, 'id')
                 ->each(function ($consulta) use ($handle) {
                     fputcsv($handle, $consulta->toArray());
                 });
         } else {
             Declaracion22Import::query()
-                ->subPartida($this->arancelDesc)
-                ->lazyById(2000, 'id')
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+        ->lazyById(2000, 'id')
                 ->each(function ($consulta) use ($handle) {
                     fputcsv($handle, $consulta->toArray(), ';');
                 });
