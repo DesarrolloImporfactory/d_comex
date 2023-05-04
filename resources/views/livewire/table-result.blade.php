@@ -345,9 +345,9 @@
                     <div wire:click='render' class="col-md-8 text-center mt-3">
                         {{ $data->links() }}
                     </div>
-                    <div class="alert alert-light ">
+                    {{-- <div class="alert alert-light ">
                         <span>Total de registros encontrados: {{ $acum }}</span>
-                    </div>
+                    </div> --}}
                 </div>
             @else
                 <div class="alert alert-light mt-3">{{ $searchAll }} no existen en nuestra base de datos....

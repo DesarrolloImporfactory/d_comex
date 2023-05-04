@@ -170,20 +170,16 @@ class TableResult extends Component
             });
         }
 
-        // $embarcador = $select->select('remitente')->get();
-        // $subpartida = $select->select('subpartida')->get();
         $via = $select->select('via')->get();
         $mes = $select->select('mes')->get();
 
-        // $embarcadores = $embarcador->unique('remitente');
-        // $subpartidas = $subpartida->unique('subpartida');
         $vias = $via->unique('via');
         $meses = $mes->unique('mes');
 
         $data = $consulta->paginate($this->perPage);
-        $this->acumulador = count($select->select('id')->get());
-        $acum = $this->acumulador;
-        return view('livewire.table-result', compact('data', 'vias', 'meses', 'acum'));
+        // $this->acumulador = count($select->select('id')->get());
+        // $acum = $this->acumulador;
+        return view('livewire.table-result', compact('data', 'vias', 'meses'));
     }
 
     public function operacion($operacion)
@@ -224,48 +220,111 @@ class TableResult extends Component
         ini_set('memory_limit', '1024M');
         set_time_limit(3000000);
         $time = new Carbon();
+        if($this->periodo == "2022"){
+            return $this->export22($tipo,$time);
+        }else{
+            return $this->export23($tipo,$time);
+        }
+    }
+
+    public function export22($tipo,$time){
+        
         $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
         if ($tipo == 'csv') {
-            Declaracion22Import::query()
-            ->distrito($this->distrito)
-                    ->iva($this->iva)
-                    ->origen($this->pais_origen)
-                    ->embarque($this->pais_embarque)
-                    ->ciudad($this->ciudad_embarque)
-                    ->regimen($this->regimen)
-                    ->incoterm($this->incoterm)
-                    ->producto($this->producto)
-                    ->marca($this->marca)
-                    ->subPartida($this->arancelDesc)
-                    ->ruc($this->ruc)
-                    ->linea($this->linea)
-                    ->embarcador($this->embarcador)
-                    ->refrendo($this->refrendo)
-                    ->agenteAfianzado($this->agente_afianzado)
-                    ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+            Declaracion2022::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
                 ->lazyById(2000, 'id')
                 ->each(function ($consulta) use ($handle) {
                     fputcsv($handle, $consulta->toArray());
                 });
         } else {
-            Declaracion22Import::query()
-            ->distrito($this->distrito)
-            ->iva($this->iva)
-            ->origen($this->pais_origen)
-            ->embarque($this->pais_embarque)
-            ->ciudad($this->ciudad_embarque)
-            ->regimen($this->regimen)
-            ->incoterm($this->incoterm)
-            ->producto($this->producto)
-            ->marca($this->marca)
-            ->subPartida($this->arancelDesc)
-            ->ruc($this->ruc)
-            ->linea($this->linea)
-            ->embarcador($this->embarcador)
-            ->refrendo($this->refrendo)
-            ->agenteAfianzado($this->agente_afianzado)
-            ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
-        ->lazyById(2000, 'id')
+            Declaracion2022::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray(), ';');
+                });
+        }
+
+        fclose($handle);
+        $this->emit('alert', 'Tu archivo esta listo!.');
+        return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
+    }
+
+    public function export23($tipo,$time){
+        
+        $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
+        if ($tipo == 'csv') {
+            DeclaracionEcuador::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray());
+                });
+        } else {
+            DeclaracionEcuador::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
                 ->each(function ($consulta) use ($handle) {
                     fputcsv($handle, $consulta->toArray(), ';');
                 });
