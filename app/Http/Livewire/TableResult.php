@@ -2,20 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\Decla22Export;
-use App\Exports\Decla23Export;
 use Livewire\Component;
-use App\Models\Declaracion22Import;
 use Livewire\WithPagination;
 use App\Models\DeclaracionEcuador;
-use App\Exports\UsersExport;
 use App\Models\Declaracion2022;
-use App\Models\User;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 class TableResult extends Component
 {

@@ -319,9 +319,33 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Recomendaciones</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: justify;">La búsqueda excede el límite de registros, será mejor seguir cualquiera de los siguientes parámetros para garantizar la fluides en visualización de resultados y experiencia de usuario. </p>
+                <ul>
+                  <li>Filtrar por rango de meses, ejemplo: de Enero a Mayo.</li>
+                  <li>Ingresar un criterio de búsqueda adicional, ejemplo: producto, marca, ruc, etc.</li>
+                  <li>Ingresar un filtro de búsqueda adicional.</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- <script src="{{ asset('js/searchs.js') }}"></script> -->
     <script src="{{ asset('js/validar.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            if ({{Session::has('alert')}}) 
+                $("#alert").modal('show');
+        });
+    </script>
     <script>
         $("#productoView").autocomplete({
             source: 'search/producto',
@@ -414,44 +438,6 @@
                 $(this).val(ui.item.label);
             }
         });
-
-        // $("#aduanas").autocomplete({
-        //     source: 'search/aduanas',
-        //     minLength: 1,
-        //     select: function(event, ui) {
-        //         event.preventDefault();
-        //         console.log(ui.item.id); //imprimiendo id por consola
-        //         $(this).val(ui.item.label);
-        //     }
-        // });
-
-        // $("#via").autocomplete({
-        //     source: 'search/via',
-        //     minLength: 1,
-        //     select: function(event, ui) {
-        //         event.preventDefault();
-        //         console.log(ui.item.id); //imprimiendo id por consola
-        //         $(this).val(ui.item.label);
-        //     }
-        // });
-        // $("#pais_origen").autocomplete({
-        //     source: 'search/paisOrigen',
-        //     minLength: 1,
-        //     select: function(event, ui) {
-        //         event.preventDefault();
-        //         console.log(ui.item.id); //imprimiendo id por consola
-        //         $(this).val(ui.item.label);
-        //     }
-        // });
-        // $("#incoterm").autocomplete({
-        //     source: 'search/incoterm',
-        //     minLength: 1,
-        //     select: function(event, ui) {
-        //         event.preventDefault();
-        //         console.log(ui.item.id); //imprimiendo id por consola
-        //         $(this).val(ui.item.label);
-        //     }
-        // });
     </script>
 
 @stop
