@@ -73,14 +73,15 @@ class ChartImportador extends Component
         } else {
             $data = $this->declaracion_2022($this->datos);
         }
+        
         foreach ($data as $consulta) {
-            $array['label'][] = $consulta->razon_social;
+            $array['label'][] = $consulta->pais_origen;
             $array['data'][] = $consulta->cantidad_declaraciones;
         }
 
-        $datos = [
-            'data' => $array['data'] = json_encode($array),
-        ];
-        return view('livewire.result.chart-importador', $datos);
+        $chart = $array['data'] = json_encode($array);
+        
+        
+        return view('livewire.result.chart-importador',compact('chart','data'));
     }
 }

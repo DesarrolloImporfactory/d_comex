@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CiudadEmbarque;
-use App\Models\Declaracion2022;
 use Illuminate\Http\Request;
-use App\Models\DeclaracionEcuador;
 use App\Models\Mes;
 use App\Models\Nave;
 use App\Models\Embarcador;
@@ -23,7 +21,6 @@ use App\Models\Aduana;
 use App\Models\Via;
 use App\Models\Pais;
 use App\Models\Incoterm;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller

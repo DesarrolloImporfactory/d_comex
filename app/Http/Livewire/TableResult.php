@@ -211,17 +211,21 @@ class TableResult extends Component
         ini_set('memory_limit', '1024M');
         set_time_limit(3000000);
         $time = new Carbon();
-        if($this->periodo == "2022"){
-            return $this->export22($tipo,$time);
-        }else{
-            return $this->export23($tipo,$time);
+        if ($this->periodo == "2022") {
+            return $this->export22($tipo, $time);
+        } else {
+            return $this->export23($tipo, $time);
         }
     }
 
-    public function export22($tipo,$time){
-        
+    public function export22($tipo, $time)
+    {
+
         $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
+        $columnas = Declaracion2022::query()->first()->getConnection()->getSchemaBuilder()->getColumnListing('declaracion2022s');
+
         if ($tipo == 'csv') {
+            fputcsv($handle, $columnas,);
             Declaracion2022::query()
                 ->distrito($this->distrito)
                 ->iva($this->iva)
@@ -244,6 +248,8 @@ class TableResult extends Component
                     fputcsv($handle, $consulta->toArray());
                 });
         } else {
+            $delimitador = ';';
+            fputcsv($handle, $columnas, $delimitador);
             Declaracion2022::query()
                 ->distrito($this->distrito)
                 ->iva($this->iva)
@@ -272,10 +278,12 @@ class TableResult extends Component
         return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
     }
 
-    public function export23($tipo,$time){
-        
+    public function export23($tipo, $time)
+    {
         $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
+        $columnas = Declaracion2022::query()->first()->getConnection()->getSchemaBuilder()->getColumnListing('declaracion_ecuadors');
         if ($tipo == 'csv') {
+            fputcsv($handle, $columnas);
             DeclaracionEcuador::query()
                 ->distrito($this->distrito)
                 ->iva($this->iva)
@@ -298,6 +306,8 @@ class TableResult extends Component
                     fputcsv($handle, $consulta->toArray());
                 });
         } else {
+            $delimitador = ';';
+            fputcsv($handle, $columnas, $delimitador);
             DeclaracionEcuador::query()
                 ->distrito($this->distrito)
                 ->iva($this->iva)

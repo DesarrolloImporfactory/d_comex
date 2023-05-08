@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ConsultasController;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('search/paisOrigen', [HomeController::class, 'searchPaisOrigen'])->name('search.paisOrigen');
     Route::get('search/incoterm', [HomeController::class, 'searchIncoterm'])->name('search.incoterm');
 
-
     Route::resource('admin/consulta', ConsultasController::class)->names('admin.consulta');
     Route::resource('admin/users', UserController::class)->names('admin.users');
+    Route::resource('admin/charts',ChartsController::class)->names('admin.charts');
 });
 
