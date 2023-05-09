@@ -18,7 +18,7 @@
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item active">Home</li>
-                                    <li class="breadcrumb-item "><a href="#">Resultado</a></li>
+                                    <li class="breadcrumb-item "><a href="#">Charts</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -46,8 +46,16 @@
                             @livewire('result.chart-importador', ['datos' => $data])
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-arancel', ['datos' => $data])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-importador', ['datos' => $data])
+                        </div>
+                    </div>
                 </div>
 
             </div>

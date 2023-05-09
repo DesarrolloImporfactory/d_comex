@@ -39,7 +39,7 @@ class TableUsers extends Component
         if ($this->password == $data->password) {
             $password = $data->password;
         } else {
-            $password = Hash::make($this->password);
+            $password = md5($this->password);
         }
         User::where('id', $this->idUser)->update([
             'name' => $this->name,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Result;
+namespace App\Http\Livewire\Chart;
 
 use Livewire\Component;
 use App\Models\DeclaracionEcuador;
@@ -35,32 +35,8 @@ class ChartImportador extends Component
             ->refrendo($request['refrendo'])
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
-            ->select('pais_origen', DB::raw('COUNT(*) as cantidad_declaraciones'))
-            ->groupBy('pais_origen')
-            ->get();
-        return $data;
-    }
-    public function declaracion22($request)
-    {
-        $data = Declaracion2022::select('pais_origen', 'ruc', DB::raw('COUNT(*) as cantidad_declaraciones'))
-            ->rango($request['desde'], $request['hasta'])
-            ->distrito($request['distrito'])
-            ->iva($request['iva'])
-            ->origen($request['pais_origen'])
-            ->embarque($request['pais_embarque'])
-            ->ciudad($request['ciudad_embarque'])
-            ->regimen($request['regimen'])
-            ->incoterm($request['incoterm'])
-            ->producto($request['producto'])
-            ->marca($request['marca'])
-            ->subPartida($request['arancelDesc'])
-            ->ruc($request['ruc'])
-            ->linea($request['linea'])
-            ->embarcador($request['embarcador'])
-            ->refrendo($request['refrendo'])
-            ->agenteAfianzado($request['agente_afianzado'])
-            ->almacen($request['almacen'])
-            ->groupBy('pais_origen', 'ruc')
+            ->select('ruc', DB::raw('COUNT(*) as cantidad_declaraciones'))
+            ->groupBy('ruc')
             ->get();
         return $data;
     }
@@ -84,8 +60,8 @@ class ChartImportador extends Component
             ->refrendo($request['refrendo'])
             ->agenteAfianzado($request['agente_afianzado'])
             ->almacen($request['almacen'])
-            ->select('razon_social', DB::raw('COUNT(*) as cantidad_declaraciones'))
-            ->groupBy('razon_social')
+            ->select('ruc', DB::raw('COUNT(*) as cantidad_declaraciones'))
+            ->groupBy('ruc')
             ->get();
         return $data;
     }
@@ -93,23 +69,21 @@ class ChartImportador extends Component
     {
         $array = [];
         $request = $this->datos;
-        $this->periodo = $request['periodo'];
+        $this->periodo = $request['periodo'] ;
         if ($request['periodo'] == 2023) {
             $data = $this->declaracion_2023($this->datos);
         } else {
             $data = $this->declaracion_2022($this->datos);
-            $tabla = $this->declaracion22($this->datos);
         }
-
+        
         foreach ($data as $consulta) {
-            $array[] = [
-                'name' => $consulta['pais_origen'],
-                'y' => $consulta['cantidad_declaraciones']
+            $array[]=[
+                'name'=>$consulta['ruc'],
+                'y'=>$consulta['cantidad_declaraciones']
             ];
         }
 
         $chart = json_encode($array);
-
-        return view('livewire.result.chart-importador', compact('chart', 'tabla'));
+        return view('livewire.chart.chart-importador',compact('chart'));
     }
 }
