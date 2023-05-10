@@ -1,41 +1,15 @@
 <div class="row">
     <div class="label border p-2 bg-dark text-light rounded mb-2"><i class="fa-solid fa-chart-line"></i>
-        DECLARACIONES POR PAIS DE ORIGEN </div>
+        DECLARACIONES POR AGENTE ADUANERO </div>
     <div class="col-md-12">
-        <div id="container"></div>
+        <div id="chartAgente"></div>
     </div>
-    {{-- <div class="row">
-        <div class="col-md-12">
-            <table class="table table-light">
-                <thead class="thead-light">
-                    <tr>
-                        <th>#</th>
-                        <th>PAIS</th>
-                        <th>RUC</th>
-                        <th>DECLARACIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $count = 1 ;
-                    @endphp
-                    @foreach ($tabla as $item)
-                    <tr>
-                        <td>{{$count++}}</td>
-                        <td>{{$item->pais_origen}}</td>
-                        <td>{{$item->ruc}}</td>
-                        <td>{{$item->cantidad_declaraciones}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div> 
-    </div> --}}
+
 </div>
 @push('js')
 
     <script>
-        Highcharts.chart('container', {
+        Highcharts.chart('chartAgente', {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -43,7 +17,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Declaraciones por país de origen en el periodo '+JSON.parse(`<?php echo $periodo; ?>`),
+                text: 'Declaraciones por agente aduanero en el periodo '+JSON.parse(`<?php echo $periodo; ?>`),
                 align: 'left'
             },
             tooltip: {
@@ -66,10 +40,11 @@
                 }
             },
             series: [{
-                name: 'Cantidad',
+                name: 'Ruc',
                 colorByPoint: true,
                 data: JSON.parse(`<?php echo $chart; ?>`)
             }]
         });
     </script>
 @endpush
+

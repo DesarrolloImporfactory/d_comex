@@ -39,6 +39,22 @@
                         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
                             aria-controls="contact" aria-selected="false">Importador</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="aduana-tab" data-toggle="tab" href="#aduana" role="tab"
+                            aria-controls="contact" aria-selected="false">Aduana, distrito</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="agente-tab" data-toggle="tab" href="#agente" role="tab"
+                            aria-controls="contact" aria-selected="false">Agente aduanero</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="embarcador-tab" data-toggle="tab" href="#embarcador" role="tab"
+                            aria-controls="contact" aria-selected="false">Embarcador</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="regimen-tab" data-toggle="tab" href="#regimen" role="tab"
+                            aria-controls="contact" aria-selected="false">Regimen aduanero</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -54,6 +70,26 @@
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="row mt-3">
                             @livewire('chart.chart-importador', ['datos' => $data])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="aduana" role="tabpanel" aria-labelledby="aduana-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-aduana', ['datos' => $data])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agente" role="tabpanel" aria-labelledby="agente-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-agente', ['datos' => $data])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="embarcador" role="tabpanel" aria-labelledby="embarcador-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-embarcador', ['datos' => $data])
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="regimen" role="tabpanel" aria-labelledby="regimen-tab">
+                        <div class="row mt-3">
+                            @livewire('chart.chart-regimen', ['datos' => $data])
                         </div>
                     </div>
                 </div>
