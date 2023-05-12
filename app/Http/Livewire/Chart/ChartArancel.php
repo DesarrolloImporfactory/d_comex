@@ -13,6 +13,10 @@ class ChartArancel extends Component
     public $consulta;
     public $periodo = "";
 
+    public function mount($datos)
+    {
+        $this->datos = $datos;
+    }
     public function render()
     {
         $array = [];
@@ -20,8 +24,10 @@ class ChartArancel extends Component
         $this->periodo = $request['periodo'] ;
         if ($request['periodo'] == 2023) {
             $data = $this->declaracion_2023($this->datos);
+            $tabla = $this->declaracion23($this->datos);
         } else {
             $data = $this->declaracion_2022($this->datos);
+            $tabla = $this->declaracion22($this->datos);
         }
         
         foreach ($data as $consulta) {
@@ -33,13 +39,9 @@ class ChartArancel extends Component
 
         $chart = json_encode($array);
 
-        return view('livewire.chart.chart-arancel',compact('chart'));
+        return view('livewire.chart.chart-arancel',compact('chart','tabla'));
     }
 
-    public function mount($datos)
-    {
-        $this->datos = $datos;
-    }
     public function declaracion_2022($request)
     {
         $data = Declaracion2022::rango($request['desde'], $request['hasta'])->distrito($request['distrito'])
@@ -87,5 +89,67 @@ class ChartArancel extends Component
             ->groupBy('subpartida')
             ->get();
         return $data;
+    }
+    public function declaracion22($request)
+    {
+
+        $data = Declaracion2022::select('subpartida', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
+            ->operacion($this->operacion($request['operacion']))
+            ->rango($request['desde'], $request['hasta'])
+            ->distrito($request['distrito'])
+            ->iva($request['iva'])
+            ->origen($request['pais_origen'])
+            ->embarque($request['pais_embarque'])
+            ->ciudad($request['ciudad_embarque'])
+            ->regimen($request['regimen'])
+            ->incoterm($request['incoterm'])
+            ->producto($request['producto'])
+            ->marca($request['marca'])
+            ->subPartida($request['arancelDesc'])
+            ->ruc($request['ruc'])
+            ->linea($request['linea'])
+            ->embarcador($request['embarcador'])
+            ->refrendo($request['refrendo'])
+            ->agenteAfianzado($request['agente_afianzado'])
+            ->almacen($request['almacen'])
+            ->groupBy('subpartida')
+            ->get();
+        return $data;
+    }
+
+    public function declaracion23($request)
+    {
+
+        $data = DeclaracionEcuador::select('subpartida', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
+            ->operacion($this->operacion($request['operacion']))
+            ->rango($request['desde'], $request['hasta'])
+            ->distrito($request['distrito'])
+            ->iva($request['iva'])
+            ->origen($request['pais_origen'])
+            ->embarque($request['pais_embarque'])
+            ->ciudad($request['ciudad_embarque'])
+            ->regimen($request['regimen'])
+            ->incoterm($request['incoterm'])
+            ->producto($request['producto'])
+            ->marca($request['marca'])
+            ->subPartida($request['arancelDesc'])
+            ->ruc($request['ruc'])
+            ->linea($request['linea'])
+            ->embarcador($request['embarcador'])
+            ->refrendo($request['refrendo'])
+            ->agenteAfianzado($request['agente_afianzado'])
+            ->almacen($request['almacen'])
+            ->groupBy('subpartida')
+            ->get();
+        return $data;
+    }
+    public function operacion($operacion)
+    {
+        if ($operacion == 'import') {
+            $op = ['IMP.GRAL.', 'IMP.SMPL.'];
+        } else {
+            $op = ['EXP.SMPL.', 'EXP.GRAL.'];
+        }
+        return $op;
     }
 }

@@ -2,38 +2,41 @@
     <div class="label border p-2 bg-dark text-light rounded mb-2"><i class="fa-solid fa-chart-line"></i>
         DECLARACIONES POR PAIS DE ORIGEN </div>
     <div class="col-md-12">
-        <div id="container"></div>
+        <div wire:ignore id="container"></div>
     </div>
-    {{-- <div class="row">
-        <div class="col-md-12">
-            <table class="table table-light">
-                <thead class="thead-light">
-                    <tr>
-                        <th>#</th>
-                        <th>PAIS</th>
-                        <th>RUC</th>
-                        <th>DECLARACIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $count = 1 ;
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nº</th>
+                            <th>PAIS</th>
+                            <th>FOB</th>
+                            <th>CIF</th>
+                            <th>DECLARACIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
                     @endphp
-                    @foreach ($tabla as $item)
-                    <tr>
-                        <td>{{$count++}}</td>
-                        <td>{{$item->pais_origen}}</td>
-                        <td>{{$item->ruc}}</td>
-                        <td>{{$item->cantidad_declaraciones}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div> 
-    </div> --}}
+                        @foreach ($tabla as $item)
+                            <tr>
+                                <td>{{ $i++}}</td>
+                                <td>{{ $item->pais_origen }}</td>
+                                <td>{{ $item->total_fob }}</td>
+                                <td>{{ $item->total_cif }}</td>
+                                <td>{{ $item->cantidad_declaraciones }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 @push('js')
-
     <script>
         Highcharts.chart('container', {
             chart: {
@@ -43,7 +46,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Declaraciones por país de origen en el periodo '+JSON.parse(`<?php echo $periodo; ?>`),
+                text: 'Declaraciones por país de origen en el periodo ' + JSON.parse(`<?php echo $periodo; ?>`),
                 align: 'left'
             },
             tooltip: {
@@ -54,7 +57,7 @@
                     valueSuffix: '%'
                 }
             },
-            
+
             plotOptions: {
                 pie: {
                     allowPointSelect: true,
