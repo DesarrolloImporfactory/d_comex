@@ -16,7 +16,7 @@
             <div class="spinner-grow spinner-grow-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <span>Buscando coincidencias....</span>
+            <span>Cargando......</span>
         </div>
     </div>
 
