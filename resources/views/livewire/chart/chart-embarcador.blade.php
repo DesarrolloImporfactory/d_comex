@@ -25,13 +25,14 @@
                             <tr>
                                 <td>{{ $i++}}</td>
                                 <td>{{ $item->remitente }}</td>
-                                <td>{{ $item->total_fob }}</td>
-                                <td>{{ $item->total_cif }}</td>
+                                <td>{{ number_format($item->total_fob,2) }}$</td>
+                                <td>{{ number_format($item->total_cif,2) }}$</td>
                                 <td>{{ $item->cantidad_declaraciones }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $tabla->links() }}
             </div>
         </div>
     </div>

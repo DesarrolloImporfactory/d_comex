@@ -111,9 +111,9 @@ return [
         'img' => [
             'path' => 'vendor/adminlte/dist/img/icono.png',
             'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'effect' => 'animation_wobble',
+            'width' => 90,
+            'height' => 90,
         ],
     ],
 

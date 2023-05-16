@@ -47,7 +47,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">OPERACION:</label>
-                                                <x-adminlte-select2 name="operacion">
+                                                <x-adminlte-select2 name="operacion" enable-old-support>
                                                     <option value="import">Importaciones</option>
                                                     <option value="export">Exportaciones</option>
                                                 </x-adminlte-select2>
@@ -56,7 +56,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">AÑO:</label>
-                                                <x-adminlte-select2 name="periodo">
+                                                <x-adminlte-select2 name="periodo" enable-old-support>
                                                     <option value="">Seleccione un periodo...</option>
                                                     <option value="" disabled>2020 - proximamente</option>
                                                     <option value="" disabled>2021 - proximamente</option>
@@ -68,7 +68,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">DESDE:</label>
-                                                <x-adminlte-select2 name="desde">
+                                                <x-adminlte-select2 name="desde" enable-old-support>
                                                     <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>
@@ -79,7 +79,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">HASTA:</label>
-                                                <x-adminlte-select2 name="hasta">
+                                                <x-adminlte-select2 name="hasta" enable-old-support>
                                                     <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>

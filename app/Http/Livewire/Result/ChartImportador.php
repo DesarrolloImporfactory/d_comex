@@ -6,10 +6,12 @@ use Livewire\Component;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\DB;
 use App\Models\Declaracion2022;
+use Livewire\WithPagination;
 
 class ChartImportador extends Component
 {
-   
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $datos;
     public $consulta;
@@ -94,7 +96,7 @@ class ChartImportador extends Component
     }
     public function declaracion22($request)
     {
-        
+
         $data = Declaracion2022::select('pais_origen', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
             ->operacion($this->operacion($this->operacion))
             ->rango($this->desde, $this->hasta)
@@ -115,13 +117,13 @@ class ChartImportador extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('pais_origen')
-            ->get();
+            ->paginate(5);
         return $data;
     }
 
     public function declaracion23($request)
     {
-        
+
         $data = DeclaracionEcuador::select('pais_origen', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
             ->operacion($this->operacion($this->operacion))
             ->rango($this->desde, $this->hasta)
@@ -142,7 +144,7 @@ class ChartImportador extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('pais_origen')
-            ->get();
+            ->paginate(5);
         return $data;
     }
     public function declaracion_2023($request)
