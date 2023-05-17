@@ -59,7 +59,7 @@
                                                 <x-adminlte-select2 name="periodo" enable-old-support>
                                                     <option value="">Seleccione un periodo...</option>
                                                     <option value="" disabled>2020 - proximamente</option>
-                                                    <option value="" disabled>2021 - proximamente</option>
+                                                    <option value="2021">2021</option>
                                                     <option value="2022">2022</option>
                                                     <option value="2023">2023</option>
                                                 </x-adminlte-select2>

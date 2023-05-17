@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Declaracion2021;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\DeclaracionEcuador;
@@ -80,9 +81,12 @@ class TableResult extends Component
         if ($this->periodo == "2022") {
             $consulta = $this->declaracion22();
             $select = $this->declaracion22();
-        } else {
+        } elseif($this->periodo == "2023") {
             $consulta = $this->declaracion23();
             $select = $this->declaracion23();
+        }else{
+            $consulta = $this->declaracion21();
+            $select = $this->declaracion21();
         }
 
         $valor = $this->searchAll;
@@ -213,9 +217,13 @@ class TableResult extends Component
         $time = new Carbon();
         if ($this->periodo == "2022") {
             return $this->export22($tipo, $time);
-        } else {
+        } elseif ($this->periodo == "2023") {
             return $this->export23($tipo, $time);
+        }else{
+            return $this->export21($tipo, $time);
         }
+
+        
     }
 
     public function export22($tipo, $time)
@@ -336,9 +344,90 @@ class TableResult extends Component
         return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
     }
 
+    public function export21($tipo, $time)
+    {
+        $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
+        $columnas = Declaracion2021::query()->first()->getConnection()->getSchemaBuilder()->getColumnListing('declaracion_ecuadors');
+        if ($tipo == 'csv') {
+            fputcsv($handle, $columnas);
+            Declaracion2021::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray());
+                });
+        } else {
+            $delimitador = ';';
+            fputcsv($handle, $columnas, $delimitador);
+            Declaracion2021::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray(), ';');
+                });
+        }
+
+        fclose($handle);
+        $this->emit('alert', 'Tu archivo esta listo!.');
+        return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
+    }
+
+
     public function declaracion23()
     {
         $data = DeclaracionEcuador::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen);
+        return $data;
+    }
+
+    public function declaracion21()
+    {
+        $data = Declaracion2021::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
             ->distrito($this->distrito)
             ->iva($this->iva)
             ->origen($this->pais_origen)
