@@ -14,8 +14,8 @@ class TableResult extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $searchAll = "";
-    public $searchEmbarcador, $searchRuc, $searchProducto, $searchMarca,
-        $searchPartida, $searchTransporte, $searchVia, $searchDistrito,  $searchAlmacen, $acumulador;
+    public $searchEmbarcador, $searchRuc = "", $searchProducto, $searchMarca,
+        $searchPartida, $searchTransporte, $searchVia, $searchDistrito,  $searchAlmacen, $acumulador, $importador = "", $productos = "", $proveedores = "";
     public $readi = false;
     public $perPage = '5';
     public $datos;
@@ -81,10 +81,10 @@ class TableResult extends Component
         if ($this->periodo == "2022") {
             $consulta = $this->declaracion22();
             $select = $this->declaracion22();
-        } elseif($this->periodo == "2023") {
+        } elseif ($this->periodo == "2023") {
             $consulta = $this->declaracion23();
             $select = $this->declaracion23();
-        }else{
+        } else {
             $consulta = $this->declaracion21();
             $select = $this->declaracion21();
         }
@@ -111,13 +111,13 @@ class TableResult extends Component
         if (strlen($this->searchRuc) > 1) {
             $rc = $this->searchRuc;
             $consulta->where(function ($query) use ($rc) {
-                $query->where('ruc', 'LIKE', "%$rc%");
+                $query->where('ruc', $rc);
             });
         }
         if (strlen($this->searchProducto) > 1) {
             $pro = $this->searchProducto;
             $consulta->where(function ($query) use ($pro) {
-                $query->where('producto', 'LIKE', "%$pro%");
+                $query->where('producto', $pro);
             });
         }
         if (strlen($this->searchMarca) > 1) {
@@ -177,6 +177,50 @@ class TableResult extends Component
         return view('livewire.table-result', compact('data', 'vias', 'meses'));
     }
 
+    public function importador()
+    {
+        if ($this->periodo == "2022") {
+            $select = $this->declaracion22();
+        } elseif ($this->periodo == "2023") {
+            $select = $this->declaracion23();
+        } else {
+            $select = $this->declaracion21();
+        }
+
+        $ruc = $select->select('ruc')->get();
+        $rucs = $ruc->unique('ruc');
+        $this->importador = $rucs;
+    }
+    public function producto()
+    {
+        if ($this->periodo == "2022") {
+            $select = $this->declaracion22();
+        } elseif ($this->periodo == "2023") {
+            $select = $this->declaracion23();
+        } else {
+            $select = $this->declaracion21();
+        }
+
+        $producto = $select->select('producto')->get();
+        $productos = $producto->unique('producto');
+        $this->productos = $productos;
+    }
+
+    public function embarcador()
+    {
+        if ($this->periodo == "2022") {
+            $select = $this->declaracion22();
+        } elseif ($this->periodo == "2023") {
+            $select = $this->declaracion23();
+        } else {
+            $select = $this->declaracion21();
+        }
+
+        $proveedor = $select->select('remitente')->get();
+        $proveedores = $proveedor->unique('remitente');
+        $this->proveedores = $proveedores;
+    }
+
     public function operacion($operacion)
     {
         if ($operacion == 'import') {
@@ -219,11 +263,9 @@ class TableResult extends Component
             return $this->export22($tipo, $time);
         } elseif ($this->periodo == "2023") {
             return $this->export23($tipo, $time);
-        }else{
+        } else {
             return $this->export21($tipo, $time);
         }
-
-        
     }
 
     public function export22($tipo, $time)
