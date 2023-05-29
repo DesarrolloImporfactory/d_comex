@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
 Auth::routes(["register" => false, "reset"=>false]);
+Route::get('admin/redirect/{id}',[LoginController::class,'redirectUser'])->name('admin.redirect');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
