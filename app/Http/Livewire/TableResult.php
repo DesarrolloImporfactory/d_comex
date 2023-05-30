@@ -188,8 +188,7 @@ class TableResult extends Component
         }
 
         $ruc = $select->select('ruc')->get();
-        $rucs = $ruc->unique('ruc');
-        $this->importador = $rucs;
+        $this->importador = $ruc->unique('ruc');
     }
     public function producto()
     {
@@ -202,8 +201,7 @@ class TableResult extends Component
         }
 
         $producto = $select->select('producto')->get();
-        $productos = $producto->unique('producto');
-        $this->productos = $productos;
+        $this->productos = $producto->unique('producto');
     }
 
     public function embarcador()
@@ -217,8 +215,7 @@ class TableResult extends Component
         }
 
         $proveedor = $select->select('remitente')->get();
-        $proveedores = $proveedor->unique('remitente');
-        $this->proveedores = $proveedores;
+        $this->proveedores = $proveedor->unique('remitente');
     }
 
     public function operacion($operacion)
@@ -493,7 +490,6 @@ class TableResult extends Component
     {
         $this->reset([
             'searchMes',
-            'searchRuc',
             'searchRuc',
             'searchProducto',
             'searchMarca',

@@ -76,25 +76,31 @@
     <tbody>
         <tr>
             <td>
-                <select wire:click='importador' style="width: 100px;" name="" id="" wire:model='searchRuc'>
-                    <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
-                    @if ($importador)
+                @if ($importador)
+                    <select wire:ignore style="width: 100px;" name="" id="" wire:model='searchRuc'>
+                        <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
                         @foreach ($importador as $item)
                             <option value="{{ $item->ruc }}">{{ $item->ruc }}</option>
                         @endforeach
-                    @endif
-                </select>
+                    </select>
+                @else
+                    <button style="width: 100px;" wire:click='importador' wire:loading.attr="disabled"
+                        wire:target='importador' class="btn btn-primary btn-sm">Filtrar..</button>
+                @endif
             </td>
             <td>
-                <select wire:click='producto' style="width: 100px;" name="" id=""
-                    wire:model='searchProducto'>
-                    <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
-                    @if ($productos)
+                @if ($productos)
+                    <select wire:ignore style="width: 100px;" name="" id="" wire:model='searchProducto'>
+                        <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
                         @foreach ($productos as $item)
                             <option value="{{ $item->producto }}">{{ $item->producto }}</option>
                         @endforeach
-                    @endif
-                </select>
+                    </select>
+                @else
+                    <button style="width: 100px;" wire:click='producto' wire:loading.attr="disabled"
+                        wire:target='producto' class="btn btn-primary btn-sm">Filtrar..</button>
+                @endif
+
             </td>
             <td>
                 <input type="text" wire:keydown='render' wire:model="searchMarca" style="width: 100px;"
@@ -114,15 +120,18 @@
                     placeholder="Search..">
             </td>
             <td>
-                <select wire:click='embarcador' style="width: 100px;" name="" id=""
-                    wire:model='searchEmbarcador'>
-                    <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
-                    @if ($proveedores)
+                @if ($proveedores)
+                    <select wire:ignore style="width: 100px;" name="" id="" wire:model='searchEmbarcador'>
+                        <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
                         @foreach ($proveedores as $item)
                             <option value="{{ $item->remitente }}">{{ $item->remitente }}</option>
                         @endforeach
-                    @endif
-                </select>
+                    </select>
+                @else
+                    <button style="width: 100px;" wire:click='embarcador' wire:loading.attr="disabled"
+                        wire:target='embarcador' class="btn btn-primary btn-sm">Filtrar..</button>
+                @endif
+
             <td></td>
             <td></td>
             <td>

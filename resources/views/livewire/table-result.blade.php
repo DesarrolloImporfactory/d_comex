@@ -57,14 +57,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div wire:keydown='render' class="col-md-3 mt-3" wire:loading wire:target="render">
+                <div  class="col-md-3 mt-3" wire:loading >
                     <div class="spinner-border spinner-border-sm" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     <div class="spinner-grow spinner-grow-sm" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
-                    <span>Buscando coincidencias....</span>
+                    <span>Procesando....</span>
                 </div>
             </div>
             @if (count($data))
