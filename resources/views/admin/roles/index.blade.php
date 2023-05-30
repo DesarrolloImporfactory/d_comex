@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Role')
+@section('title', 'Setings')
 
 @section('content_header')
 
@@ -19,7 +19,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item active">Home</li>
-                                <li class="breadcrumb-item "><a href="#">Usuarios</a></li>
+                                <li class="breadcrumb-item "><a href="#">Setings</a></li>
                             </ol>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ class TableRoles extends Component
     public $sort = "id", $direction = "asc";
     protected $listeners = ['render' => 'render','delete'];
     public $idRol, $name, $permisos = [];
-    public $permissions = [];
+    public $permissions=[];
 
     public $rules = [
         'name' => 'required|string|min:2|max:20'
@@ -52,6 +52,7 @@ class TableRoles extends Component
         $rolesWithPermissions  = $data->permissions->pluck('id');
         
         $this->permissions = $rolesWithPermissions;
+        // dd($this->permissions);
 
         $this->idRol = $data->id;
         $this->name = $data->name;
@@ -64,13 +65,14 @@ class TableRoles extends Component
         $this->validate();
         $data = Role::find($this->idRol);
         $permi = $this->permissions;
+       
 
-        $filteredPermissions = $permi->filter(function ($value) {
-            return $value !== false;
-        })->toArray();
+        // $filteredPermissions = $permi->filter(function ($value) {
+        //     return $value !== false;
+        // })->toArray();
         
         $data->update(['name' => $this->name]);
-        $data->permissions()->sync($filteredPermissions);
+        $data->permissions()->sync($permi);
         $this->emit('alert', 'Registro actualizado exitosamente!');
         $this->reset(['name', 'permissions']);
     }
