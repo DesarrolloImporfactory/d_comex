@@ -24,7 +24,7 @@
                             @foreach (collect($permisos)->take(count($permisos) / 2) as $key => $item)
                                 <div class="col-md-6">
                                     <div class="ml-3 mt-2 form-check">
-                                        <input class="form-check-input" type="checkbox" wire:model="permissions.{{ $key }}" value="{{ $item->id }}">
+                                        <input class="form-check-input" type="checkbox" wire:model="permissions" value="{{ $item->id }}">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             {{ $item->description }}
                                         </label>
@@ -37,7 +37,7 @@
                             @foreach (collect($permisos)->skip(count($permisos) / 2) as $key => $item)
                                 <div class="col-md-6">
                                     <div class="ml-3 mt-2 form-check">
-                                        <input class="form-check-input" type="checkbox" wire:model="permissions.{{ $key }}" value="{{ $item->id }}">
+                                        <input class="form-check-input" type="checkbox" wire:model="permissions" value="{{ $item->id }}">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             {{ $item->description }}
                                         </label>
