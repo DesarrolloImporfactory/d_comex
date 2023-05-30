@@ -7,7 +7,9 @@ use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Setings\SetingUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RolesController;
 
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
@@ -37,5 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/consulta', ConsultasController::class)->names('admin.consulta');
     Route::resource('admin/users', UserController::class)->names('admin.users');
     Route::resource('admin/charts',ChartsController::class)->names('admin.charts');
+    Route::resource('/roles', RolesController::class)->names('admin.roles');
 });
 

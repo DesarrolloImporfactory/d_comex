@@ -33,10 +33,10 @@ class LoginController extends Controller
         User::where('id', $id)->update(['session' => $newDate]);
     }
 
-    public function redirectUser(string $id){
-        $sessionData = sesion::where('id', $id)->first();
+    // public function redirectUser(string $id){
+    //     $sessionData = sesion::where('id', $id)->first();
 
-        Auth::loginUsingId($sessionData->user_id);
-        return redirect('home');
-    }
+    //     Auth::loginUsingId($sessionData->user_id);
+    //     return redirect('home');
+    // }
 }
