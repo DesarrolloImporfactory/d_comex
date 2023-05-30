@@ -106,6 +106,12 @@
         Livewire.on('alert', message => {
             $("#modalCreate").modal('hide');
             $("#modalEdit").modal('hide');
+
+            $("#modalEdit").modal('hide');
+            $("#createRol").modal('hide');
+            $("#createPermiso").modal('hide');
+            $("#editPermiso").modal('hide');
+
             iziToast.success({
                 title: 'OK',
                 position: 'topRight',

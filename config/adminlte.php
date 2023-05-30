@@ -313,6 +313,12 @@ return [
             'can' => 'admin.users.index',
         ],
         [
+            'text' => 'Setings',
+            'topnav_right' => false,
+            'route' => 'admin.roles.index',
+            'can' => 'admin.setings',
+        ],
+        [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
