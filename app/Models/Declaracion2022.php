@@ -11,6 +11,8 @@ class Declaracion2022 extends Model
     use Searchable;
     use HasFactory;
 
+    protected $connection = 'infoaduana';
+
     public function toSearchableArray()
     {
         return [

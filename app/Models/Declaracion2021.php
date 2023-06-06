@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Declaracion2021 extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
 
     public function scopeOperacion($query, $operacion){
         if($operacion)

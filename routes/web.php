@@ -14,10 +14,10 @@ use App\Http\Controllers\RolesController;
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
-Auth::routes(["register" => false, "reset"=>false]);
+Auth::routes(["register" => false, "reset"=>false,'verify' => true]);
 Route::get('admin/redirect/{id}',[LoginController::class,'redirectUser'])->name('admin.redirect');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verified','infoaduana'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('admin/home', HomeController::class)->names('admin.home');
     Route::get('back', [HomeController::class, 'back'])->name('back');
@@ -40,5 +40,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/users', UserController::class)->names('admin.users');
     Route::resource('admin/charts',ChartsController::class)->names('admin.charts');
     Route::resource('/roles', RolesController::class)->names('admin.roles');
+    Route::get('suit',[UserController::class,'redirectSuit'])->name('suit');
 });
 

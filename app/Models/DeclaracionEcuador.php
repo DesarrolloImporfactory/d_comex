@@ -9,6 +9,8 @@ class DeclaracionEcuador extends Model
 {
     use HasFactory;
 
+    protected $connection = 'infoaduana';
+
     public function scopeOperacion($query, $operacion){
         if($operacion)
             return $query->whereIn('regimen_tipo',$operacion);

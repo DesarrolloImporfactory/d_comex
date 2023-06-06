@@ -56,7 +56,7 @@ class TableRoles extends Component
 
         $this->idRol = $data->id;
         $this->name = $data->name;
-        $this->permisos = Permission::all();
+        $this->permisos = Permission::where('sistema_id','3')->get();
     }
 
     public function update()
@@ -65,11 +65,6 @@ class TableRoles extends Component
         $this->validate();
         $data = Role::find($this->idRol);
         $permi = $this->permissions;
-       
-
-        // $filteredPermissions = $permi->filter(function ($value) {
-        //     return $value !== false;
-        // })->toArray();
         
         $data->update(['name' => $this->name]);
         $data->permissions()->sync($permi);

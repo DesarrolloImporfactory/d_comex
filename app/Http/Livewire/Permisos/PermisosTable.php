@@ -20,7 +20,7 @@ class PermisosTable extends Component
     public function render()
     {
 
-        $permisos = Permission::where('name', 'like', '%' . $this->search . '%')
+        $permisos = Permission::where('sistema_id', '3')->where('name', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate(10);
         return view('livewire.permisos.permisos-table', compact(['permisos']));
@@ -74,4 +74,3 @@ class PermisosTable extends Component
         $this->emit('alert', 'Registro eliminado exitosamente!');
     }
 }
-

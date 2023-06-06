@@ -310,13 +310,19 @@ return [
             'text' => 'Usuarios',
             'topnav_right' => false,
             'route' => 'admin.users.index',
-            'can' => 'admin.users.index',
+            'can' => 'infoaduana.users',
         ],
         [
             'text' => 'Setings',
             'topnav_right' => false,
             'route' => 'admin.roles.index',
             'can' => 'admin.setings',
+        ],
+        [
+            'text' => 'Impor Suit',
+            'topnav_right' => true,
+            'route' => 'suit',
+            'icon' => 'fas fa-fw  fa-toolbox'
         ],
         [
             'text' => 'blog',

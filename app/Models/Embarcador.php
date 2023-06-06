@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Embarcador extends Model
 {
     use HasFactory;
+
+    protected $connection = 'infoaduana';
 }

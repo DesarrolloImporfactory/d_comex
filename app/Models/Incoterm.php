@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Incoterm extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
 }

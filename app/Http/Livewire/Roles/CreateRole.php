@@ -39,7 +39,7 @@ class CreateRole extends Component
 
     public function render()
     {
-        $permisos = Permission::all();
+        $permisos = Permission::where('sistema_id','3')->get();
         return view('livewire.roles.create-role', compact('permisos'));
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Declaracion22Import extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
 
     protected $table = "declaracionesImport22_copia";
 

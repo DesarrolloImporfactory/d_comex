@@ -9,7 +9,9 @@ use Illuminate\Support\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Session as sesion;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller
 {
@@ -33,10 +35,30 @@ class LoginController extends Controller
         User::where('id', $id)->update(['session' => $newDate]);
     }
 
-    // public function redirectUser(string $id){
-    //     $sessionData = sesion::where('id', $id)->first();
+    public function redirectUser(string $id)
+    {
+        $sessionData = DB::table('sessions')->where('id', $id)->first();
 
-    //     Auth::loginUsingId($sessionData->user_id);
-    //     return redirect('home');
-    // }
+        Auth::loginUsingId($sessionData->user_id);
+        return redirect('home');
+    }
+
+    public function logout(Request $request)
+    {
+        $otherAppUrl = 'http://194.163.183.231:8085/';
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : Redirect::away($otherAppUrl);
+    }
+    
 }

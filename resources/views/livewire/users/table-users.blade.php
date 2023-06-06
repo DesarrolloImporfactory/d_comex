@@ -33,16 +33,26 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->session }}</td>
-                                        <td> @if (!empty($item->getRoleNames()))
-                                @foreach ($item->getRoleNames() as $rol)
-                                    <h5><span class="badge rounded-pill text-bg-success">{{ $rol }}</span></h5>
-                                @endforeach
-                            @endif</td>
-                                        <td><button class="btn btn-success btn-sm mr-2" wire:click="editUser({{ $item->id }})" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#modalEdit"><i
-                                                    class="fa-solid fa-pen-to-square "></i> Editar</button>
-                                            <button class="btn btn-danger btn-sm ml-2" wire:click="$emit('deleteUser',{{ $item->id }})"
-                                                type="button"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                                        <td>
+                                            @if (!empty($item->getRoleNames()))
+                                                @foreach ($item->getRoleNames() as $rol)
+                                                    <h5><span
+                                                            class="badge rounded-pill text-bg-success">{{ $rol }}</span>
+                                                    </h5>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td style="width: 100px;">
+                                            <div class="btn-group btn-group-sm" role="group"
+                                                aria-label="Basic example">
+                                                <button class="btn btn-xs btn-default text-success mx-1 shadow"
+                                                    wire:click="editUser({{ $item->id }})" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEdit"><i
+                                                        class="fa-solid fa-pen-to-square "></i></button>
+                                                <button class="btn btn-xs btn-default text-danger mx-1 shadow"
+                                                    wire:click="$emit('deleteUser',{{ $item->id }})"
+                                                    type="button"><i class="fa-solid fa-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -81,7 +91,7 @@
                             onClosing: function(instance, toast, closedBy) {
                                 console.info('closedBy: ' +
                                     closedBy
-                                    ); // The return will be: 'closedBy: buttonName'
+                                ); // The return will be: 'closedBy: buttonName'
                             }
                         }, toast, 'buttonName');
                     }]

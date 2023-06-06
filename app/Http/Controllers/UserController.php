@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     
     public function __construct()
     {
-        $this->middleware('can:admin.users.index')->only('index');
+        $this->middleware('can:infoaduana.users')->only('index');
     }
 
     public function index()
     {
         return view('users.index');
     }
-
+    public function redirectSuit(Request $request)
+    {
+        if (Auth::check()) {
+            $sessionId = $request->session()->getId();
+            $otherAppUrl = 'http://194.163.183.231:8085/';
+            return Redirect::away($otherAppUrl);
+        } 
+    }
     
     public function create()
     {

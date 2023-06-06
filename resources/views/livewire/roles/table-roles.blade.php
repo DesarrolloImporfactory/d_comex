@@ -52,11 +52,11 @@
                                         <td style="width: 100px;">
                                             <div class="btn-group btn-group-sm" role="group"
                                                 aria-label="Basic example">
-                                                <button class="btn btn-sm btn-warning"
+                                                <button class="btn btn-xs btn-default text-primary mx-1 shadow"
                                                     wire:click="edit({{ $item->id }})" type="button"
                                                     data-bs-toggle="modal" data-bs-target="#modalEdit"><i
                                                         class="fa-solid fa-pen-to-square"></i></button>
-                                                <button class="btn btn-sm btn-danger"
+                                                <button class="btn btn-xs btn-default text-danger mx-1 shadow"
                                                     wire:click="$emit('deleteRol',{{ $item->id }})"
                                                     type="button"><i class="fa-solid fa-trash"></i></button>
                                             </div>
