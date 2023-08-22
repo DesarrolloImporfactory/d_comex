@@ -98,7 +98,7 @@ class TableResult extends Component
                     ->orWhere('producto', 'LIKE', "%$valor%")
                     ->orWhere('pais_embarque', 'LIKE', "%$valor%")
                     ->orWhere('ciudad_embarque', 'LIKE', "%$valor%")
-                    ->orWhere('kilos_neto', 'LIKE', "%$valor%");
+                    ->orWhere('razon_social', 'LIKE', "%$valor%");
             });
         }
 
@@ -187,7 +187,7 @@ class TableResult extends Component
             $select = $this->declaracion21();
         }
 
-        $ruc = $select->select('ruc')->get();
+        $ruc = $select->select('ruc','razon_social')->get();
         $this->importador = $ruc->unique('ruc');
     }
     public function producto()

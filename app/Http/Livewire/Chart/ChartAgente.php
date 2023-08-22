@@ -156,6 +156,7 @@ class ChartAgente extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('agente_afianzado')
+            ->orderBy('total_fob', 'desc')
             ->paginate(5);
         return $data;
     }
@@ -183,6 +184,7 @@ class ChartAgente extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('agente_afianzado')
+            ->orderBy('total_fob', 'desc')
             ->paginate(5);
         return $data;
     }

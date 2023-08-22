@@ -155,6 +155,7 @@ class ChartRegimen extends Component
         ->agenteAfianzado($this->agente_afianzado)
         ->almacen($this->almacen)
         ->groupBy('regimen')
+        ->orderBy('total_fob', 'desc')
         ->paginate(5);
     return $data;
     }
@@ -181,6 +182,7 @@ class ChartRegimen extends Component
         ->agenteAfianzado($this->agente_afianzado)
         ->almacen($this->almacen)
         ->groupBy('regimen')
+        ->orderBy('total_fob', 'desc')
         ->paginate(5);
     return $data;
     }

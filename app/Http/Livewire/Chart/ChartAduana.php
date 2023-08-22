@@ -156,6 +156,7 @@ class ChartAduana extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('distrito')
+            ->orderBy('total_fob', 'desc')
             ->paginate(5);
         return $data;
     }
@@ -183,6 +184,7 @@ class ChartAduana extends Component
         ->agenteAfianzado($this->agente_afianzado)
         ->almacen($this->almacen)
         ->groupBy('distrito')
+        ->orderBy('total_fob', 'desc')
         ->paginate(5);
     return $data;
     }

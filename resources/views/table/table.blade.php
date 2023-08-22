@@ -80,7 +80,7 @@
                     <select wire:ignore style="width: 100px;" name="" id="" wire:model='searchRuc'>
                         <option value=""><i class="fa-solid fa-filter"></i> TODO</option>
                         @foreach ($importador as $item)
-                            <option value="{{ $item->ruc }}">{{ $item->ruc }}</option>
+                            <option value="{{ $item->ruc }}">{{ $item->ruc.'/'.$item->razon_social }}</option>
                         @endforeach
                     </select>
                 @else
