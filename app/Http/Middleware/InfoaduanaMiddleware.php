@@ -20,7 +20,7 @@ class InfoaduanaMiddleware
             ->where('usuario_id', $usuarioAutenticado->id)
             ->where('sistema_id', 3)->first();
 
-        if (isset($usuariosConSuscripcionesActivas) || $rol->name == 'Admin') {
+        if (isset($usuariosConSuscripcionesActivas) || $rol->name == 'Admin' || $rol->name == 'Especialista') {
             return $next($request);
         } else {
             abort(403);

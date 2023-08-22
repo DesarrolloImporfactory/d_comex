@@ -79,7 +79,9 @@
         @if (!$layoutHelper->isLayoutTopnavEnabled())
             @include('adminlte::partials.sidebar.left-sidebar')
         @endif
-
+        <div class="aler alert-warning text-center" id="alerta">
+           
+        </div>
         {{-- Content Wrapper --}}
         @empty($iFrameEnabled)
             @include('adminlte::partials.cwrapper.cwrapper-default')
@@ -102,6 +104,34 @@
 
 @section('adminlte_js')
     @stack('js')
+    <script>
+        window.addEventListener('load', function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('admin.users.create') }}",
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == 200) {
+                        $("#alerta").text('Suscripción demo, fecha de finalización es: '+response.fecha_fin+', le quedan '+response.dias+' dias para usar el sistema.' );
+                        setInterval(() => {
+                            Swal.fire({
+                                allowOutsideClick: false,
+                                position: 'center',
+                                icon: 'warning',
+                                title: 'Tipo de suscripción demo.',
+                                showConfirmButton: false,
+                                timer: 15000
+                            })
+                        }, 240000);
+                    } else {
+                        $('#alerta').empty();
+                    }
+                }
+            });
+
+        });
+    </script>
     <script>
         Livewire.on('alert', message => {
             $("#modalCreate").modal('hide');

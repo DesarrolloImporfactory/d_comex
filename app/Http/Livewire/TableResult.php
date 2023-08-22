@@ -7,7 +7,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\DeclaracionEcuador;
 use App\Models\Declaracion2022;
+use App\Models\Suscripcion;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TableResult extends Component
 {
@@ -253,15 +255,22 @@ class TableResult extends Component
 
     public function excel(String $tipo)
     {
-        ini_set('memory_limit', '1024M');
-        set_time_limit(3000000);
-        $time = new Carbon();
-        if ($this->periodo == "2022") {
-            return $this->export22($tipo, $time);
-        } elseif ($this->periodo == "2023") {
-            return $this->export23($tipo, $time);
+        $usuario = Auth::user();
+        $tipoSuscripcion = Suscripcion::where('estado', 'Activa')->where('usuario_id', $usuario->id)
+            ->where('tipo_id', '3')->first();
+        if (isset($tipoSuscripcion)) {
+            $this->emit('alert', 'La suscripción demo no esta permitida para este tipo de acción.');
         } else {
-            return $this->export21($tipo, $time);
+            ini_set('memory_limit', '1024M');
+            set_time_limit(3000000);
+            $time = new Carbon();
+            if ($this->periodo == "2022") {
+                return $this->export22($tipo, $time);
+            } elseif ($this->periodo == "2023") {
+                return $this->export23($tipo, $time);
+            } else {
+                return $this->export21($tipo, $time);
+            }
         }
     }
 
