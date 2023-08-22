@@ -117,6 +117,7 @@ class ChartImportador extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('pais_origen')
+            ->orderBy('total_fob', 'desc')
             ->paginate(5);
         return $data;
     }
@@ -144,6 +145,7 @@ class ChartImportador extends Component
             ->agenteAfianzado($this->agente_afianzado)
             ->almacen($this->almacen)
             ->groupBy('pais_origen')
+            ->orderBy('total_fob', 'desc')
             ->paginate(5);
         return $data;
     }
