@@ -319,6 +319,12 @@ return [
             'can' => 'admin.setings',
         ],
         [
+            'text' => 'Importador',
+            'topnav_right' => false,
+            'route' => 'importador.index',
+            'can' => 'admin.setings',
+        ],
+        [
             'text' => 'Impor Suit',
             'topnav_right' => true,
             'route' => 'suit',

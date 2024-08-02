@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $sessionId = $request->session()->getId();
-            $otherAppUrl = 'http://194.163.183.231:8085/home';
+            $otherAppUrl = 'https://herramientas.imporsuit.app/';
             return Redirect::away($otherAppUrl);
         }
     }

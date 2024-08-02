@@ -45,7 +45,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $otherAppUrl = 'http://194.163.183.231:8085/';
+        $otherAppUrl = 'https://herramientas.imporsuit.app/';
         $this->guard()->logout();
 
         $request->session()->invalidate();
@@ -60,5 +60,4 @@ class LoginController extends Controller
             ? new JsonResponse([], 204)
             : Redirect::away($otherAppUrl);
     }
-    
 }

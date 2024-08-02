@@ -6,11 +6,13 @@ use App\Http\Controllers\ConsultasController;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImportadorController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Setings\SetingUsers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RolesController;
-
+use App\Http\Controllers\SelectController;
+use JeroenNoten\LaravelAdminLte\View\Components\Form\Select;
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
@@ -41,4 +43,10 @@ Route::middleware(['auth', 'verified', 'infoaduana'])->group(function () {
     Route::resource('admin/charts', ChartsController::class)->names('admin.charts');
     Route::resource('/roles', RolesController::class)->names('admin.roles');
     Route::get('suit', [UserController::class, 'redirectSuit'])->name('suit');
+
+    Route::get("/select", [SelectController::class, 'index'])->name('select.index');
+
+
+    Route::get("/importador", [ImportadorController::class, 'index'])->name('importador.index');
+    Route::post("/importador", [ImportadorController::class, 'store'])->name('importador.store');
 });
