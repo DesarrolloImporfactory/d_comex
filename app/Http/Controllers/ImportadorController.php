@@ -40,7 +40,7 @@ class ImportadorController extends Controller
             'marca_comercial', 'year_producido', 'modelo_mercaderia', 'fob_unitario', 'via',
             'regimen_tipo', 'incoterm', 'consolidadora', 'cod_provincia', 'provincia', 'formulario',
             'form_via_envio', 'estado_mercancia', 'dias_salida', 'flete2', 'cif2', 'cfr',
-            'estado_declaracion'
+            'estado_declaracion', 'tipo_regimen', 'partida_descripcion', 'capítulo_descripcion'
         ];
 
         // Procesar el archivo Excel
@@ -144,6 +144,9 @@ class ImportadorController extends Controller
                     'cif2' => $rowData[72],
                     'cfr' => $rowData[73],
                     'estado_declaracion' => $rowData[74],
+                    'tipo_regimen' => $rowData[75],
+                    'partida_descripcion' => $rowData[76],
+                    'capítulo_descripcion' => $rowData[77],
                 ]);
             }
 

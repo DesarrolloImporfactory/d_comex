@@ -92,5 +92,9 @@ class Decreto extends Model
         'cif2',
         'cfr',
         'estado_declaracion',
+        'tipo_regimen',
+        'partida_descripcion',
+        'capítulo_descripcion'
+
     ];
 }
