@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'Imporcomex',
-    'title_prefix' => 'ImporComex | ',
+    'title' => 'Infoaduana',
+    'title_prefix' => 'Infoaduana | ',
     'title_postfix' => '',
 
     /*
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Imporcomex</b>',
+    'logo' => '<b>Infoaduana</b>',
     'logo_img' => 'vendor/adminlte/dist/img/icono.png',
     'logo_img_class' => 'brand-image img-circle ',
     'logo_img_xl' => null,
@@ -111,9 +111,9 @@ return [
         'img' => [
             'path' => 'vendor/adminlte/dist/img/icono.png',
             'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'effect' => 'animation_wobble',
+            'width' => 90,
+            'height' => 90,
         ],
     ],
 
@@ -310,7 +310,36 @@ return [
             'text' => 'Usuarios',
             'topnav_right' => false,
             'route' => 'admin.users.index',
-            'can' => 'admin.users.index',
+            'can' => 'infoaduana.users',
+        ],
+        [
+            'text' => 'Setings',
+            'topnav_right' => false,
+            'route' => 'admin.roles.index',
+            'can' => 'admin.setings',
+        ],
+        [
+            'text' => 'Importador',
+            'topnav_right' => false,
+            'can' => 'admin.setings',
+            'submenu' => [
+                [
+                    'text' => 'Ecuador',
+                    'route' => 'importador.index',
+                ],
+                [
+                    'text' => 'Colombia',
+                    'route' => 'importador.colombia',
+                ],
+
+            ],
+        ],
+
+        [
+            'text' => 'Herramientas',
+            'topnav_right' => true,
+            'route' => 'suit',
+            'icon' => 'fas fa-fw  fa-toolbox'
         ],
         [
             'text' => 'blog',
@@ -319,57 +348,57 @@ return [
         ],
 
         ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-            'topnav_user' => true,
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-            'topnav_user' => true,
-        ],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-user',
+        //     'topnav_user' => true,
+        // ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        //     'topnav_user' => true,
+        // ],
 
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
+        // [
+        //     'text'    => 'multilevel',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
 
     ],
 
@@ -450,11 +479,11 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => true,
+                    'asset' => false,
                     'location' => 'vendor/chartJs/Chart.bundle.min.js',
                 ],
             ],

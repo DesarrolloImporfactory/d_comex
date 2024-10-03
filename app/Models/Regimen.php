@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Regimen extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
 }

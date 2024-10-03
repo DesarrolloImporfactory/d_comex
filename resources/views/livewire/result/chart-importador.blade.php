@@ -1,41 +1,79 @@
-<div>
-    <div class="card">
-        <div class="card-header">
-           <b>DECLARACIONES POR IMPORTADOR</b>
-        </div>
-        <div class="card-body">
-            <canvas id="chartImportador"></canvas>
+<div class="row">
+    <div class="label border p-2 bg-dark text-light rounded mb-2"><i class="fa-solid fa-chart-line"></i>
+        DECLARACIONES POR PAIS DE ORIGEN </div>
+    <div class="col-md-12">
+        <div wire:ignore id="container"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nº</th>
+                            <th>PAIS</th>
+                            <th>FOB</th>
+                            <th>CIF</th>
+                            <th>DECLARACIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i = 1;
+                    @endphp
+                        @foreach ($tabla as $item)
+                            <tr>
+                                <td>{{ $i++}}</td>
+                                <td>{{ $item->pais_origen }}</td>
+                                <td>{{ number_format($item->total_fob,2) }}$</td>
+                                <td>{{ number_format($item->total_cif,2) }}$</td>
+                                <td>{{ $item->cantidad_declaraciones }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $tabla->links() }}
+            </div>
         </div>
     </div>
 </div>
 @push('js')
     <script>
-        var cData = JSON.parse(`<?php echo $data; ?>`);
-        const impt = document.getElementById('chartImportador');
-
-        new Chart(impt, {
-            type: 'pie',
-            data: {
-                labels: cData.label,
-                datasets: [{
-                    label: 'Declaraciones',
-                    data: cData.data,
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4,
-                    borderWidth: 1
-                }]
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            title: {
+                text: 'Declaraciones por país de origen en el periodo ' + JSON.parse(`<?php echo $periodo; ?>`),
+                align: 'left'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.name}</b>: {point.y}'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
                     }
                 }
-            }
+            },
+            series: [{
+                name: 'Cantidad',
+                colorByPoint: true,
+                data: JSON.parse(`<?php echo $chart; ?>`)
+            }]
         });
     </script>
 @endpush

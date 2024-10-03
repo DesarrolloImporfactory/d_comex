@@ -3,14 +3,7 @@
 @section('title', 'Home')
 
 @section('content_header')
-    @if (Session::has('mensaje'))
-        <script>
-            iziToast.show({
-                title: 'Hey',
-                message: '{{ Session::get('mensaje') }}'
-            });
-        </script>
-    @endif
+   
 @stop
 
 @section('content')
@@ -35,10 +28,9 @@
             </div>
             <div class="content-header">
                 <div class="container-fluid">
-                    <form action="{{ route('admin.consulta.create') }}" id="formFiltros">
+                    <form action="" id="formFiltros">
                         @csrf
                         <div class="row">
-
                             <div class="col-md-12 mt-3">
                                 <div class="label border p-2 bg-dark text-light rounded mb-2"><i
                                         class="fa-solid fa-magnifying-glass"></i> PERIODO DE BÚSQUEDA</div>
@@ -48,7 +40,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">OPERACION:</label>
-                                                <x-adminlte-select2 name="operacion">
+                                                <x-adminlte-select2 name="operacion" enable-old-support>
                                                     <option value="import">Importaciones</option>
                                                     <option value="export">Exportaciones</option>
                                                 </x-adminlte-select2>
@@ -57,19 +49,20 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">AÑO:</label>
-                                                <x-adminlte-select2 name="periodo">
+                                                <x-adminlte-select2 name="periodo" enable-old-support>
                                                     <option value="">Seleccione un periodo...</option>
                                                     <option value="" disabled>2020 - proximamente</option>
-                                                    <option value="" disabled>2021 - proximamente</option>
+                                                    <option value="2021">2021</option>
                                                     <option value="2022">2022</option>
                                                     <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
                                                 </x-adminlte-select2>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">DESDE:</label>
-                                                <x-adminlte-select2 name="desde">
+                                                <x-adminlte-select2 name="desde" enable-old-support>
                                                     <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>
@@ -80,7 +73,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">HASTA:</label>
-                                                <x-adminlte-select2 name="hasta">
+                                                <x-adminlte-select2 name="hasta" enable-old-support>
                                                     <option value="">TODAS</option>
                                                     @foreach ($meses as $item)
                                                         <option value="{{ $item->id }}">{{ $item->mes }}</option>
@@ -89,16 +82,11 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
-
                         <div class="row">
                             <div class="col-md-7 mt-3">
-
                                 <div class="label border p-2 bg-dark text-light rounded mb-2"><i
                                         class="fa-solid fa-magnifying-glass"></i>CRITERIOS DE BÚSQUEDA</div>
                                 <div class="ml-2 mr-2 mt-4">
@@ -204,7 +192,6 @@
 
                             </div>
                             <div class="col-md-5 mt-3">
-
                                 <div class="label border p-2 bg-dark text-light rounded mb-2"><i
                                         class="fa-solid fa-filter"></i> FILTRO DE BÚSQUEDA</div>
                                 <div class="ml-2 mr-2 mt-3">
@@ -286,63 +273,65 @@
                                             @endforeach
                                         </x-adminlte-select2>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" form="formFiltros" id="sub"
-                                            class="btn btn-danger btn-flat btn-block mt-2">
-                                            <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> REALIZAR BÚSQUEDA
-                                        </button>
-                                    </div>
                                 </div>
-
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" id="chart"
+                                        class="btn btn-primary btn-flat btn-block mt-2">
+                                        <i class="fa-solid fa-chart-simple"></i> GRÁFICAS
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" id="search" class="btn btn-danger btn-flat btn-block mt-2">
+                                        <i class="fa-solid fa-magnifying-glass fa-beat-fade"></i> BUSCAR
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="preloader" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+
+    <div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Recomendaciones</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    <p style="text-align: justify;">La búsqueda excede el límite de registros, será mejor seguir cualquiera
+                        de los siguientes parámetros para garantizar la fluides en visualización de resultados y experiencia
+                        de usuario. </p>
+                    <ul>
+                        <li>Filtrar por rango de meses, ejemplo: de Enero a Mayo.</li>
+                        <li>Ingresar un criterio de búsqueda adicional, ejemplo: producto, marca, ruc, etc.</li>
+                        <li>Ingresar un filtro de búsqueda adicional.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="alert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Recomendaciones</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p style="text-align: justify;">La búsqueda excede el límite de registros, será mejor seguir cualquiera de los siguientes parámetros para garantizar la fluides en visualización de resultados y experiencia de usuario. </p>
-                <ul>
-                  <li>Filtrar por rango de meses, ejemplo: de Enero a Mayo.</li>
-                  <li>Ingresar un criterio de búsqueda adicional, ejemplo: producto, marca, ruc, etc.</li>
-                  <li>Ingresar un filtro de búsqueda adicional.</li>
-                </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-    <!-- <script src="{{ asset('js/searchs.js') }}"></script> -->
+    <script>
+        $(document).on('click', '#search', function(e) {
+            e.preventDefault();
+            $("#formFiltros").attr('action', '{{ route('admin.consulta.create') }}');
+            $("#formFiltros").submit();
+        });
+        $(document).on('click', '#chart', function(e) {
+            e.preventDefault();
+            $("#formFiltros").attr('action', '{{ route('admin.charts.create') }}');
+            $("#formFiltros").submit();
+        });
+    </script>
     <script src="{{ asset('js/validar.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            if ({{Session::has('alert')}}) 
+        $(document).ready(function() {
+            if ({{ Session::has('alert') }})
                 $("#alert").modal('show');
         });
     </script>
@@ -439,10 +428,5 @@
             }
         });
     </script>
-
-@stop
-
-@section('css')
-
 
 @stop

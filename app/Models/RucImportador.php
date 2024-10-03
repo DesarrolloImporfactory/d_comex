@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RucImportador extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
     protected $table = "ruc_importador";
 }

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Subpartida extends Model
 {
     use HasFactory;
+    protected $connection = 'infoaduana';
 }

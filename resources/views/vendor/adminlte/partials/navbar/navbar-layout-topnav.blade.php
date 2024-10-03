@@ -38,13 +38,13 @@
             @each('adminlte::partials.navbar.menu-item', $adminlte->menu('navbar-right'), 'item')
 
             {{-- User menu link --}}
-            @if(Auth::user())
+          {{--   @if(Auth::user())
                 @if(config('adminlte.usermenu_enabled'))
                     @include('adminlte::partials.navbar.menu-item-dropdown-user-menu')
                 @else
                     @include('adminlte::partials.navbar.menu-item-logout-link')
                 @endif
-            @endif
+            @endif --}}
 
             {{-- Right sidebar toggler link --}}
             @if(config('adminlte.right_sidebar'))

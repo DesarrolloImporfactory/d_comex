@@ -29,7 +29,7 @@ class CreateUser extends Component
         $data = [
             'name' => $this->name,
             'email' => $this->email,
-            'password' => Hash::make($this->password),
+            'password' => md5($this->password),
         ];
 
         if (User::create($data)->assignRole($this->rol)) {

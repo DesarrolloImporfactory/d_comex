@@ -36,17 +36,51 @@
         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Custom stylesheets (pre AdminLTE) --}}
-    <script type="text/javascript">
-        window.$crisp = [];
-        window.CRISP_WEBSITE_ID = "42d95662-3a08-4b99-a049-2f51469b370f";
-        (function() {
-            d = document;
-            s = d.createElement("script");
-            s.src = "https://client.crisp.chat/l.js";
-            s.async = 1;
-            d.getElementsByTagName("head")[0].appendChild(s);
-        })();
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+
+    <script>
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.',
+                months: [
+                    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                ],
+                weekdays: [
+                    'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'
+                ],
+                shortMonths: [
+                    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+                ],
+                exportButtonTitle: "Exportar",
+                printButtonTitle: "Imprimir",
+                rangeSelectorFrom: "Desde",
+                rangeSelectorTo: "Hasta",
+                rangeSelectorZoom: "Período",
+                downloadPNG: 'Descargar imagen PNG',
+                downloadJPEG: 'Descargar imagen JPEG',
+                downloadPDF: 'Descargar documento PDF',
+                downloadSVG: 'Descargar imagen SVG',
+                printChart: 'Imprimir gráfico',
+                resetZoom: 'Reiniciar zoom',
+                resetZoomTitle: 'Reiniciar nivel de zoom 1:1',
+                thousandsSep: ',',
+                decimalPoint: '.',
+                viewData: 'Ver tabla de datos',
+                loading: 'Cargando...',
+                noData: 'No hay datos para mostrar'
+            }
+        });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('adminlte_css_pre')

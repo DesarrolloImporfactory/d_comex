@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CiudadEmbarque;
-use App\Models\Declaracion2022;
 use Illuminate\Http\Request;
-use App\Models\DeclaracionEcuador;
 use App\Models\Mes;
 use App\Models\Nave;
 use App\Models\Embarcador;
@@ -23,7 +21,8 @@ use App\Models\Aduana;
 use App\Models\Via;
 use App\Models\Pais;
 use App\Models\Incoterm;
-use Illuminate\Support\Facades\DB;
+use App\Models\Suscripcion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -33,19 +32,27 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
-        $meses = Mes::all();
+        $usuario = Auth::user();
+        $tipoSuscripcion = Suscripcion::where('estado', 'Activa')->where('usuario_id', $usuario->id)
+            ->where('tipo_id', '3')->first();
+        if (isset($tipoSuscripcion)) {
+            $meses = Mes::latest()->take(6)->get();
+        } else {
+            $meses = Mes::all();
+        }
+
         $regimens = Regimen::all();
         $paisEmbarques = PaisEmbarque::all();
         $ciudadEmbarques = CiudadEmbarque::all();
-        $aduanas = Aduana:: all();
-        $vias = Via:: all();
-        $paises = Pais:: all();
-        $incoterms = Incoterm:: all();
+        $aduanas = Aduana::all();
+        $vias = Via::all();
+        $paises = Pais::all();
+        $incoterms = Incoterm::all();
         Session::put('tasks', request()->fullUrl());
-        return view('home', compact('meses', 'regimens', 'ciudadEmbarques', 'paisEmbarques','aduanas','vias','paises','incoterms'));
+        return view('home', compact('meses', 'regimens', 'ciudadEmbarques', 'paisEmbarques', 'aduanas', 'vias', 'paises', 'incoterms'));
     }
 
     public function back()
@@ -58,7 +65,7 @@ class HomeController extends Controller
     public function searchProducto(Request $request)
     {
         $term = $request->term;
-        $data = Producto::select('producto','descripcion')->distinct('producto')->where('producto', 'LIKE', "%$term%")
+        $data = Producto::select('producto', 'descripcion')->distinct('producto')->where('producto', 'LIKE', "%$term%")
             ->take(20)->get();
 
         if (count($data) == 0) {
@@ -78,7 +85,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Marca::select('marca')->where('marca', 'LIKE', "%$term%")->take(20)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -115,7 +122,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Nave::where('nave', 'LIKE', "%$term%")->take(10)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -132,7 +139,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Transporte::where('linea', 'LIKE', "%$term%")->take(20)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -149,7 +156,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Embarcador::where('remitente', 'LIKE', "%$term%")->take(20)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -167,7 +174,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Refrendo::where('refrendo', 'LIKE', "%$term%")->take(20)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -185,7 +192,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Subpartida::where('subpartida', 'LIKE', "%$term%")->take(10)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -203,7 +210,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Agente::where('agente_afianzado', 'LIKE', "%$term%")->take(10)->get();
-        
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -221,7 +228,7 @@ class HomeController extends Controller
     {
         $term = $request->term;
         $data = Almacen::where('dep_comercial', 'LIKE', "%$term%")->take(20)->get();
-       
+
         if (count($data) == 0) {
             $respuesta[] = "No existen coincidencias";
         } else {
@@ -234,80 +241,6 @@ class HomeController extends Controller
         }
         return $respuesta;
     }
-
-    // public function searchAduana(Request $request)
-    // {
-
-    //     $term = $request->term;
-    //     $data = Aduana::where('distrito', 'LIKE', "%$term%")->take(10)->get();
-       
-    //     if (count($data) == 0) {
-    //         $respuesta[] = "No existen coincidencias";
-    //     } else {
-    //         foreach ($data as  $value) {
-    //             $respuesta[] = [
-    //                 'label' => $value->distrito,
-    //                 'id' => $value->id
-    //             ];
-    //         }
-    //     }
-    //     return $respuesta;
-    // }
-    // public function searchVia(Request $request)
-    // {
-
-    //     $term = $request->term;
-    //     $data = Via::where('via', 'LIKE', "%$term%")->take(10)->get();
-       
-    //     if (count($data) == 0) {
-    //         $respuesta[] = "No existen coincidencias";
-    //     } else {
-    //         foreach ($data as  $value) {
-    //             $respuesta[] = [
-    //                 'label' => $value->via,
-    //                 'id' => $value->id
-    //             ];
-    //         }
-    //     }
-    //     return $respuesta;
-    // }
-    // public function searchPaisOrigen(Request $request)
-    // {
-
-    //     $term = $request->term;
-    //     $data = Pais::where('pais_origen', 'LIKE', "%$term%")->take(10)->get();
-        
-    //     if (count($data) == 0) {
-    //         $respuesta[] = "No existen coincidencias";
-    //     } else {
-    //         foreach ($data as  $value) {
-    //             $respuesta[] = [
-    //                 'label' => $value->pais_origen,
-    //                 'id' => $value->id
-    //             ];
-    //         }
-    //     }
-    //     return $respuesta;
-    // }
-
-    // public function searchIncoterm(Request $request)
-    // {
-
-    //     $term = $request->term;
-    //     $data = App/Models/Incoterm::where('incoterm', 'LIKE', "%$term%")->take(10)->get();
-        
-    //     if (count($data) == 0) {
-    //         $respuesta[] = "No existen coincidencias";
-    //     } else {
-    //         foreach ($data as  $value) {
-    //             $respuesta[] = [
-    //                 'label' => $value->incoterm,
-    //                 'id' => $value->id
-    //             ];
-    //         }
-    //     }
-    //     return $respuesta;
-    // }
 
     public function store(Request $request)
     {
