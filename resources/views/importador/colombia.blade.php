@@ -5,15 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Importador Masivo Ecuador</title>
+    <title>Importador Masivo Colombia</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body class="bg-gray-100 min-h-screen w-full grid place-content-center">
 
+    <div class="absolute top-5 left-5">
+        <a href="https://infoaduana.imporsuit.app/home" class="text-blue-500 text-sm"><i class='bx bx-arrow-back'></i>
+            Volver</a>
+    </div>
+
     <div>
-        <img src="https://tiendas.imporsuitpro.com/b_ec.png" alt="Ecuador Compra" class="w-32 mx-auto mb-4">
+        <img src="https://tiendas.imporsuitpro.com/b_co.png" alt="Colombia Compra" class="w-32 mx-auto mb-4">
     </div>
 
 

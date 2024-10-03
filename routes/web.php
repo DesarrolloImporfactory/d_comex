@@ -48,5 +48,8 @@ Route::middleware(['auth', 'verified', 'infoaduana'])->group(function () {
 
 
     Route::get("/importador", [ImportadorController::class, 'index'])->name('importador.index');
+    Route::get("/importador/colombia", [ImportadorController::class, 'colombia'])->name('importador.colombia');
     Route::post("/importador", [ImportadorController::class, 'store'])->name('importador.store');
+
+    Route::get('/import-progress', [ImportadorController::class, 'getProgress']);
 });

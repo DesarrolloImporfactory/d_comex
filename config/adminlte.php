@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'Imporcomex',
-    'title_prefix' => 'ImporComex | ',
+    'title' => 'Infoaduana',
+    'title_prefix' => 'Infoaduana | ',
     'title_postfix' => '',
 
     /*
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Imporcomex</b>',
+    'logo' => '<b>Infoaduana</b>',
     'logo_img' => 'vendor/adminlte/dist/img/icono.png',
     'logo_img_class' => 'brand-image img-circle ',
     'logo_img_xl' => null,
@@ -321,11 +321,22 @@ return [
         [
             'text' => 'Importador',
             'topnav_right' => false,
-            'route' => 'importador.index',
             'can' => 'admin.setings',
+            'submenu' => [
+                [
+                    'text' => 'Ecuador',
+                    'route' => 'importador.index',
+                ],
+                [
+                    'text' => 'Colombia',
+                    'route' => 'importador.colombia',
+                ],
+
+            ],
         ],
+
         [
-            'text' => 'Impor Suit',
+            'text' => 'Herramientas',
             'topnav_right' => true,
             'route' => 'suit',
             'icon' => 'fas fa-fw  fa-toolbox'

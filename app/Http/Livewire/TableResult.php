@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\DeclaracionEcuador;
 use App\Models\Declaracion2022;
+use App\Models\Decreto;
 use App\Models\Suscripcion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -78,8 +79,12 @@ class TableResult extends Component
 
     public function render()
     {
-        ini_set('memory_limit', '1024M');
-        set_time_limit(3000000);
+        ini_set('memory_limit', '2048M');
+        set_time_limit(30000000);
+        if ($this->periodo == "2024") {
+            $consulta = $this->declaracion24();
+            $select = $this->declaracion24();
+        } else
         if ($this->periodo == "2022") {
             $consulta = $this->declaracion22();
             $select = $this->declaracion22();
@@ -181,6 +186,9 @@ class TableResult extends Component
 
     public function importador()
     {
+        if ($this->periodo == "2024") {
+            $select = $this->declaracion24();
+        } else
         if ($this->periodo == "2022") {
             $select = $this->declaracion22();
         } elseif ($this->periodo == "2023") {
@@ -189,11 +197,14 @@ class TableResult extends Component
             $select = $this->declaracion21();
         }
 
-        $ruc = $select->select('ruc','razon_social')->get();
+        $ruc = $select->select('ruc', 'razon_social')->get();
         $this->importador = $ruc->unique('ruc');
     }
     public function producto()
     {
+        if ($this->periodo == "2024") {
+            $select = $this->declaracion24();
+        } else
         if ($this->periodo == "2022") {
             $select = $this->declaracion22();
         } elseif ($this->periodo == "2023") {
@@ -208,6 +219,9 @@ class TableResult extends Component
 
     public function embarcador()
     {
+        if ($this->periodo == "2024") {
+            $select = $this->declaracion24();
+        } else
         if ($this->periodo == "2022") {
             $select = $this->declaracion22();
         } elseif ($this->periodo == "2023") {
@@ -268,6 +282,8 @@ class TableResult extends Component
                 return $this->export22($tipo, $time);
             } elseif ($this->periodo == "2023") {
                 return $this->export23($tipo, $time);
+            } else if ($this->periodo == "2024") {
+                return $this->export24($tipo, $time);
             } else {
                 return $this->export21($tipo, $time);
             }
@@ -391,6 +407,63 @@ class TableResult extends Component
         $this->emit('alert', 'Tu archivo esta listo!.');
         return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
     }
+    public function export24($tipo, $time)
+    {
+        $handle = fopen(public_path('storage/' . $time . 'export.csv'), 'w');
+        $columnas = Decreto::query()->first()->getConnection()->getSchemaBuilder()->getColumnListing('decretos_2024');
+        if ($tipo == 'csv') {
+            fputcsv($handle, $columnas);
+            Decreto::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray());
+                });
+        } else {
+            $delimitador = ';';
+            fputcsv($handle, $columnas, $delimitador);
+            Decreto::query()
+                ->distrito($this->distrito)
+                ->iva($this->iva)
+                ->origen($this->pais_origen)
+                ->embarque($this->pais_embarque)
+                ->ciudad($this->ciudad_embarque)
+                ->regimen($this->regimen)
+                ->incoterm($this->incoterm)
+                ->producto($this->producto)
+                ->marca($this->marca)
+                ->subPartida($this->arancelDesc)
+                ->ruc($this->ruc)
+                ->linea($this->linea)
+                ->embarcador($this->embarcador)
+                ->refrendo($this->refrendo)
+                ->agenteAfianzado($this->agente_afianzado)
+                ->almacen($this->almacen)->operacion($this->operacion($this->operacion))->mes($this->searchMes)->rango($this->desde, $this->hasta)
+                ->lazyById(2000, 'id')
+                ->each(function ($consulta) use ($handle) {
+                    fputcsv($handle, $consulta->toArray(), ';');
+                });
+        }
+
+        fclose($handle);
+        $this->emit('alert', 'Tu archivo esta listo!.');
+        return response()->download(public_path('storage/' . $time . 'export.csv'))->deleteFileAfterSend(true);
+    }
 
     public function export21($tipo, $time)
     {
@@ -454,6 +527,27 @@ class TableResult extends Component
     public function declaracion23()
     {
         $data = DeclaracionEcuador::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen);
+        return $data;
+    }
+    public function declaracion24()
+    {
+        $data = Decreto::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
             ->distrito($this->distrito)
             ->iva($this->iva)
             ->origen($this->pais_origen)

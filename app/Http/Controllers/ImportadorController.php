@@ -14,11 +14,16 @@ class ImportadorController extends Controller
         return view('importador.index');
     }
 
+    public function colombia()
+    {
+        return view('importador.colombia');
+    }
+
     public function store(Request $request)
     {
         // Validación del archivo
         $request->validate([
-            'file' => 'required|mimes:xls,xlsx|max:2048',
+            'file' => 'required|mimes:xls,xlsx|min:10',
             'anio' => 'required|integer|min:2020|max:' . date('Y'),
         ]);
 
@@ -27,20 +32,84 @@ class ImportadorController extends Controller
 
         // Columnas esperadas
         $expectedColumns = [
-            'periodo', 'mes', 'capitulo', 'desc_capitulo', 'partida_', 'desc_partida',
-            'ruc', 'razon_social', 'razon_social_direccion', 'remitente', 'notify',
-            'embarcador_consigne', 'embarcador_consigne_address', 'refrendo', 'nume_serie',
-            'tipo_aforo', 'cod_regimen', 'regimen', 'distrito', 'agente_afianzado', 'agencia',
-            'linea', 'manifiesto', 'manifiesto_aduana', 'bl', 'fecha_embarque', 'fecha_llegada',
-            'fecha_ingreso', 'fecha_pago', 'fecha_salida', 'factura', 'nave', 'almacen_temp',
-            'dep_comercial', 'subpartida', 'tnan', 'tasa_advalorem', 'desc_aran', 'desc_comer',
-            'marcas', 'ciudad_embarque', 'pais_embarque', 'pais_origen', 'tipo_carga', 'unidades',
-            'tipo_unidad', 'kilos_neto', 'fob', 'flete', 'seguro', 'cif', 'codigo_liberacion',
-            'cod_liberacion', 'adv_pag_partida', 'adv_liq_partida', 'caracteristica', 'producto',
-            'marca_comercial', 'year_producido', 'modelo_mercaderia', 'fob_unitario', 'via',
-            'regimen_tipo', 'incoterm', 'consolidadora', 'cod_provincia', 'provincia', 'formulario',
-            'form_via_envio', 'estado_mercancia', 'dias_salida', 'flete2', 'cif2', 'cfr',
-            'estado_declaracion', 'tipo_regimen', 'partida_descripcion', 'capítulo_descripcion'
+            'periodo',
+            'mes',
+            'capitulo',
+            'desc_capitulo',
+            'partida_',
+            'desc_partida',
+            'ruc',
+            'razon_social',
+            'razon_social_direccion',
+            'remitente',
+            'notify',
+            'embarcador_consigne',
+            'embarcador_consigne_address',
+            'refrendo',
+            'nume_serie',
+            'tipo_aforo',
+            'cod_regimen',
+            'regimen',
+            'distrito',
+            'agente_afianzado',
+            'agencia',
+            'linea',
+            'manifiesto',
+            'manifiesto_aduana',
+            'bl',
+            'fecha_embarque',
+            'fecha_llegada',
+            'fecha_ingreso',
+            'fecha_pago',
+            'fecha_salida',
+            'factura',
+            'nave',
+            'almacen_temp',
+            'dep_comercial',
+            'subpartida',
+            'tnan',
+            'tasa_advalorem',
+            'desc_aran',
+            'desc_comer',
+            'marcas',
+            'ciudad_embarque',
+            'pais_embarque',
+            'pais_origen',
+            'tipo_carga',
+            'unidades',
+            'tipo_unidad',
+            'kilos_neto',
+            'fob',
+            'flete',
+            'seguro',
+            'cif',
+            'codigo_liberacion',
+            'cod_liberacion',
+            'adv_pag_partida',
+            'adv_liq_partida',
+            'caracteristica',
+            'producto',
+            'marca_comercial',
+            'year_producido',
+            'modelo_mercaderia',
+            'fob_unitario',
+            'via',
+            'regimen_tipo',
+            'incoterm',
+            'consolidadora',
+            'cod_provincia',
+            'provincia',
+            'formulario',
+            'form_via_envio',
+            'estado_mercancia',
+            'dias_salida',
+            'flete2',
+            'cif2',
+            'cfr',
+            'estado_declaracion',
+            'tipo_regimen',
+            'partida_descripcion',
+            'capítulo_descripcion'
         ];
 
         // Procesar el archivo Excel
@@ -53,12 +122,19 @@ class ImportadorController extends Controller
             $columns = $worksheet->rangeToArray('A1:' . $worksheet->getHighestColumn() . '1')[0];
 
             // Validar si las columnas esperadas están presentes
-            if (!$this->validateColumns($expectedColumns, $columns)) {
-                return back()->withErrors(['file' => 'El archivo no contiene las columnas esperadas.']);
+            $missingColumns = $this->validateColumns($expectedColumns, $columns);
+
+            if (!empty($missingColumns)) {
+                $missingColumnsList = implode(', ', $missingColumns);
+                return back()->withErrors(['file' => 'El archivo no contiene las siguientes columnas esperadas: ' . $missingColumnsList]);
             }
 
-            // Recorremos las filas y almacenamos en la base de datos
-            foreach ($worksheet->getRowIterator(2) as $row) { // Inicia desde la segunda fila (1-indexed)
+            // Recorremos las filas y almacenamos en la base de datos por lotes
+            $batchSize = 1000; // Ajusta este tamaño según tu memoria y tiempo de ejecución disponibles
+            $data = [];
+            $totalRows = $worksheet->getHighestRow();
+
+            foreach ($worksheet->getRowIterator(2) as $rowIndex => $row) {
                 $cellIterator = $row->getCellIterator();
                 $cellIterator->setIterateOnlyExistingCells(false);
 
@@ -106,7 +182,7 @@ class ImportadorController extends Controller
                     'subpartida' => $rowData[34],
                     'tnan' => $rowData[35],
                     'tasa_advalorem' => $rowData[36],
-                    'desc_aran' => $rowData[37],
+                    'desc_aran' => $rowData[37] ?? 'NULO',
                     'desc_comer' => $rowData[38],
                     'marcas' => $rowData[39],
                     'ciudad_embarque' => $rowData[40],
@@ -149,6 +225,12 @@ class ImportadorController extends Controller
                     'capítulo_descripcion' => $rowData[77],
                 ]);
             }
+            if (count($data) >= $batchSize || $rowIndex == $totalRows) {
+                // Inserta en la base de datos
+                Decreto::insert($data);
+                $data = [];
+            }
+
 
             return back()->with('success', 'Archivo importado y datos almacenados correctamente.');
         } catch (ReaderException $e) {
@@ -159,8 +241,17 @@ class ImportadorController extends Controller
     }
 
 
+
     private function validateColumns(array $expectedColumns, array $columns)
     {
-        return !array_diff($expectedColumns, $columns);
+        // Encuentra las columnas que faltan
+        $missingColumns = array_diff($expectedColumns, $columns);
+
+        // Si faltan columnas, regresa el array de columnas faltantes
+        if (!empty($missingColumns)) {
+            return $missingColumns;
+        }
+
+        return [];
     }
 }

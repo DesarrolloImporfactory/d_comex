@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\DeclaracionEcuador;
 use Illuminate\Support\Facades\DB;
 use App\Models\Declaracion2022;
+use App\Models\Decreto;
 use Livewire\WithPagination;
 
 class ChartAduana extends Component
@@ -66,6 +67,10 @@ class ChartAduana extends Component
     {
         $array = [];
         $request = $this->datos;
+        if ($this->periodo == 2024) {
+            $data = $this->declaracion_2024($this->datos);
+            $tabla = $this->declaracion24($this->datos);
+        } else
         if ($this->periodo == 2023) {
             $data = $this->declaracion_2023($this->datos);
             $tabla = $this->declaracion23($this->datos);
@@ -112,26 +117,51 @@ class ChartAduana extends Component
     {
 
         $data = DeclaracionEcuador::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
-        ->distrito($this->distrito)
-        ->iva($this->iva)
-        ->origen($this->pais_origen)
-        ->embarque($this->pais_embarque)
-        ->ciudad($this->ciudad_embarque)
-        ->regimen($this->regimen)
-        ->incoterm($this->incoterm)
-        ->producto($this->producto)
-        ->marca($this->marca)
-        ->subPartida($this->arancelDesc)
-        ->ruc($this->ruc)
-        ->linea($this->linea)
-        ->embarcador($this->embarcador)
-        ->refrendo($this->refrendo)
-        ->agenteAfianzado($this->agente_afianzado)
-        ->almacen($this->almacen)
-        ->select('distrito', DB::raw('COUNT(*) as cantidad_declaraciones'))
-        ->groupBy('distrito')
-        ->get();
-    return $data;
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen)
+            ->select('distrito', DB::raw('COUNT(*) as cantidad_declaraciones'))
+            ->groupBy('distrito')
+            ->get();
+        return $data;
+    }
+    public function declaracion_2024($request)
+    {
+
+        $data = Decreto::operacion($this->operacion($this->operacion))->rango($this->desde, $this->hasta)
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen)
+            ->select('distrito', DB::raw('COUNT(*) as cantidad_declaraciones'))
+            ->groupBy('distrito')
+            ->get();
+        return $data;
     }
     public function declaracion22($request)
     {
@@ -165,28 +195,55 @@ class ChartAduana extends Component
     {
 
         $data = DeclaracionEcuador::select('distrito', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
-        ->operacion($this->operacion($this->operacion))
-        ->rango($this->desde, $this->hasta)
-        ->distrito($this->distrito)
-        ->iva($this->iva)
-        ->origen($this->pais_origen)
-        ->embarque($this->pais_embarque)
-        ->ciudad($this->ciudad_embarque)
-        ->regimen($this->regimen)
-        ->incoterm($this->incoterm)
-        ->producto($this->producto)
-        ->marca($this->marca)
-        ->subPartida($this->arancelDesc)
-        ->ruc($this->ruc)
-        ->linea($this->linea)
-        ->embarcador($this->embarcador)
-        ->refrendo($this->refrendo)
-        ->agenteAfianzado($this->agente_afianzado)
-        ->almacen($this->almacen)
-        ->groupBy('distrito')
-        ->orderBy('total_fob', 'desc')
-        ->paginate(5);
-    return $data;
+            ->operacion($this->operacion($this->operacion))
+            ->rango($this->desde, $this->hasta)
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen)
+            ->groupBy('distrito')
+            ->orderBy('total_fob', 'desc')
+            ->paginate(5);
+        return $data;
+    }
+    public function declaracion24($request)
+    {
+
+        $data = Decreto::select('distrito', DB::raw('COUNT(*) as cantidad_declaraciones'), DB::raw('SUM(fob) as total_fob'), DB::raw('SUM(cif) as total_cif'))
+            ->operacion($this->operacion($this->operacion))
+            ->rango($this->desde, $this->hasta)
+            ->distrito($this->distrito)
+            ->iva($this->iva)
+            ->origen($this->pais_origen)
+            ->embarque($this->pais_embarque)
+            ->ciudad($this->ciudad_embarque)
+            ->regimen($this->regimen)
+            ->incoterm($this->incoterm)
+            ->producto($this->producto)
+            ->marca($this->marca)
+            ->subPartida($this->arancelDesc)
+            ->ruc($this->ruc)
+            ->linea($this->linea)
+            ->embarcador($this->embarcador)
+            ->refrendo($this->refrendo)
+            ->agenteAfianzado($this->agente_afianzado)
+            ->almacen($this->almacen)
+            ->groupBy('distrito')
+            ->orderBy('total_fob', 'desc')
+            ->paginate(5);
+        return $data;
     }
     public function operacion($operacion)
     {
